@@ -16,6 +16,3 @@ dist/
 *.ico
 
 yarn.lock
-
-# Sanity CLI
-.sanity

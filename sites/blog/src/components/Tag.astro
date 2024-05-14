@@ -1,9 +1,0 @@
----
-import { kebabCase } from "lodash-es"
-
-const { topic } = Astro.props
----
-
-<a class="rounded-xl px-5 py-2" href={`/category/${kebabCase(topic)}`}>
-  {topic}
-</a>
