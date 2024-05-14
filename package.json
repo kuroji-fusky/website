@@ -1,6 +1,7 @@
 {
   "name": "kurowo",
   "version": "9.0.0",
+  "type": "module",
   "license": "UNLICENSED",
   "scripts": {
     "dev": "astro dev",

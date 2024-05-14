@@ -1,47 +1,47 @@
 ---
-import Navbar from "./Navbar.svelte";
-import Footer from "./Footer.svelte";
+import Navbar from "./Navbar.svelte"
+import Footer from "./Footer.svelte"
 
 interface Props {
-  title: string;
-  description?: string;
-  webpageType?: "website" | "article";
+  title: string
+  description?: string
+  webpageType?: "website" | "article"
 }
 
-const { title, description, webpageType = "website" } = Astro.props;
-const { pathname: pathCrumbs } = Astro.url;
+const { title, description, webpageType = "website" } = Astro.props
+const { pathname: pathCrumbs } = Astro.url
 
-const canonicalUrl = new URL(pathCrumbs, Astro.site);
-
-const currentTime = new Date().toLocaleTimeString();
+const canonicalUrl = new URL(pathCrumbs, Astro.site)
 
 // Set Cache-Control headers for CDN caching
-Astro.response.headers.set(
-  "Cache-Control",
-  "public, s-maxage=60, stale-while-revalidate=30"
-);
+Astro.response.headers.set("Cache-Control", "public, s-maxage=60, stale-while-revalidate=30")
+
+const me = "@kurojifusky"
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <title>{title}</title>
     <link rel="dns-prefetch" href="https://images.ctfassets.net/" />
     <meta name="generator" content={Astro.generator} />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
+
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={webpageType} />
+
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:creator" content={me} />
+    <meta name="twitter:site" content={me} />
+    <!-- This is to not interfere with the Dark Reader extension -->
+    <meta name="darkreader-lock" />
     <link rel="canonical" href={canonicalUrl} />
-    <style></style>
   </head>
-  <body
-    class="font-body font-medium text-sm lg:text-base bg-kuro-dark2 text-kuro-violet-50"
-  >
+  <body class="font-body font-medium text-sm lg:text-base bg-kuro-dark2 text-kuro-violet-50">
     <Navbar {pathCrumbs} client:idle />
     <main>
       <slot />

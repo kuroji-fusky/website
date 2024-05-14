@@ -23,6 +23,10 @@ export default defineConfig({
     }
   },
   site: "https://kurojifusky.com",
+  image: {
+    domains: ["images.ctfassets.net"]
+  },
+
   redirects: {
     "/blog/posts/[slug]": "/blog/post/[slug]"
   }
