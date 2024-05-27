@@ -1,8 +1,10 @@
 <script lang="ts">
   // import Boykisser from "./Boykisser.svelte";
 
-  const currentYear = new Date().getFullYear();
-  const sourceRepoUrl = "https://github.com/kurojifusky/kurojifusky.com";
+  import { ExternalLinkIcon } from "lucide-svelte"
+
+  const currentYear = new Date().getFullYear()
+  const sourceRepoUrl = "https://github.com/kurojifusky/kurojifusky.com"
 </script>
 
 <div class="px-8 pt-4 pb-12 relative flex gap-y-2.5 max-w-screen-2xl mx-auto">
@@ -15,7 +17,10 @@
       <span class="flex gap-x-6">
         <span>Built with love with Astro</span>
         <span>COMMIT_HASH</span>
-        <a href={sourceRepoUrl} target="_blank">View source code</a>
+        <a href={sourceRepoUrl} target="_blank" class="inline-flex gap-x-1 items-center">
+          <span>View source code</span>
+          <ExternalLinkIcon size={16} />
+        </a>
       </span>
     </div>
   </footer>

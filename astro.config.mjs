@@ -11,7 +11,11 @@ export default defineConfig({
   output: "hybrid",
   adapter: vercel(),
   integrations: [
-    svelte(),
+    svelte({
+      compilerOptions: {
+        customElement: true
+      }
+    }),
     tailwind(),
     sitemap({
       changefreq: "weekly"

@@ -41,7 +41,9 @@ const me = "@kurojifusky"
     <meta name="darkreader-lock" />
     <link rel="canonical" href={canonicalUrl} />
   </head>
-  <body class="font-body font-medium text-sm lg:text-base bg-kuro-dark2 text-kuro-violet-50">
+  <body
+    class="font-body font-medium text-sm lg:text-base bg-kuro-dark2 text-kuro-violet-50 overflow-x-hidden"
+  >
     <Navbar {pathCrumbs} client:idle />
     <main>
       <slot />
