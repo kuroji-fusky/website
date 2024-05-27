@@ -7,6 +7,13 @@
 
 The source code of both my portfolio and blog websites!
 
+## APIs used
+
+- Contentful
+- SteamLadder
+- YouTube Data API
+- Wakatime
+
 ## Running the abominations locally
 
 Clone and install dependencies with Yarn with `yarn install`; start the dev server with `yarn dev`.

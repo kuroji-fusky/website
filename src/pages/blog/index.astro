@@ -1,5 +1,29 @@
 ---
-import Layout from "../../components/Layout.astro";
+import Layout from "../../components/Layout.astro"
+import BlogPost from "../../components/cards/BlogPost.svelte"
+
+const sampleData = {
+  title: "A title",
+  description: "here's some nice description for ya",
+  image:
+    "https://blog.kurojifusky.com/_vercel/image?url=https://images.ctfassets.net/1wy7cxqsia50/1wvfvyUc8laRj36ZIvLbkF/104a4175ac0034b1d8907c51ebebed61/Origins_of_my_sona.png&w=1280&q=55",
+  date: "Jan 2, 2021"
+}
 ---
 
-<Layout title="Blog"> Blog page </Layout>
+<Layout title="Blog">
+  <div class="mx-auto max-w-screen-2xl px-8">
+    <div class="grid grid-cols-3 gap-4">
+      {
+        [...Array(12)].map(() => (
+          <BlogPost
+            title={sampleData.title}
+            description={sampleData.description}
+            image={sampleData.image}
+            date={sampleData.date}
+          />
+        ))
+      }
+    </div>
+  </div>
+</Layout>
