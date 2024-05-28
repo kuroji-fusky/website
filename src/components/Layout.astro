@@ -23,7 +23,7 @@ const canonicalUrl = new URL(pathCrumbs, Astro.site)
 const me = "@kurojifusky"
 const siteTitle = "Kuroji Fusky"
 
-const _title = pathCrumbs === "/" ? `${title} | ${siteTitle}` : title
+const _title = pathCrumbs !== "/" ? `${title} | ${siteTitle}` : title
 ---
 
 <html lang="en" dir="ltr">

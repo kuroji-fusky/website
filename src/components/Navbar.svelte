@@ -20,7 +20,7 @@
         },
         {
           text: "The Vault",
-          excerpt: "Abandoned projects or some historic lerics that I've made",
+          excerpt: "Abandoned projects or some historic relics that I've made",
           link: "/vault"
         }
       ]
