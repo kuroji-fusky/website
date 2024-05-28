@@ -4,7 +4,7 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".nuxt/**", ".vercel/output/**", ".output/**", "dist/**"]
+      "outputs": ["./astro/**", ".output/**", "dist/**"]
     },
     "dev": {
       "cache": false,

@@ -1,8 +1,21 @@
 ---
-import Layout from "../components/Layout.astro";
-import Section from "../components/layout/Section.svelte";
+import Layout from "../components/Layout.astro"
+import Section from "../components/layout/Section.svelte"
+import { Schema } from "astro-seo-schema"
 ---
 
 <Layout title="Home">
   <section class="h-[calc(100dvh-3rem)]">hero</section>
 </Layout>
+<Schema
+  item={{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Kuroji Fusky",
+    url: Astro.site!.toString(),
+    potentialAction: {
+      "@type": "SearchAction",
+      target: new URL("search", Astro.site).toString()
+    }
+  }}
+/>

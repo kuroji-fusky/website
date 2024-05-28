@@ -3,7 +3,7 @@
   import NavbarSubItem from "./NavbarSubItem.svelte"
   import { ChevronDown, MenuIcon, RssIcon, SearchIcon } from "lucide-svelte"
 
-  export let pathCrumbs: String
+  export let pathCrumbs = ""
 
   type NestedNavItems = (Pick<NavItem, "text" | "link"> & { subitems?: NavItem[] })[]
 
@@ -54,8 +54,8 @@
       </a>
       <span>{pathCrumbs}</span>
     </div>
-    <div class="flex *:px-3.5 *:py-4 *:inline-flex *:items-center *:gap-x-1.5 *:relative">
-      <button class="mobile-only">
+    <div class="flex *:px-3.5 *:py-3.5 *:inline-flex *:items-center *:gap-x-1.5 *:relative">
+      <button class="lg:hidden block">
         <MenuIcon size={19} />
       </button>
       {#each navItems as root}
@@ -91,18 +91,9 @@
       <button class="hover:text-kuro-lavender-400">
         <SearchIcon size={19} />
       </button>
-      <a href="/rss.xml" class="desktop-only hover:text-kuro-lavender-400">
-        <RssIcon size={19} />
+      <a href="/rss.xml" class="lg:block hidden hover:text-kuro-lavender-400">
+        <RssIcon size={19} class="translate-y-1" />
       </a>
     </div>
   </div>
 </nav>
-
-<style lang="postcss">
-  :global(.mobile-only) {
-    @apply lg:hidden block;
-  }
-  :global(.desktop-only) {
-    @apply lg:block hidden;
-  }
-</style>

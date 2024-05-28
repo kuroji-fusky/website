@@ -17,9 +17,7 @@ export default defineConfig({
       }
     }),
     tailwind(),
-    sitemap({
-      changefreq: "weekly"
-    })
+    sitemap()
   ],
   vite: {
     postcss: {
