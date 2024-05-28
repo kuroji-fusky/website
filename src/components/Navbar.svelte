@@ -1,22 +1,25 @@
 <script lang="ts">
+  import type { NavItem } from "../types"
   import NavbarSubItem from "./NavbarSubItem.svelte"
   import { ChevronDown, MenuIcon, RssIcon, SearchIcon } from "lucide-svelte"
 
   export let pathCrumbs: String
 
-  const navItems = [
+  type NestedNavItems = (Pick<NavItem, "text" | "link"> & { subitems?: NavItem[] })[]
+
+  const navItems: NestedNavItems = [
     {
       text: "Explore",
       link: null,
       subitems: [
-        { title: "Dream Journal", excerpt: "Idk why I'm doing this", link: "/dream-journal" },
+        { text: "Dream Journal", excerpt: "Idk why I'm doing this", link: "/dream-journal" },
         {
-          title: "Gallery",
+          text: "Gallery",
           excerpt: "Some photography and art pieces I commissoned from artists",
           link: "/gallery"
         },
         {
-          title: "The Vault",
+          text: "The Vault",
           excerpt: "Abandoned projects or some historic lerics that I've made",
           link: "/vault"
         }
@@ -26,9 +29,9 @@
       text: "Showcase",
       link: "/showcase",
       subitems: [
-        { title: "Title", excerpt: "Subtitle", link: "/showcase/1" },
-        { title: "Title", excerpt: "Subtitle", link: "/showcase/1" },
-        { title: "Title", excerpt: "Subtitle", link: "/showcase/1" }
+        { text: "Title", excerpt: "Subtitle", link: "/showcase/1" },
+        { text: "Title", excerpt: "Subtitle", link: "/showcase/1" },
+        { text: "Title", excerpt: "Subtitle", link: "/showcase/1" }
       ]
     },
     {

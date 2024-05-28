@@ -1,11 +1,7 @@
 <script lang="ts">
-  interface NavItems {
-    title: string
-    link: string
-    excerpt: string
-  }
+  import type { NavItem } from "../types"
 
-  export let items: NavItems[]
+  export let items: NavItem[]
 </script>
 
 <div
@@ -18,7 +14,7 @@
       <a href={si.link} class="flex items-center gap-x-3.5 group">
         <div class="size-12 rounded-lg bg-kuro-violet-400 flex-shrink-0" />
         <div class="flex flex-col gap-y-0.5">
-          <div class="group-hover:text-kuro-violet-200 text-nowrap font-semibold">{si.title}</div>
+          <div class="group-hover:text-kuro-violet-200 text-nowrap font-semibold">{si.text}</div>
           <p class="text-sm opacity-60 leading-5">{si.excerpt}</p>
         </div>
       </a>
