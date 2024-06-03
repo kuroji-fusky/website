@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets"
 import Layout from "../../lib/components/Layout.astro"
 import BlogPost from "../../lib/components/cards/BlogPost.svelte"
 import { client, type BlogPostContent } from "../../lib/contentful"
@@ -39,8 +40,19 @@ const filteredPosts = posts.sort((a, b) => (new Date(b.date) as any) - (new Date
             title={item.title}
             description={item.description}
             date={item.date}
-            image={item.banner}
-          />
+          >
+            {item.banner && (
+              <Image
+                widths={[240, 540, 720]}
+                height={1600}
+                width={900}
+                sizes="(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px"
+                class="overflow-hidden aspect-video rounded-md w-full object-cover"
+                src={item.banner}
+                alt={`Banner for ${item.title}`}
+              />
+            )}
+          </BlogPost>
         ))
       }
     </div>

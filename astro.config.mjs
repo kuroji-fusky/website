@@ -1,4 +1,4 @@
-import { defineConfig } from "astro/config"
+import { defineConfig, squooshImageService } from "astro/config"
 import tailwind from "@astrojs/tailwind"
 import svelte from "@astrojs/svelte"
 import sitemap from "@astrojs/sitemap"
@@ -26,7 +26,8 @@ export default defineConfig({
   },
   site: "https://kurojifusky.com",
   image: {
-    domains: ["images.ctfassets.net"]
+    domains: ["images.ctfassets.net"],
+    service: squooshImageService()
   },
 
   redirects: {
