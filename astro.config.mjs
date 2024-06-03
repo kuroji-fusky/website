@@ -6,31 +6,26 @@ import autoprefixer from "autoprefixer"
 
 import vercel from "@astrojs/vercel/serverless"
 
-// https://astro.build/config
 export default defineConfig({
   output: "hybrid",
   adapter: vercel(),
-  integrations: [
-    svelte({
-      compilerOptions: {
-        customElement: true
-      }
-    }),
-    tailwind(),
-    sitemap()
-  ],
+  integrations: [svelte(), tailwind(), sitemap()],
   vite: {
     postcss: {
       plugins: [autoprefixer({})]
     }
   },
   site: "https://kurojifusky.com",
+
   image: {
     domains: ["images.ctfassets.net"],
     service: squooshImageService()
   },
 
   redirects: {
-    "/blog/posts/[slug]": "/blog/post/[slug]"
+    "/blog/posts/[slug]": "/blog/[slug]",
+    "/blog/post/[slug]": "/blog/[slug]",
+    "/posts/[slug]": "/blog/[slug]",
+    "/post/[slug]": "/blog/[slug]"
   }
 })
