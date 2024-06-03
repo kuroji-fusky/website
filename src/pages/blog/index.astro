@@ -5,7 +5,7 @@ import { client, type BlogPostContent } from "../../lib/contentful"
 
 const entries = await client.getEntries<BlogPostContent>({
   content_type: "blogPost",
-  limit: 5
+  limit: 9
 })
 
 const posts = entries.items.map((item) => {
