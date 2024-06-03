@@ -1,26 +1,45 @@
 ---
-import Layout from "../../components/Layout.astro"
-import BlogPost from "../../components/cards/BlogPost.svelte"
+import Layout from "~/components/Layout.astro"
+import BlogPost from "~/components/cards/BlogPost.svelte"
+import { client, type BlogPostContent } from "~/lib/contentful"
 
-const sampleData = {
-  title: "A title",
-  description: "here's some nice description for ya",
-  image:
-    "https://blog.kurojifusky.com/_vercel/image?url=https://images.ctfassets.net/1wy7cxqsia50/1wvfvyUc8laRj36ZIvLbkF/104a4175ac0034b1d8907c51ebebed61/Origins_of_my_sona.png&w=1280&q=55",
-  date: "Jan 2, 2021"
-}
+const entries = await client.getEntries<BlogPostContent>({
+  content_type: "blogPost",
+  limit: 5
+})
+
+const posts = entries.items.map((item) => {
+  const { banner, category, content, description, overridePublishDate, slug, title } = item.fields
+  const image = banner ? `https:${banner.fields.file.url}?fm=webp&q=75&w=854&h=480` : ""
+
+  const datePublished = overridePublishDate ? overridePublishDate : item.sys.createdAt
+
+  return {
+    title,
+    slug,
+    description,
+    category,
+    content,
+    banner: image,
+    date: datePublished,
+    _tags: item.metadata.tags
+  }
+})
+
+const filteredPosts = posts.sort((a, b) => (new Date(b.date) as any) - (new Date(a.date) as any))
 ---
 
 <Layout title="Blog">
   <div class="mx-auto max-w-screen-2xl px-8">
-    <div class="grid grid-cols-3 gap-4">
+    <div class="grid grid-cols-3 gap-8">
       {
-        [...Array(12)].map(() => (
+        filteredPosts.map((item) => (
           <BlogPost
-            title={sampleData.title}
-            description={sampleData.description}
-            image={sampleData.image}
-            date={sampleData.date}
+            slug={item.slug}
+            title={item.title}
+            description={item.description}
+            date={item.date}
+            image={item.banner}
           />
         ))
       }

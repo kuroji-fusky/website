@@ -1,5 +1,6 @@
 <script lang="ts">
-  import type { NavItem } from "../types"
+  import type { NavItem } from "./Navbar.types"
+
   import NavbarSubItem from "./NavbarSubItem.svelte"
   import { ChevronDown, MenuIcon, RssIcon, SearchIcon } from "lucide-svelte"
 

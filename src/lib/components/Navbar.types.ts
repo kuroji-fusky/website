@@ -7,5 +7,3 @@ export interface NavItem {
   image?: string
   icon?: IconProps
 }
-
-export * from "./contentful"
