@@ -5,7 +5,7 @@
   <a href="https://kurojifusky.com">kurojifusky.com</a>
 </h1>
 
-The source code of both my portfolio and blog websites!
+The source code of my personal website! Written in Astro + Svelte, with a separate Go server
 
 ## APIs used
 
@@ -15,6 +15,14 @@ The source code of both my portfolio and blog websites!
 - Wakatime
 
 ## Running the abominations locally
+
+### Prerequisties
+
+- Go v1.20 or higher
+- Node.js v20 or higher (LTS recommended)
+- Yarn
+
+### Setup and installation
 
 Clone and install dependencies with Yarn with `yarn install`; start the dev server with `yarn dev`.
 

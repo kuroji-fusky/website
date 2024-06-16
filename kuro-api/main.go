@@ -8,7 +8,6 @@ import (
 )
 
 func main() {
-
 	gin.ForceConsoleColor()
 
 	r := gin.New()
@@ -20,11 +19,9 @@ func main() {
 		})
 	})
 
-	r.GET("/stats", func(c *gin.Context) {
-		c.JSON(http.StatusOK, "Stats from SteamLadder, WakaTime, etc")
-	})
-
 	r.GET("/stats", routes.AllStats)
+	r.GET("/commissions", routes.GoogSheetCommissionStats)
+	r.GET("/stats/wakatime", routes.WakaTimeStats)
 
-	r.Run(":4069")
+	r.Run(":6969")
 }
