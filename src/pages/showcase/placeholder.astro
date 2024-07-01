@@ -1,0 +1,32 @@
+---
+import Layout from "../../lib/components/Layout.astro"
+import ShowcaseSection from "../../lib/components/layout/ShowcaseSection.svelte"
+import InfoShelf from "../../lib/components/InfoShelf.svelte"
+---
+
+<Layout title="MyArtverse - Showcase" webpageType="article">
+  <div class="px-8 max-w-screen-xl 2xl:max-w-screen-2xl mx-auto flex flex-col gap-y-6">
+    <ShowcaseSection title="MyArtverse" />
+    <div class="flex gap-x-2.5">
+      <aside class="flex-shrink-0 flex flex-col gap-y-5 w-72">
+        <div class="flex gap-x-2.5">
+          <button>source</button>
+          <button>gh link</button>
+        </div>
+        <InfoShelf heading="Technologies">Yes</InfoShelf>
+        <InfoShelf heading="Infrastructure">Yes</InfoShelf>
+      </aside>
+      <article class="flex-1">
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi fuga, porro autem, culpa
+          magni et, possimus ratione architecto sed minima assumenda sunt adipisci perferendis
+          nostrum nesciunt velit repudiandae tempora. Repellendus.
+        </p>
+      </article>
+    </div>
+    <div aria-labelledby="other-project-heading">
+      <h2 id="other-project-heading" class="font-mono font-medium uppercase">Other projects</h2>
+      <div></div>
+    </div>
+  </div>
+</Layout>

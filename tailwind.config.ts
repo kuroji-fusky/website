@@ -6,6 +6,9 @@ const { sans, mono } = twDefaults.fontFamily
 
 export default {
   content: ["./src/**/*.{astro,md,mdx,svelte,ts}"],
+  experimental: {
+    optimizeUniversalDefaults: true
+  },
   theme: {
     extend: {
       backgroundImage: {
@@ -109,3 +112,4 @@ export default {
   },
   plugins: [typographyPlugin]
 } satisfies Config
+

@@ -1,49 +1,9 @@
 <script lang="ts">
-  import type { NavItem } from "./Navbar.types"
-
+  import { navItems } from "./Navbar.constants"
   import NavbarSubItem from "./NavbarSubItem.svelte"
   import { ChevronDown, MenuIcon, RssIcon, SearchIcon } from "lucide-svelte"
 
   export let pathCrumbs = ""
-
-  type NestedNavItems = (Pick<NavItem, "text" | "link"> & { subitems?: NavItem[] })[]
-
-  const navItems: NestedNavItems = [
-    {
-      text: "Explore",
-      link: null,
-      subitems: [
-        { text: "Dream Journal", excerpt: "Idk why I'm doing this", link: "/dream-journal" },
-        {
-          text: "Gallery",
-          excerpt: "Some photography and art pieces I commissoned from artists",
-          link: "/gallery"
-        },
-        {
-          text: "The Vault",
-          excerpt: "Abandoned projects or some historic relics that I've made",
-          link: "/vault"
-        }
-      ]
-    },
-    {
-      text: "Showcase",
-      link: "/showcase",
-      subitems: [
-        { text: "Title", excerpt: "Subtitle", link: "/showcase/1" },
-        { text: "Title", excerpt: "Subtitle", link: "/showcase/1" },
-        { text: "Title", excerpt: "Subtitle", link: "/showcase/1" }
-      ]
-    },
-    {
-      text: "Blog",
-      link: "/blog"
-    },
-    {
-      text: "About",
-      link: "/about"
-    }
-  ]
 </script>
 
 <nav class="z-10 py-2 sticky top-0 bg-kuro-dark2">

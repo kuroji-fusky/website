@@ -4,9 +4,10 @@ import Layout from "../../lib/components/Layout.astro"
 import BlogPost from "../../lib/components/cards/BlogPost.svelte"
 import { client, type BlogPostContent } from "../../lib/contentful"
 
+// TODO extract this as its own function
 const entries = await client.getEntries<BlogPostContent>({
   content_type: "blogPost",
-  limit: 9
+  limit: 6
 })
 
 const posts = entries.items.map((item) => {
