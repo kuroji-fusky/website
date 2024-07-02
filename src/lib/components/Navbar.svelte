@@ -1,17 +1,21 @@
 <script lang="ts">
   import { navItems } from "./Navbar.constants"
   import NavbarSubItem from "./NavbarSubItem.svelte"
-  import { ChevronDown, MenuIcon, RssIcon, SearchIcon } from "lucide-svelte"
+  import { ChevronDown, MenuIcon, SearchIcon } from "lucide-svelte"
+
+  import logoLetter from "./icons/logo-brand.svg?raw"
 
   export let pathCrumbs = ""
 </script>
 
 <nav class="z-10 py-2 sticky top-0 bg-kuro-dark2">
   <div class="mx-auto flex justify-between items-center px-8 max-w-screen-2xl">
-    <div id="breadcrumbs">
+    <div class="flex items-center gap-x-2">
       <a href="/">
-        <span class="sr-only" translate="no">Kuro logo</span>
-        <span aria-hidden="true">Logo</span>
+        <span id="kuro-logo-label" class="sr-only" translate="no">Kuro logo</span>
+        <div class="h-7" aria-labelledby="kuro-logo-label">
+          {@html logoLetter}
+        </div>
       </a>
       <span>{pathCrumbs}</span>
     </div>
@@ -52,9 +56,6 @@
       <button class="hover:text-kuro-lavender-400">
         <SearchIcon size={19} />
       </button>
-      <a href="/rss.xml" class="lg:block hidden hover:text-kuro-lavender-400">
-        <RssIcon size={19} class="translate-y-1" />
-      </a>
     </div>
   </div>
 </nav>

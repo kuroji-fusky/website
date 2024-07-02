@@ -52,15 +52,17 @@ const _title = pathCrumbs !== "/" ? `${title} | ${siteTitle}` : title
   <body
     class="font-body font-medium text-sm lg:text-base bg-kuro-dark2 text-kuro-violet-50 overflow-x-hidden selection:bg-kuro-lavender-600"
   >
-    <a
-      href="#skip-to-content"
-      class="fixed top-2 left-2 focus:opacity-100 opacity-0 bg-kuro-lavender-700 z-50 px-4 py-2.5 rounded-md"
-      >Skip to content?</a
-    >
-    <Navbar client:idle />
-    <main class="min-h-[calc(100dvh-4.25rem)]" id="skip-to-content">
-      <slot />
-    </main>
-    <Footer />
+    <div class="contents">
+      <a
+        href="#skip-to-content"
+        class="fixed top-2 left-2 focus:opacity-100 focus:translate-x-0 translate-x-full opacity-0 bg-kuro-lavender-700 z-50 px-4 py-2.5 rounded-md"
+        >Skip to content?</a
+      >
+      <Navbar client:idle />
+      <main class="min-h-[calc(100dvh-4.25rem)]" id="skip-to-content">
+        <slot />
+      </main>
+      <Footer />
+    </div>
   </body>
 </html>

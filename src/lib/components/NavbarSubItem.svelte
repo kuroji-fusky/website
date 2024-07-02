@@ -5,7 +5,7 @@
 </script>
 
 <div
-  class="pt-4 absolute left-1 top-12 pointer-events-none opacity-0 transition-[transform,opacity] transform-gpu translate-y-1 group-hover/items:translate-y-0 group-hover/items:opacity-100 group-hover/items:pointer-events-auto"
+  class="pt-4 absolute left-1 top-10 pointer-events-none opacity-0 transition-opacity transform-gpu group-hover/items:opacity-100 group-hover/items:pointer-events-auto"
 >
   <div
     class="flex flex-col gap-y-5 rounded-md bg-kuro-dark2 border border-kuro-violet-700 px-4 py-5 w-80"
