@@ -1,39 +1,20 @@
 ---
 import { Image } from "astro:assets"
 import Layout from "../../lib/components/Layout.astro"
-import BlogPost from "../../lib/components/cards/BlogPost.svelte"
-import { client, type BlogPostContent } from "../../lib/contentful"
+import BlogPost from "../../lib/components/cards/BlogPost.vue"
+import { latestBlogPosts } from "../../lib/contentful"
 
-// TODO extract this as its own function
-const entries = await client.getEntries<BlogPostContent>({
-  content_type: "blogPost",
-  limit: 6
-})
+import config from "../../lib/constants"
 
-const posts = entries.items.map((item) => {
-  const { banner, category, content, description, overridePublishDate, slug, title } = item.fields
-  const image = banner ? `https:${banner.fields.file.url}?fm=webp&q=75&w=854&h=480` : ""
-
-  const datePublished = overridePublishDate ? overridePublishDate : item.sys.createdAt
-
-  return {
-    title,
-    slug,
-    description,
-    category,
-    content,
-    banner: image,
-    date: datePublished,
-    _tags: item.metadata.tags
-  }
-})
-
+const posts = await latestBlogPosts({ limit: 6 })
 const filteredPosts = posts.sort((a, b) => (new Date(b.date) as any) - (new Date(a.date) as any))
+
+const { headings } = config
 ---
 
-<Layout title="Blog">
+<Layout title={headings.blog.title} description={headings.blog.description}>
   <div class="mx-auto max-w-screen-2xl px-8">
-    <div class="grid grid-cols-3 gap-8">
+    <section class="grid grid-cols-3 gap-8">
       {
         filteredPosts.map((item) => (
           <BlogPost
@@ -56,6 +37,6 @@ const filteredPosts = posts.sort((a, b) => (new Date(b.date) as any) - (new Date
           </BlogPost>
         ))
       }
-    </div>
+    </section>
   </div>
 </Layout>

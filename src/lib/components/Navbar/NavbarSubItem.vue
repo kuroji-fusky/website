@@ -2,7 +2,7 @@
 import type { NavItem } from "./Navbar.types"
 
 defineProps<{
-  items: NavItem[]
+  items?: NavItem[]
 }>()
 </script>
 

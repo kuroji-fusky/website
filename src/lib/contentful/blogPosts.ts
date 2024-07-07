@@ -14,11 +14,29 @@ const fetchBlogContents = async ({ limit, category }: FetchBlogContent) => {
   })
 }
 
-export const latestPosts = async ({ limit }: FetchBlogContent) => {
+export const latestBlogPosts = async ({ limit }: FetchBlogContent) => {
   const c = await fetchBlogContents({ limit })
+
+  return c.items.map((item) => {
+    const { banner, category, content, description, overridePublishDate, slug, title } = item.fields
+    const image = banner ? `https:${banner.fields.file.url}?fm=webp&q=75&w=854&h=480` : ""
+
+    const datePublished = overridePublishDate ? overridePublishDate : item.sys.createdAt
+
+    return {
+      title,
+      slug,
+      description,
+      category,
+      content,
+      banner: image,
+      date: datePublished,
+      _tags: item.metadata.tags
+    }
+  })
 }
 
-export const postsByCategory = async ({ limit, category }: FetchBlogContent) => {
+export const blogpostsByCategory = async ({ limit, category }: FetchBlogContent) => {
   const c = await fetchBlogContents({ limit, category })
 }
 

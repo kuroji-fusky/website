@@ -1,20 +1,20 @@
-<script lang="ts">
+<script setup lang="ts">
 import { parseDateStr } from "../../parseDateStr"
 
-const p = defineProps<{
+const props = defineProps<{
   title: string
   description?: string
   date: string
   slug: string
 }>()
 
-const { readableDate, isoDate } = parseDateStr(p.date)
+const { readableDate, isoDate } = parseDateStr(props.date)
 
-const _parsedSlug = `/blog/${p.slug}`
+const _parsedSlug = `/blog/${props.slug}`
 </script>
 
 <template>
-  <div id="post-item" class="flex flex-col gap-y-2">
+  <div class="flex flex-col gap-y-2">
     <a :href="_parsedSlug">
       <slot />
     </a>
