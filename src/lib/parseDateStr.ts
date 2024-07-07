@@ -12,7 +12,7 @@ export const parseDateStr = (dateStr: string, options?: ParseDateStrOptions) => 
     month: "short",
     day: "numeric",
     year: "numeric"
-  } satisfies Intl.DateTimeFormatOptions
+  } as Intl.DateTimeFormatOptions
 
   const readableDate = !options?.includeTime
     ? d.toLocaleDateString(localeLocation, localeOptions)
@@ -20,3 +20,4 @@ export const parseDateStr = (dateStr: string, options?: ParseDateStrOptions) => 
 
   return { readableDate, isoDate }
 }
+

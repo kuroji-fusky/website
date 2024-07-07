@@ -1,6 +1,6 @@
 import type { NavItem } from "./Navbar.types"
 
-type NestedNavItems = (Pick<NavItem, "text" | "link"> & { subitems?: NavItem[] })[]
+type NestedNavItems = Array<Pick<NavItem, "text" | "link"> & { subitems?: NavItem[] }>
 
 export const navItems: NestedNavItems = [
   {
