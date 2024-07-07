@@ -1,7 +1,52 @@
 ---
-import Layout from "../../lib/components/Layout.astro"
+import { Image } from "astro:assets"
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer"
 
-export async function getStaticPaths() {}
+import Layout from "../../lib/components/Layout.astro"
+import { latestBlogPosts } from "../../lib/contentful/blogPosts"
+import { parseDateStr } from "../../lib/parseDateStr"
+
+export async function getStaticPaths() {
+  return (await latestBlogPosts({})).map((item) => ({
+    params: { slug: item.slug },
+    props: {
+      title: item.title,
+      description: item.description,
+      date: item.date,
+      shit: item.content,
+      banner: item.banner
+    }
+  }))
+}
+
+const { title, description, shit, date, banner } = Astro.props
 ---
 
-<Layout title="Blog post">Blog post page</Layout>
+<Layout {title} {description} webpageType="article">
+  <div
+    class="mt-10 px-8 max-w-screen-lg mx-auto prose-headings:font-bold flex flex-col gap-y-8 [&_p]:leading-9"
+  >
+    <section>
+      <h1 class="text-3xl lg:text-[2.625rem] lg:leading-10 not-prose font-extrabold text-white">{title}</h1>
+      <p class="text-base lg:text-lg opacity-65 py-2 lg:py-3.5">{description}</p>
+      <Image
+        widths={[540, 960, 1440]}
+        height={1920}
+        width={1080}
+        quality={95}
+        loading="eager"
+        sizes="(max-width: 360px) 540px, (max-width: 720px) 960px, (max-width: 1600px) 1440px"
+        class="overflow-hidden aspect-[16/8] rounded-lg w-full object-cover"
+        src={banner}
+        alt={`Banner for ${title}`}
+        fetchpriority="high"
+      />
+      <div class="flex items-center py-5 gap-x-4">
+        <span class="flex-1"></span>
+        <div class="border-l-2 border-l-kuro-violet-50 h-4"></div>
+        <time datetime={date}>{`Posted on ${parseDateStr(date).readableDate}`}</time>
+      </div>
+    </section>
+    <article set:html={documentToHtmlString(shit)} class="flex-1 text-base lg:text-lg" />
+  </div>
+</Layout>

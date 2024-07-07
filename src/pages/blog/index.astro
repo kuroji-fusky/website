@@ -1,13 +1,13 @@
 ---
 import { Image } from "astro:assets"
+import { Schema } from "astro-seo-schema"
+
 import Layout from "../../lib/components/Layout.astro"
 import BlogPost from "../../lib/components/cards/BlogPost.vue"
 import { latestBlogPosts } from "../../lib/contentful"
-
 import config from "../../lib/constants"
 
 const posts = await latestBlogPosts({ limit: 6 })
-const filteredPosts = posts.sort((a, b) => (new Date(b.date) as any) - (new Date(a.date) as any))
 
 const { headings } = config
 ---
@@ -16,7 +16,7 @@ const { headings } = config
   <div class="mx-auto max-w-screen-2xl px-8">
     <section class="grid grid-cols-3 gap-8">
       {
-        filteredPosts.map((item) => (
+        posts.map((item) => (
           <BlogPost
             slug={item.slug}
             title={item.title}
@@ -28,6 +28,7 @@ const { headings } = config
                 widths={[240, 540, 720]}
                 height={1600}
                 width={900}
+                loading="eager"
                 sizes="(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px"
                 class="overflow-hidden aspect-video rounded-md w-full object-cover"
                 src={item.banner}
