@@ -1,4 +1,4 @@
-<script lang="ts">
+<script setup lang="ts">
 import type { NavItem } from "./Navbar.types"
 
 defineProps<{

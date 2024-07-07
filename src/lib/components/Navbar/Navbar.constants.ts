@@ -5,7 +5,7 @@ type NestedNavItems = Array<Pick<NavItem, "text" | "link"> & { subitems?: NavIte
 export const navItems: NestedNavItems = [
   {
     text: "Explore",
-    link: null,
+    link: "",
     subitems: [
       {
         text: "Gallery",

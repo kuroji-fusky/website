@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import logoLetter from "../icons/logo-brand.svg?raw"
+import NavbarSubItem from "./NavbarSubItem.vue"
 
 import { navItems } from "./Navbar.constants"
 import { IconChevronDown, IconMenu, IconSearch } from "@iconify-prerendered/vue-lucide"
@@ -15,9 +16,7 @@ defineProps<{
       <div class="flex items-center gap-x-2">
         <a href="/">
           <span id="kuro-logo-label" class="sr-only" translate="no">Kuro logo</span>
-          <div class="h-7" aria-labelledby="kuro-logo-label">
-            <span v-html="logoLetter" />
-          </div>
+          <div class="h-7" aria-labelledby="kuro-logo-label" v-html="logoLetter" />
         </a>
         <span>{{ pathCrumbs }}</span>
       </div>
@@ -25,7 +24,7 @@ defineProps<{
         <button class="lg:hidden block">
           <IconMenu size="19" />
         </button>
-        <div v-for="root in navItems" class="group/items group/topnav">
+        <div v-for="root in navItems" class="group/items group/topnav *:contents">
           <div v-if="root.link">
             <a :href="root.link" class="inline-flex items-center gap-x-1.5">
               <span class="group-hover/topnav:text-kuro-lavender-300">{{ root.text }}</span>
@@ -35,7 +34,7 @@ defineProps<{
                 class="group-hover/topnav:rotate-180 transform-gpu transition-transform"
               />
             </a>
-            <NavbarSubItem v-if="root.subitems" :items="root.subitems" />
+            <NavbarSubItem v-show="root.subitems" :items="root.subitems" />
           </div>
           <div v-else>
             <span class="cursor-default group-hover/topnav:text-kuro-lavender-300">{{

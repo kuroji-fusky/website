@@ -1,5 +1,5 @@
 export interface NavItem {
-  link: string | null
+  link?: string
   text: string
   excerpt: string
   image?: string
