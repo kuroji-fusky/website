@@ -1,8 +1,12 @@
 ---
-import HeroText from "../../lib/components/layout/HeroText.svelte"
 import Layout from "../../lib/components/Layout.astro"
+import config from "../../lib/constants"
+
+const {
+  headings: { dreamJournal }
+} = config
 ---
 
-<Layout title="Dream Journal">
-  <HeroText title="Dream Journal" />
+<Layout title={dreamJournal.title} description={dreamJournal.description}>
+  dream journal index
 </Layout>

@@ -19,7 +19,7 @@ const _parsedSlug = `/blog/${props.slug}`
       <slot />
     </a>
     <h2 class="text-[1.75rem] leading-tight font-bold pt-2">
-      <a :href="_parsedSlug">{{ title }}</a>
+      <a :href="_parsedSlug" class="hover:underline hover:text-kuro-lavender-300">{{ title }}</a>
     </h2>
     <p v-show="description" class="overflow-hidden line-clamp-3 opacity-75 leading-relaxed">
       {{ description }}

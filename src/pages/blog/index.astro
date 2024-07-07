@@ -3,41 +3,19 @@ import { Image } from "astro:assets"
 import { Schema } from "astro-seo-schema"
 
 import Layout from "../../lib/components/Layout.astro"
-import BlogPost from "../../lib/components/cards/BlogPost.vue"
+import BlogGrid from "../../lib/components/BlogGrid.astro"
 import { latestBlogPosts } from "../../lib/contentful"
 import config from "../../lib/constants"
 
-const posts = await latestBlogPosts({ limit: 6 })
+const latestPosts = await latestBlogPosts({ limit: 6 })
 
-const { headings } = config
+const {
+  headings: { blog }
+} = config
 ---
 
-<Layout title={headings.blog.title} description={headings.blog.description}>
+<Layout title={blog.title} description={blog.description}>
   <div class="mx-auto max-w-screen-2xl px-8">
-    <section class="grid grid-cols-3 gap-8">
-      {
-        posts.map((item) => (
-          <BlogPost
-            slug={item.slug}
-            title={item.title}
-            description={item.description}
-            date={item.date}
-          >
-            {item.banner && (
-              <Image
-                widths={[240, 540, 720]}
-                height={1600}
-                width={900}
-                loading="eager"
-                sizes="(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px"
-                class="overflow-hidden aspect-video rounded-md w-full object-cover"
-                src={item.banner}
-                alt={`Banner for ${item.title}`}
-              />
-            )}
-          </BlogPost>
-        ))
-      }
-    </section>
+    <BlogGrid posts={latestPosts} />
   </div>
 </Layout>

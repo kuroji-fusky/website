@@ -7,7 +7,7 @@ import { latestBlogPosts } from "../../lib/contentful/blogPosts"
 import { parseDateStr } from "../../lib/parseDateStr"
 
 export async function getStaticPaths() {
-  return (await latestBlogPosts({})).map((item) => ({
+  return (await latestBlogPosts({ width: 1920, height: 1080, quality: 90 })).map((item) => ({
     params: { slug: item.slug },
     props: {
       title: item.title,
@@ -24,10 +24,12 @@ const { title, description, shit, date, banner } = Astro.props
 
 <Layout {title} {description} webpageType="article">
   <div
-    class="mt-10 px-8 max-w-screen-lg mx-auto prose-headings:font-bold flex flex-col gap-y-8 [&_p]:leading-9"
+    class="mt-10 px-8 max-w-screen-lg mx-auto prose-headings:font-bold flex flex-col gap-y-8 [&_p]:leading-8"
   >
     <section>
-      <h1 class="text-3xl lg:text-[2.625rem] lg:leading-10 not-prose font-extrabold text-white">{title}</h1>
+      <h1 class="text-3xl lg:text-[2.625rem] lg:leading-10 not-prose font-extrabold text-white">
+        {title}
+      </h1>
       <p class="text-base lg:text-lg opacity-65 py-2 lg:py-3.5">{description}</p>
       <Image
         widths={[540, 960, 1440]}
@@ -47,6 +49,6 @@ const { title, description, shit, date, banner } = Astro.props
         <time datetime={date}>{`Posted on ${parseDateStr(date).readableDate}`}</time>
       </div>
     </section>
-    <article set:html={documentToHtmlString(shit)} class="flex-1 text-base lg:text-lg" />
+    <article set:html={documentToHtmlString(shit)} class="flex-1 text-base lg:text-lg prose-p:font-normal" />
   </div>
 </Layout>

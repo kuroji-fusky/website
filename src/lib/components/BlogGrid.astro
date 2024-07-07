@@ -1,0 +1,39 @@
+---
+import { Image } from "astro:assets"
+import type { BlogPostsReturnType } from "../../lib/contentful"
+import BlogPost from "./cards/BlogPost.vue"
+
+interface Props {
+  posts: BlogPostsReturnType
+}
+
+const { posts } = Astro.props
+---
+
+<section>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {
+      posts.map((item) => (
+        <BlogPost
+          slug={item.slug}
+          title={item.title}
+          description={item.description}
+          date={item.date}
+        >
+          {item.banner && (
+            <Image
+              widths={[240, 540, 720]}
+              height={1600}
+              width={900}
+              loading="eager"
+              sizes="(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px"
+              class="overflow-hidden aspect-video rounded-md w-full object-cover"
+              src={item.banner}
+              alt={`Banner for ${item.title}`}
+            />
+          )}
+        </BlogPost>
+      ))
+    }
+  </div>
+</section>
