@@ -7,9 +7,11 @@ interface FetchBlogContent {
 }
 
 interface CTFImg {
-  quality?: number
-  width?: number
-  height?: number
+  img?: {
+    quality?: number
+    width?: number
+    height?: number
+  }
 }
 
 const sortInAscendingOrder = <T extends object>(arr: T[]) => {
@@ -25,18 +27,15 @@ const fetchBlogContents = async ({ limit, category }: FetchBlogContent) => {
   })
 }
 
-export const latestBlogPosts = async ({
-  limit,
-  width,
-  height,
-  quality
-}: FetchBlogContent & CTFImg) => {
+export const latestBlogPosts = async (pwops: FetchBlogContent & CTFImg) => {
+  const { limit, img } = pwops
+
   const c = await fetchBlogContents({ limit })
 
   const posts = c.items.map((item) => {
     const { banner, category, content, description, overridePublishDate, slug, title } = item.fields
     const image = banner
-      ? `https:${banner.fields.file.url}?fm=webp&q=${quality || 75}&w=${width || 854}&h=${height || 480}`
+      ? `https:${banner.fields.file.url}?fm=webp&q=${img?.quality || 75}&w=${img?.width || 854}&h=${img?.height || 480}`
       : ""
 
     const datePublished = overridePublishDate ? overridePublishDate : item.sys.createdAt
@@ -48,8 +47,7 @@ export const latestBlogPosts = async ({
       category,
       content,
       banner: image,
-      date: datePublished,
-      _tags: item.metadata.tags
+      date: datePublished
     }
   })
 

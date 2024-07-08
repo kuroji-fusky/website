@@ -7,7 +7,15 @@ import { latestBlogPosts } from "../../lib/contentful/blogPosts"
 import { parseDateStr } from "../../lib/parseDateStr"
 
 export async function getStaticPaths() {
-  return (await latestBlogPosts({ width: 1920, height: 1080, quality: 90 })).map((item) => ({
+  const posts = await latestBlogPosts({
+    img: {
+      width: 1920,
+      height: 1080,
+      quality: 90
+    }
+  })
+
+  return posts.map((item) => ({
     params: { slug: item.slug },
     props: {
       title: item.title,
@@ -49,6 +57,9 @@ const { title, description, shit, date, banner } = Astro.props
         <time datetime={date}>{`Posted on ${parseDateStr(date).readableDate}`}</time>
       </div>
     </section>
-    <article set:html={documentToHtmlString(shit)} class="flex-1 text-base lg:text-lg prose-p:font-normal" />
+    <article
+      set:html={documentToHtmlString(shit)}
+      class="flex-1 text-base lg:text-lg prose-p:font-normal"
+    />
   </div>
 </Layout>
