@@ -112,4 +112,3 @@ export default {
   },
   plugins: [typographyPlugin]
 } satisfies Config
-

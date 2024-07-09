@@ -20,4 +20,3 @@ export const parseDateStr = (dateStr: string, options?: ParseDateStrOptions) => 
 
   return { readableDate, isoDate }
 }
-
