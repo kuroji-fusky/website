@@ -35,7 +35,7 @@ const { title, description, shit, date, banner } = Astro.props
     class="mt-10 px-8 max-w-screen-lg mx-auto prose-headings:font-bold flex flex-col gap-y-8 [&_p]:leading-8"
   >
     <section>
-      <h1 class="text-3xl lg:text-[2.625rem] lg:leading-10 not-prose font-extrabold text-white">
+      <h1 class="text-3xl lg:text-[2.625rem] lg:leading-tight not-prose font-extrabold text-white">
         {title}
       </h1>
       <p class="text-base lg:text-lg opacity-65 py-2 lg:py-3.5">{description}</p>
@@ -59,7 +59,7 @@ const { title, description, shit, date, banner } = Astro.props
     </section>
     <article
       set:html={documentToHtmlString(shit)}
-      class="flex-1 text-base lg:text-lg prose-p:font-normal"
+      class="flex-1 text-base lg:text-lg prose-p:font-normal text-white"
     />
   </div>
 </Layout>
