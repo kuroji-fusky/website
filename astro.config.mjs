@@ -9,7 +9,11 @@ import mdx from "@astrojs/mdx"
 // https://astro.build/config
 export default defineConfig({
   output: "hybrid",
-  adapter: vercel(),
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true
+    }
+  }),
   integrations: [vue(), mdx(), tailwind(), sitemap()],
   vite: {
     postcss: {
