@@ -1,17 +1,9 @@
 import { client } from "./contentfulClient"
-import type { BlogPostContent } from "./types"
+import type { BlogPostContent, CTFImg } from "./types"
 
 interface FetchBlogContent {
   limit?: number
   category?: string
-}
-
-interface CTFImg {
-  img?: {
-    quality?: number
-    width?: number
-    height?: number
-  }
 }
 
 const sortInAscendingOrder = <T extends object>(arr: T[]) => {

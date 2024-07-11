@@ -1,5 +1,13 @@
 import type { EntryFieldTypes } from "contentful"
 
+export interface CTFImg {
+  img?: {
+    quality?: number
+    width?: number
+    height?: number
+  }
+}
+
 type EntryFieldEmbed = EntryFieldTypes.Object<{
   fields: {
     file: {

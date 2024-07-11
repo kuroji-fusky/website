@@ -1,7 +1,6 @@
 ---
 import { Image } from "astro:assets"
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer"
-import { Schema } from "astro-seo-schema"
 
 import Layout from "../../lib/components/Layout.astro"
 import { latestBlogPosts } from "../../lib/contentful/blogPosts"
@@ -23,22 +22,38 @@ export async function getStaticPaths() {
       description: item.description,
       date: item.date,
       shit: item.content,
-      banner: item.banner
+      banner: item.banner,
+      categories: item.category
     }
   }))
 }
 
-const { title, description, shit, date, banner } = Astro.props
+const { title, description, shit, date, banner, categories } = Astro.props
+const { protocol, host } = Astro.url
+
+const baseUrl = `${protocol}//${host}`
 ---
 
 <Layout {title} {description} webpageType="article">
   <div
-    class="mt-10 px-8 max-w-screen-lg mx-auto prose-headings:font-bold flex flex-col gap-y-5 [&_p]:leading-8"
+    class="mt-8 px-8 max-w-screen-lg mx-auto prose-headings:font-bold flex flex-col gap-y-5 [&_p]:leading-8"
     itemtype="http://schema.org/Blog"
     itemscope
   >
     <meta itemprop="thumbnailUrl" content={banner} />
     <section>
+      <span class="inline-flex mb-2.5 gap-x-6">
+        {
+          categories.map((cat) => (
+            <a
+              class="bg-clip-text text-transparent font-semibold bg-gradient-to-tr to-kuro-royalblue-200 from-kuro-lavender-400 hover:selection:text-white selection:text-white"
+              href={`${baseUrl}/blog/category/${cat.toLowerCase()}`}
+            >
+              {cat}
+            </a>
+          ))
+        }
+      </span>
       <h1 class="text-3xl lg:text-[2.625rem] lg:leading-tight not-prose font-extrabold text-white">
         {title}
       </h1>

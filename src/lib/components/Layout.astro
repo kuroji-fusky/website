@@ -37,15 +37,18 @@ const _title = pathCrumbs !== "/" ? `${title} | ${siteTitle}` : title
     <meta name="generator" content={Astro.generator} />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
+    {webpageType === "article" && <meta name="author" content="Kuroji Fusky" />}
 
     <meta property="og:title" content={_title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={webpageType} />
+    <meta property="og:url" content={canonicalUrl} />
 
     <meta name="twitter:title" content={_title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:creator" content={me} />
     <meta name="twitter:site" content={me} />
+    <meta name="twitter:url" content={canonicalUrl} />
 
     <meta name="darkreader-lock" />
     <link rel="canonical" href={canonicalUrl} />
