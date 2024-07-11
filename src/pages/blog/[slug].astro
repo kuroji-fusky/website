@@ -2,9 +2,9 @@
 import { Image } from "astro:assets"
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer"
 
-import Layout from "../../lib/components/Layout.astro"
-import { latestBlogPosts } from "../../lib/contentful/blogPosts"
-import { parseDateStr } from "../../lib/parseDateStr"
+import Layout from "$components/Layout.astro"
+import { latestBlogPosts } from "$lib/contentful/blogPosts"
+import { parseDateStr } from "$lib/parseDateStr"
 
 export async function getStaticPaths() {
   const posts = await latestBlogPosts({

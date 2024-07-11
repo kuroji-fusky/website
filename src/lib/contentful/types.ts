@@ -8,6 +8,13 @@ export interface CTFImg {
   }
 }
 
+export interface ContentEntries {
+  limit?: number
+  category?: string
+}
+
+///////////////////////////////////////////////////
+
 type EntryFieldEmbed = EntryFieldTypes.Object<{
   fields: {
     file: {

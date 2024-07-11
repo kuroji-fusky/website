@@ -1,34 +1,19 @@
-import { client } from "./contentfulClient"
-import type { BlogPostContent, CTFImg } from "./types"
-
-interface FetchBlogContent {
-  limit?: number
-  category?: string
-}
+import { fetchContentEntries } from "./contentfulClient"
+import type { BlogPostContent, ContentEntries, CTFImg } from "./types"
 
 const sortInAscendingOrder = <T extends object>(arr: T[]) => {
-  // @ts-expect-error
+  // @ts-ignore
   return arr.sort((a, b) => (new Date(b.date) as any) - (new Date(a.date) as any))
 }
 
-const fetchBlogContents = async ({ limit, category }: FetchBlogContent) => {
-  return await client.getEntries<BlogPostContent>({
-    content_type: "blogPost",
-    limit,
-    "fields.category": category
-  })
-}
+export const latestBlogPosts = async (pwops: ContentEntries & CTFImg) => {
+  const { limit, img, category } = pwops
 
-export const latestBlogPosts = async (pwops: FetchBlogContent & CTFImg) => {
-  const { limit, img } = pwops
+  const entries = await fetchContentEntries<BlogPostContent>({ limit, category })
 
-  const c = await fetchBlogContents({ limit })
-
-  const posts = c.items.map((item) => {
+  const posts = entries.items.map((item) => {
     const { banner, category, content, description, overridePublishDate, slug, title } = item.fields
-    const image = banner
-      ? `https:${banner.fields.file.url}?fm=webp&q=${img?.quality || 75}&w=${img?.width || 854}&h=${img?.height || 480}`
-      : ""
+    const image = banner ? `https:${banner.fields.file.url}?fm=webp` : ""
 
     const datePublished = overridePublishDate ? overridePublishDate : item.sys.createdAt
 
@@ -46,10 +31,4 @@ export const latestBlogPosts = async (pwops: FetchBlogContent & CTFImg) => {
   return sortInAscendingOrder(posts) as typeof posts
 }
 
-export const blogPostsByCategory = async ({ limit, category }: FetchBlogContent) => {
-  const c = await fetchBlogContents({ limit, category })
-}
-
-export type BlogPostsReturnType = Awaited<
-  ReturnType<typeof latestBlogPosts | typeof blogPostsByCategory>
->
+export type BlogPostsReturnType = Awaited<ReturnType<typeof latestBlogPosts>>

@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets"
-import type { BlogPostsReturnType } from "../../lib/contentful"
+import type { BlogPostsReturnType } from "$lib/contentful"
 import BlogPost from "./cards/BlogPost.vue"
 
 interface Props {
@@ -13,7 +13,6 @@ const { posts } = Astro.props
 <section>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
     {
-      // @ts-expect-error
       posts.map((item) => (
         <BlogPost
           slug={item.slug}
