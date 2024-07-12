@@ -1,12 +1,12 @@
 import { defineConfig, squooshImageService } from "astro/config"
 
-import vercel from "@astrojs/vercel/serverless"
+import autoprefixer from "autoprefixer"
 
 import tailwind from "@astrojs/tailwind"
 import vue from "@astrojs/vue"
 import sitemap from "@astrojs/sitemap"
-import autoprefixer from "autoprefixer"
 import mdx from "@astrojs/mdx"
+import vercel from "@astrojs/vercel/serverless"
 
 export default defineConfig({
   output: "hybrid",
@@ -15,6 +15,9 @@ export default defineConfig({
       enabled: true
     }
   }),
+  prefetch: {
+    prefetchAll: true
+  },
   integrations: [
     vue({
       customElement: true

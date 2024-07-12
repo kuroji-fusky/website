@@ -1,6 +1,7 @@
 ---
 import Navbar from "./Navbar/Navbar.vue"
 import Footer from "./Footer.vue"
+import SearchModal from "./SearchModal.vue"
 
 import "@fontsource/inter"
 import "@fontsource/inter/600.css"
@@ -40,8 +41,9 @@ const _title = pathCrumbs !== "/" ? `${title} | ${siteTitle}` : title
     <meta name="description" content={description} />
     {webpageType === "article" && <meta name="author" content="Kuroji Fusky" />}
 
-    <meta property="og:title" content={_title} />
+    <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:site_title" content={siteTitle} />
     <meta property="og:type" content={webpageType} />
     <meta property="og:url" content={canonicalUrl} />
 
@@ -73,5 +75,6 @@ const _title = pathCrumbs !== "/" ? `${title} | ${siteTitle}` : title
       <slot />
     </main>
     <Footer />
+    <SearchModal client:visible />
   </body>
 </html>

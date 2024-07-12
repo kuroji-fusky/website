@@ -13,6 +13,21 @@ export interface ContentEntries {
   category?: string
 }
 
+// I had to create these types myself since Contentful don't have typings for in-depth types for `Block`
+// Either that, or it's just skill issue lol
+export type MoarInlineTypes<T extends object = {}> = {
+  target: {
+    sys: {
+      contentType: {
+        sys: {
+          id: string
+        }
+      }
+    }
+    fields: T
+  }
+}
+
 ///////////////////////////////////////////////////
 
 type EntryFieldEmbed = EntryFieldTypes.Object<{

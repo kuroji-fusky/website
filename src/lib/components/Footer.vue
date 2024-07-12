@@ -8,7 +8,6 @@ const sourceRepoUrl = "https://github.com/kurojifusky/kurojifusky.com"
 <template>
   <div class="px-8 pt-4 pb-12 relative flex gap-y-2.5 max-w-screen-2xl mx-auto">
     <footer class="flex flex-col gap-y-8 text-sm flex-1">
-      <div>lol</div>
       <div
         class="flex justify-between hover:[&_a]:underline [&_a]:text-kuro-lavender-200 hover:[&_a]:text-kuro-lavender-300"
       >
