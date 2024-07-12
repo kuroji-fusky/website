@@ -18,9 +18,16 @@ const sourceRepoUrl = "https://github.com/kurojifusky/kurojifusky.com"
         <span class="flex gap-x-6">
           <span>
             Built with
-            <a href="https://astro.build/" target="_blank" rel="noopenner noreferer">Astro</a>
+            <a href="https://astro.build/" target="_blank" rel="noopenner noreferer" translate="no"
+              >Astro</a
+            >
             &amp;
-            <a href="https://www.contentful.com/" target="_blank" rel="noopenner noreferer">
+            <a
+              href="https://www.contentful.com/"
+              target="_blank"
+              rel="noopenner noreferer"
+              translate="no"
+            >
               Contentful
             </a>
           </span>

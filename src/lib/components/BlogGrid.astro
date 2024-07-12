@@ -5,13 +5,15 @@ import BlogPost from "./cards/BlogPost.vue"
 
 interface Props {
   posts: BlogPostsReturnType
+  heading?: string
 }
 
-const { posts } = Astro.props
+const { posts, heading } = Astro.props
 ---
 
 <section>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  {heading && <h2>{heading}</h2>}
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-9">
     {
       posts.map((item) => (
         <BlogPost
@@ -19,15 +21,16 @@ const { posts } = Astro.props
           title={item.title}
           description={item.description}
           date={item.date}
+          category={item.category}
         >
           {item.banner && (
             <Image
               widths={[240, 540, 720]}
-              height={1600}
-              width={900}
+              height={1280}
+              width={720}
               loading="eager"
               sizes="(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px"
-              class="overflow-hidden aspect-video rounded-md w-full object-cover"
+              class="w-full object-cover aspect-video transition-transform duration-300"
               src={item.banner}
               alt={`Banner for ${item.title}`}
             />

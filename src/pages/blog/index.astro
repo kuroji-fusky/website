@@ -1,18 +1,70 @@
 ---
 import Layout from "$components/Layout.astro"
 import BlogGrid from "$components/BlogGrid.astro"
-import { latestBlogPosts } from "$lib/contentful"
+import { blogPosts } from "$lib/contentful"
 import config from "$lib/constants"
+import BlogPost from "$components/cards/BlogPost.vue"
+import { Image } from "astro:assets"
 
-const latestPosts = await latestBlogPosts({ limit: 6 })
+const posts = await blogPosts({ limit: 9 })
+
+const [postFeaturedBig, ...postFeaturedRest] = posts.filter((x) => x.isFeatured === true)
 
 const {
   headings: { blog }
 } = config
 ---
 
-<Layout title={blog.title} description={blog.description}>
+<Layout title={blog.title} description={blog.description} includeHeading>
   <div class="mx-auto max-w-screen-2xl px-8">
-    <BlogGrid posts={latestPosts} />
+    <section class="flex gap-x-8">
+      <div class="flex-shrink-0 w-3/5">
+        <BlogPost
+          style="big"
+          title={postFeaturedBig.title}
+          description={postFeaturedBig.description}
+          date={postFeaturedBig.date}
+          slug={postFeaturedBig.slug}
+          category={postFeaturedBig.category}
+        >
+          <Image
+            widths={[240, 540, 720]}
+            height={1280}
+            width={720}
+            loading="eager"
+            sizes="(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px"
+            class="w-full object-cover aspect-video transition-transform duration-300"
+            src={postFeaturedBig.banner}
+            alt={`Banner for ${postFeaturedBig.title}`}
+          />
+        </BlogPost>
+      </div>
+      <div class="gap-y-4 divide-y-2 divide-kuro-lavender-800 first:*:pt-0 last:*:pb-0 *:py-4">
+        {
+          postFeaturedRest.map((item) => (
+            <BlogPost
+              title={item.title}
+              description={item.description}
+              date={item.date}
+              slug={item.slug}
+              category={item.category}
+              style="compact"
+            >
+              <Image
+                widths={[240, 540, 720]}
+                height={1280}
+                width={720}
+                loading="eager"
+                sizes="(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px"
+                src={item.banner}
+                alt={`Banner for ${item.title}`}
+              />
+            </BlogPost>
+          ))
+        }
+      </div>
+    </section>
+
+    <BlogGrid heading="Latest posts" {posts} />
   </div>
 </Layout>

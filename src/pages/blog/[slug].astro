@@ -3,11 +3,11 @@ import { Image } from "astro:assets"
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer"
 
 import Layout from "$components/Layout.astro"
-import { latestBlogPosts } from "$lib/contentful/blogPosts"
+import { blogPosts } from "$lib/contentful/blogPosts"
 import { parseDateStr } from "$lib/parseDateStr"
 
 export async function getStaticPaths() {
-  const posts = await latestBlogPosts({
+  const posts = await blogPosts({
     img: {
       width: 1920,
       height: 1080,
@@ -36,7 +36,7 @@ const baseUrl = `${protocol}//${host}`
 
 <Layout {title} {description} webpageType="article">
   <div
-    class="mt-8 px-8 max-w-screen-lg mx-auto prose-headings:font-bold flex flex-col gap-y-5 [&_p]:leading-8"
+    class="mt-8 px-8 max-w-screen-xl mx-auto prose-headings:font-bold flex flex-col gap-y-5 [&_p]:leading-8"
     itemtype="http://schema.org/Blog"
     itemscope
   >
@@ -82,7 +82,7 @@ const baseUrl = `${protocol}//${host}`
     </section>
     <article
       set:html={documentToHtmlString(shit)}
-      class="flex-1 text-base lg:text-lg prose-p:font-normal text-white prose-h2:text-3xl prose-h3:text-2xl prose-headings:py-3 prose-p:my-2 first:prose-p:mt-0 last:prose-p:mb-0 prose-blockquote:pl-6 prose-blockquote:py-5 prose-blockquote:border-l-[6px] prose-blockquote:border-kuro-lavender-300 prose-blockquote:bg-kuro-lavender-900 prose-blockquote:bg-opacity-40 prose-blockquote:my-2.5 prose-blockquote:text-kuro-violet-50 prose-p:prose-blockquote:!font-medium"
+      class="flex-1 text-base lg:text-lg prose-p:font-normal text-white prose-h2:text-3xl prose-h3:text-2xl prose-headings:py-3 prose-p:my-2 first:prose-p:mt-0 last:prose-p:mb-0 prose-blockquote:px-6 prose-blockquote:py-5 prose-blockquote:border-l-[6px] prose-blockquote:border-kuro-lavender-300 prose-blockquote:bg-kuro-lavender-900 prose-blockquote:bg-opacity-40 prose-blockquote:my-2.5 prose-blockquote:text-kuro-violet-50 prose-p:prose-blockquote:!font-medium"
     />
   </div>
 </Layout>

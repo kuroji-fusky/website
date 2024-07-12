@@ -32,6 +32,7 @@ export interface BlogPostContent {
     content: EntryFieldTypes.RichText
     overridePublishDate: EntryFieldTypes.Date
     slug: EntryFieldTypes.Text
+    isFeatured: EntryFieldTypes.Boolean
     banner: EntryFieldEmbed
   }
 }

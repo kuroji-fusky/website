@@ -11,12 +11,13 @@ interface Props {
   title: string
   description?: string
   webpageType?: "website" | "article"
+  includeHeading?: true
 }
 
 // Set Cache-Control headers for CDN caching
 Astro.response.headers.set("Cache-Control", "public, s-maxage=60, stale-while-revalidate=30")
 
-const { title, description, webpageType = "website" } = Astro.props
+const { title, description, webpageType = "website", includeHeading } = Astro.props
 const { pathname: pathCrumbs } = Astro.url
 
 const canonicalUrl = new URL(pathCrumbs, Astro.site)
@@ -61,6 +62,14 @@ const _title = pathCrumbs !== "/" ? `${title} | ${siteTitle}` : title
     >
     <Navbar client:idle />
     <main class="min-h-[calc(100dvh-4.25rem)]" id="skip-to-content">
+      {
+        includeHeading && (
+          <div class="px-8 max-w-screen-2xl mx-auto my-6">
+            <h1 class="text-4xl font-extrabold mb-2.5">{title}</h1>
+            <p class="opacity-75">{description}</p>
+          </div>
+        )
+      }
       <slot />
     </main>
     <Footer />
