@@ -9,7 +9,7 @@ export const parseDateStr = (dateStr: string, options?: ParseDateStrOptions) => 
 
   const localeLocation = "en-US"
   const localeOptions = {
-    month: "short",
+    month: "long",
     day: "numeric",
     year: "numeric"
   } as Intl.DateTimeFormatOptions

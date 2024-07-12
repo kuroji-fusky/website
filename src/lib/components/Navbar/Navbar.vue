@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import logoLetter from "../icons/logo-brand.svg?raw"
+import logoLetter from "../../icons/logo-brand.svg?raw"
 import NavbarSubItem from "./NavbarSubItem.vue"
 
 import { navItems } from "./Navbar.constants"
