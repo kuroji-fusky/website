@@ -1,6 +1,10 @@
 import contentful from "contentful"
 import type { EntrySkeletonType } from "contentful"
-import type { ContentEntries } from "./types"
+import type { ContentEntries } from "./internalTypes"
+
+const CTF_DOMAIN = ".contentful.com"
+const DELIVERY = "cdn"
+const PREVIEW = "preview"
 
 const isDevelopment = import.meta.env.DEV
 
@@ -9,7 +13,7 @@ const client = contentful.createClient({
   accessToken: isDevelopment
     ? import.meta.env.CONTENTFUL_PREVIEW_TOKEN
     : import.meta.env.CONTENTFUL_DELIVERY_TOKEN,
-  host: isDevelopment ? "preview.contentful.com" : "cdn.contentful.com"
+  host: isDevelopment ? `${PREVIEW}${CTF_DOMAIN}` : `${DELIVERY}${CTF_DOMAIN}`
 })
 
 export const fetchContentEntries = async <Entry extends EntrySkeletonType>({

@@ -54,11 +54,8 @@ const isMobileNavExpanded = isMobile && isNavExpanded
         >
           <div v-for="root in navItems" class="group/items group/topnav flex flex-col !items-start">
             <template v-if="root.link">
-              <a
-                :href="root.link"
-                class="inline-flex items-center gap-x-1.5 md:group-hover/topnav:text-kuro-lavender-300"
-              >
-                <span>{{ root.text }}</span>
+              <a :href="root.link" class="inline-flex items-center gap-x-1.5">
+                <span class="md:group-hover/topnav:text-kuro-lavender-300">{{ root.text }}</span>
                 <IconChevronDown
                   v-if="root.subitems"
                   size="19"
