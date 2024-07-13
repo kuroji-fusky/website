@@ -1,6 +1,6 @@
 import contentful from "contentful"
 import type { EntrySkeletonType } from "contentful"
-import type { ContentEntries } from "./internalTypes"
+import type { ContentEntries } from "./types"
 
 const CTF_DOMAIN = ".contentful.com"
 const DELIVERY = "cdn"
