@@ -5,14 +5,12 @@
   <a href="https://kurojifusky.com">kurojifusky.com</a>
 </h1>
 
-The source code of my personal website! Written in Astro + Svelte, with a separate Go server
+The source code of my personal website! Written in Astro + Vue
 
 ## APIs used
 
 - Contentful
-- SteamLadder
 - YouTube Data API
-- Wakatime
 
 ## Running the abominations locally
 
@@ -24,6 +22,27 @@ The source code of my personal website! Written in Astro + Svelte, with a separa
 
 ### Setup and installation
 
-Clone and install dependencies with Yarn with `yarn install`; start the dev server with `yarn dev`.
+- This repo contains submodules and clone it with the following along with its corresponding submodules:
+
+  ```console
+  git clone https://github.com/kurojifusky/kurojifusky.com --recurse-submodules
+  cd kurojifusky.com
+  ```
+
+- Install dependencies with `yarn`:
+
+  ```ps1
+  yarn install # or yarn
+  ```
+
+- (Optional) In the `kuro-api` directory, run `main.go` normally and it would download the required
+  dependencies if not available:
+
+  ```console
+  cd kuro-api
+  go run main.go
+  ```
+
+## Copyright
 
 © 2021-2024 Kerby Keith Aquino
