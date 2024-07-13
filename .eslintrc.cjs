@@ -5,7 +5,7 @@ module.exports = {
     browser: true
   },
   ignorePatterns: ["node_modules/", "kuro-api/", ".vercel/", ".astro/", ".env"],
-  extends: ["eslint:recommended", "plugin:astro/recommended"],
+  extends: ["@fusky-labs/base", "plugin:astro/recommended"],
   parser: "astro-eslint-parser",
   overrides: [
     {

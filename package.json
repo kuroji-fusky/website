@@ -3,6 +3,7 @@
   "version": "9.0.0",
   "type": "module",
   "license": "UNLICENSED",
+  "private": "true",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -12,10 +13,9 @@
     "lint": "prettier --check . && eslint \"./**/*.{js,mjs,cjs,astro}\"",
     "lint:fix": "prettier --write . && eslint --quiet --fix \"./**/*.{js,mjs,cjs,astro}\""
   },
-  "lint-staged": {
-    "src/**": "prettier --write .",
-    "shared/**": "prettier --write ."
-  },
+  "workspaces": [
+    "fusky-labs-eslint/**"
+  ],
   "dependencies": {
     "@astrojs/check": "^0.6.0",
     "@astrojs/mdx": "^3.1.2",
