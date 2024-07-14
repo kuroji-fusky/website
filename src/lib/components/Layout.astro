@@ -35,11 +35,20 @@ const _title = pathCrumbs !== "/" ? `${title} | ${siteTitle}` : title
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <title>{_title}</title>
     <link rel="sitemap" href="/sitemap-index.xml" />
+
     <link rel="preconnect" href="https://images.ctfassets.net/" crossorigin="" />
+
     <meta name="generator" content={Astro.generator} />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
     {webpageType === "article" && <meta name="author" content="Kuroji Fusky" />}
+    <!-- TODO make this dynamic -->
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Kuroji Fusky"
+      href={new URL("rss.xml", Astro.site)}
+    />
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />

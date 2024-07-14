@@ -3,11 +3,11 @@ import type { BlogPostContent, ContentEntries, CTFImg } from "./types"
 
 const sortInAscendingOrder = <T extends object>(arr: T[]) => {
   // @ts-ignore
-  return arr.sort((a, b) => (new Date(b.date) as any) - (new Date(a.date) as any))
+  return arr.sort((a, b) => Date.parse(b.date) - Date.parse(a.date))
 }
 
 export const blogPosts = async (pwops: ContentEntries & CTFImg) => {
-  const { limit, img, category } = pwops
+  const { limit, category } = pwops
 
   const entries = await fetchContentEntries<BlogPostContent>({ limit, category })
 
@@ -30,7 +30,7 @@ export const blogPosts = async (pwops: ContentEntries & CTFImg) => {
     }
   })
 
-  return sortInAscendingOrder(posts) as typeof posts
+  return sortInAscendingOrder(posts)
 }
 
 export type BlogPostsReturnType = Awaited<ReturnType<typeof blogPosts>>
