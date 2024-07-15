@@ -36,7 +36,10 @@ export default defineConfig({
   },
   site: "https://kurojifusky.com",
   image: {
-    domains: ["images.ctfassets.net"],
+    remotePatterns: [
+      { protocol: "https", hostname: "images.ctfassets.net" },
+      { protocol: "https", hostname: "fuskylabs-cdn.imgix.net" }
+    ],
     service: squooshImageService()
   },
   redirects: {

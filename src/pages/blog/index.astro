@@ -8,7 +8,9 @@ import { Image } from "astro:assets"
 
 const posts = await blogPosts({ limit: 9 })
 
-const [postFeaturedBig, ...postFeaturedRest] = posts.filter((x) => x.isFeatured === true)
+const [postFeaturedBig, ...postFeaturedRest] = posts
+  .filter((x) => x.isFeatured === true)
+  .slice(0, 4)
 
 const {
   headings: { blog }
@@ -17,8 +19,8 @@ const {
 
 <Layout title={blog.title} description={blog.description} includeHeading>
   <div class="mx-auto max-w-screen-2xl px-8">
-    <section class="flex gap-x-8">
-      <div class="flex-shrink-0 w-3/5">
+    <section class="flex gap-x-8 flex-col lg:flex-row">
+      <div class="flex-shrink-0 w-full lg:w-3/5 lg:pb-0 pb-6">
         <BlogPost
           style="big"
           title={postFeaturedBig.title}

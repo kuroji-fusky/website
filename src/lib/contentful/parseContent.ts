@@ -1,6 +1,7 @@
 import type { Options } from "@contentful/rich-text-html-renderer"
 import { BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types"
 import type { CustomInlineEntry } from "./types"
+import { kebabCase } from "lodash-es"
 
 /**
  * Writing stringed HTML is gross, so I made this so it's less error-prone lol
@@ -42,6 +43,12 @@ export const rendererOptions: Partial<Options> = {
       sanitizedHTML("code", t, { class: "rounded-md bg-kuro-lavender-900 text-base py-0.5 px-1" })
   },
   renderNode: {
+    [BLOCKS.HEADING_2]: (node, next) =>
+      sanitizedHTML("h2", next(node.content), { id: kebabCase((node.content[0] as any).value) }),
+    [BLOCKS.HEADING_3]: (node, next) =>
+      sanitizedHTML("h3", next(node.content), { id: kebabCase((node.content[0] as any).value) }),
+    [BLOCKS.UL_LIST]: (node, next) =>
+      sanitizedHTML("ul", next(node.content), { class: "list-disc ml-6" }),
     [BLOCKS.QUOTE]: (node, next) =>
       sanitizedHTML("blockquote", next(node.content), {
         class:
@@ -52,17 +59,18 @@ export const rendererOptions: Partial<Options> = {
       if (!nodeContent.some((x) => (x as any).value === ""))
         return sanitizedHTML("p", next(nodeContent))
 
-      return sanitizedHTML("div", next(nodeContent))
+      return sanitizedHTML("p", next(nodeContent))
     },
     [BLOCKS.EMBEDDED_ASSET]: (node) => {
       const embedFields = node.data.target.fields
 
       return sanitizedHTML("img", null, {
         src: `https:${embedFields.file.url}`,
-        alt: "${embedFields.title}",
+        alt: embedFields.title,
         class: "rounded-md h-[32rem] mx-auto"
       })
     },
+
     [INLINES.EMBEDDED_ENTRY]: (node) => {
       const { sys, fields } = node.data.target as CustomInlineEntry
       const strippedUrl = fields.url?.split("/").at(-1)

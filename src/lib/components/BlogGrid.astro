@@ -12,7 +12,7 @@ const { posts, heading } = Astro.props
 ---
 
 <section>
-  {heading && <h2>{heading}</h2>}
+  {heading && <h2 class="text-3xl py-4 font-bold">{heading}</h2>}
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-9">
     {
       posts.map((item) => (

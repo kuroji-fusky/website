@@ -12,13 +12,16 @@ defineProps<{
 }>()
 
 const isNavExpanded = ref(false)
-const isMobile = ref(false)
 
 const handleMobileThingy = () => {
-  const isViewportMobile = window.matchMedia("(max-width: 769px)").matches
-  isMobile.value = isViewportMobile
+  const isViewportMobile = window.matchMedia("(max-width: 768px)").matches
+  const isNavEx = isNavExpanded.value
 
-  if (isNavExpanded.value && !isViewportMobile) {
+  if (isViewportMobile) {
+    if (!isNavEx) isNavExpanded.value = true
+  }
+
+  if (!isViewportMobile && isNavEx) {
     isNavExpanded.value = false
   }
 }
@@ -29,8 +32,6 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("resize", handleMobileThingy)
 })
-
-const isMobileNavExpanded = isMobile && isNavExpanded
 </script>
 
 <template>
@@ -49,7 +50,7 @@ const isMobileNavExpanded = isMobile && isNavExpanded
         <div
           :class="[
             'flex flex-col absolute top-14 inset-x-0 h-screen bg-kuro-dark2 md:relative md:contents *:px-3.5 *:py-3.5 *:inline-flex *:items-center *:gap-x-1.5 *:relative',
-            isMobileNavExpanded ? 'invisible' : 'visible'
+            isNavExpanded ? 'invisible' : 'visible'
           ]"
         >
           <div v-for="root in navItems" class="group/items group/topnav flex flex-col !items-start">
