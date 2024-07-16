@@ -5,7 +5,7 @@
   <a href="https://kurojifusky.com">kurojifusky.com</a>
 </h1>
 
-The source code of my personal website! Written in Astro + Vue
+The source code of my personal website! Written in Astro and Vue.
 
 ## APIs used
 
@@ -16,7 +16,6 @@ The source code of my personal website! Written in Astro + Vue
 
 ### Prerequisties
 
-- Go v1.20 or higher
 - Node.js v20 or higher (LTS recommended)
 - Yarn
 
@@ -33,14 +32,6 @@ The source code of my personal website! Written in Astro + Vue
 
   ```ps1
   yarn install # or yarn
-  ```
-
-- (Optional) In the `kuro-api` directory, run `main.go` normally and it would download the required
-  dependencies if not available:
-
-  ```console
-  cd kuro-api
-  go run main.go
   ```
 
 ## Copyright

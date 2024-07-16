@@ -14,7 +14,8 @@ export default defineConfig({
   adapter: vercel({
     webAnalytics: {
       enabled: true
-    }
+    },
+    isr: true
   }),
   prefetch: {
     prefetchAll: true
@@ -36,11 +37,11 @@ export default defineConfig({
   },
   site: "https://kurojifusky.com",
   image: {
+    service: squooshImageService(),
     remotePatterns: [
       { protocol: "https", hostname: "images.ctfassets.net" },
       { protocol: "https", hostname: "fuskylabs-cdn.imgix.net" }
-    ],
-    service: squooshImageService()
+    ]
   },
   redirects: {
     "/blog/posts/[slug]": "/blog/[slug]",
