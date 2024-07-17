@@ -35,6 +35,9 @@ const sanitizedHTML = <T extends keyof HTMLElementTagNameMap, C = string>(
   return [START_TAG, content, END_TAG].join("")
 }
 
+const kebabHeadings = (tag: keyof HTMLElementTagNameMap, heading: any, node: any) =>
+  sanitizedHTML(tag, node, { id: kebabCase(heading) })
+
 export const rendererOptions: Partial<Options> = {
   renderMark: {
     [MARKS.BOLD]: (t) => sanitizedHTML("strong", t),
@@ -43,10 +46,8 @@ export const rendererOptions: Partial<Options> = {
       sanitizedHTML("code", t, { class: "rounded-md bg-kuro-lavender-900 text-base py-0.5 px-1" })
   },
   renderNode: {
-    [BLOCKS.HEADING_2]: (node, next) =>
-      sanitizedHTML("h2", next(node.content), { id: kebabCase((node.content[0] as any).value) }),
-    [BLOCKS.HEADING_3]: (node, next) =>
-      sanitizedHTML("h3", next(node.content), { id: kebabCase((node.content[0] as any).value) }),
+    [BLOCKS.HEADING_2]: (node, next) => kebabHeadings("h2", node.content[0], next(node.content)),
+    [BLOCKS.HEADING_3]: (node, next) => kebabHeadings("h3", node.content[0], next(node.content)),
     [BLOCKS.UL_LIST]: (node, next) =>
       sanitizedHTML("ul", next(node.content), { class: "list-disc ml-6" }),
     [BLOCKS.QUOTE]: (node, next) =>
@@ -84,7 +85,7 @@ export const rendererOptions: Partial<Options> = {
         })
       }
 
-      return sanitizedHTML("div", node)
+      return sanitizedHTML("p", JSON.stringify(node))
     },
     [INLINES.HYPERLINK]: (node, next) =>
       sanitizedHTML("a", next(node.content), {
