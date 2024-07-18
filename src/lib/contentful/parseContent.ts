@@ -2,38 +2,7 @@ import type { Options } from "@contentful/rich-text-html-renderer"
 import { BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types"
 import type { CustomInlineEntry } from "./types"
 import { kebabCase } from "lodash-es"
-
-/**
- * Writing stringed HTML is gross, so I made this so it's less error-prone lol
- *
- * @param tag A vaild HTML tag
- * @param attrs Attributes from the HTML element you provided
- * @param content Anything that'll be appended from `textContent`
- * @returns A gorgeous HTML string that's safe to parse for Contentful to eat :3
- */
-const sanitizedHTML = <T extends keyof HTMLElementTagNameMap, C = string>(
-  tag: T,
-  attrs?: Partial<Omit<HTMLElementTagNameMap[T], keyof HTMLElementTagNameMap[T]>>,
-  content?: C
-) => {
-  // `document` and `window` is not available for server so I had to deal cobbling with fukin arrays
-  const START_TAG = `<${tag}>`
-  const END_TAG = `</${tag}>`
-
-  const START_TAG_SC = `<${tag} `
-  const END_TAG_SC = ` />`
-
-  const parsedAttributes = attrs
-    ? Object.entries(attrs)
-        .map(([k, v]) => `${k}="${v}"`)
-        .join(" ")
-    : ""
-
-  if (tag === "img") return [START_TAG_SC, parsedAttributes, END_TAG_SC].join("")
-  if (parsedAttributes) return [START_TAG_SC, parsedAttributes, ">", content, END_TAG].join("")
-
-  return [START_TAG, content, END_TAG].join("")
-}
+import sanitizedHTML from "./sanitizeHTML"
 
 const kebabHeadings = (tag: keyof HTMLElementTagNameMap, heading: any, node: any) =>
   sanitizedHTML(tag, { id: kebabCase(heading.value) }, node)

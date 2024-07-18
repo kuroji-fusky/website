@@ -1,3 +1,3 @@
 export * from "./types"
-export * from "./blogPosts"
+export * from "./fetchBlogPosts"
 export * from "./parseContent"

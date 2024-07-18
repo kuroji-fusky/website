@@ -3,11 +3,11 @@ import { Image } from "astro:assets"
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer"
 
 import Layout from "$components/Layout.astro"
-import { blogPosts, rendererOptions, parseForTOC } from "$lib/contentful"
+import { fetchBlogPosts, rendererOptions, parseForTOC } from "$lib/contentful"
 import BlogHeader from "$lib/components/blog/BlogHeader.svelte"
 
 export async function getStaticPaths() {
-  const posts = await blogPosts({
+  const posts = await fetchBlogPosts({
     img: {
       width: 1920,
       height: 1080,

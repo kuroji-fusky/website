@@ -19,7 +19,7 @@ const client = contentful.createClient({
 export const fetchContentEntries = async <Entry extends EntrySkeletonType>({
   limit,
   category
-}: ContentEntries) => {
+}: Omit<ContentEntries, "img">) => {
   return await client.getEntries<Entry>({
     content_type: "blogPost",
     limit,

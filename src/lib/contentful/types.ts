@@ -1,11 +1,11 @@
 import type { EntryFieldTypes } from "contentful"
+export type { EntryFieldTypes }
+
+export type AwaitedReturnType<T extends (...args: any) => any> = Awaited<ReturnType<T>>
 
 export interface ContentEntries {
   limit?: number
   category?: string
-}
-
-export interface CTFImg {
   img?: {
     quality?: number
     width?: number
@@ -26,33 +26,10 @@ export interface CustomInlineEntry {
   }
 }
 
-type EntryFieldEmbed = EntryFieldTypes.Object<{
+export type EntryFieldEmbed = EntryFieldTypes.Object<{
   fields: {
     file: {
       url: string
     }
   }
 }>
-
-export interface BlogPostContent {
-  contentTypeId: "blogPost"
-  fields: {
-    title: EntryFieldTypes.Text
-    description: EntryFieldTypes.Text
-    category: EntryFieldTypes.Array<EntryFieldTypes.Symbol>
-    content: EntryFieldTypes.RichText
-    overridePublishDate: EntryFieldTypes.Date
-    slug: EntryFieldTypes.Text
-    isFeatured: EntryFieldTypes.Boolean
-    banner: EntryFieldEmbed
-  }
-}
-
-export interface TheVaultContent {
-  contentTypeId: "theVault"
-  fields: {
-    title: EntryFieldTypes.Text
-    excerpt: EntryFieldTypes.Text
-    content: EntryFieldTypes.RichText
-  }
-}

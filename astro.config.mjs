@@ -43,6 +43,13 @@ export default defineConfig({
       { protocol: "https", hostname: "fuskylabs-cdn.imgix.net" }
     ]
   },
+  build: {
+    assets: "kuro"
+  },
+  experimental: {
+    directRenderScript: true,
+    clientPrerender: true
+  },
   redirects: {
     "/blog/posts/[slug]": "/blog/[slug]",
     "/blog/post/[slug]": "/blog/[slug]",

@@ -1,13 +1,13 @@
 ---
 import Layout from "$components/Layout.astro"
 import BlogGrid from "$lib/components/blog/BlogGrid.astro"
-import { blogPosts } from "$lib/contentful"
+import { fetchBlogPosts } from "$lib/contentful"
 import config from "$lib/constants"
 import BlogPost from "$components/blog/BlogPost.vue"
 import { Image } from "astro:assets"
 import BlogBrowserShelf from "$lib/components/blog/BlogBrowserShelf.svelte"
 
-const posts = await blogPosts({ limit: 9 })
+const posts = await fetchBlogPosts({ limit: 9 })
 
 const [postFeaturedBig, ...postFeaturedRest] = posts
   .filter((x) => x.isFeatured === true)
