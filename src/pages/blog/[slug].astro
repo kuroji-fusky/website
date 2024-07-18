@@ -68,10 +68,10 @@ const baseUrl = `${protocol}//${host}`
         widths={[540, 960, 1440]}
         height={1920}
         width={1080}
-        quality={95}
+        quality={90}
         loading="eager"
         sizes="(max-width: 360px) 540px, (max-width: 720px) 960px, (max-width: 1600px) 1440px"
-        class="overflow-hidden aspect-[16/8] rounded-lg w-full object-cover"
+        class="overflow-hidden aspect-video rounded-lg w-full object-cover"
         src={banner}
         alt={`Banner for ${title}`}
         fetchpriority="high"
@@ -87,9 +87,14 @@ const baseUrl = `${protocol}//${host}`
         </span>
       </div>
     </section>
-    <article
-      set:html={documentToHtmlString(shit, rendererOptions)}
-      class="flex-1 text-base lg:text-lg prose-p:font-normal text-white prose-h2:text-3xl prose-h3:text-2xl prose-headings:py-3 prose-p:my-2 first:prose-p:mt-0 last:prose-p:mb-0"
-    />
+    <div class="flex gap-x-6">
+      <article
+        set:html={documentToHtmlString(shit, rendererOptions)}
+        class="flex-1 text-base lg:text-lg prose-p:font-normal text-white prose-h2:text-3xl prose-h3:text-2xl prose-headings:py-3 prose-p:my-2 first:prose-p:mt-0 last:prose-p:mb-0"
+      />
+      <aside class="[align-self:start] w-64 sticky top-20">
+        <div class="my-2 font-bold text-xl">In this article</div>
+      </aside>
+    </div>
   </div>
 </Layout>
