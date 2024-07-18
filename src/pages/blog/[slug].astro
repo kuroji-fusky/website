@@ -42,7 +42,7 @@ const baseUrl = `${protocol}//${host}`
 
 <Layout {title} {description} webpageType="article">
   <div
-    class="mt-8 px-8 max-w-screen-xl mx-auto prose-headings:font-bold flex flex-col gap-y-5 [&_p]:leading-8"
+    class="mt-8 px-8 max-w-screen-xl mx-auto prose-headings:font-bold flex flex-col gap-y-5 [&_p]:leading-7 lg:[&_p]:leading-8"
     itemtype="http://schema.org/Blog"
     itemscope
   >
@@ -79,11 +79,12 @@ const baseUrl = `${protocol}//${host}`
         itemprop="image"
       />
       <div class="flex items-center py-5 gap-x-4">
-        <span class="flex-1"></span>
+        <div class="flex-1 flex flex-wrap gap-3">Tags placeholder</div>
         <div class="border-l-2 border-l-kuro-violet-50 h-4"></div>
-        <time datetime={date} itemprop="datePublished"
-          >{`Posted on ${parseDateStr(date).readableDate}`}</time
-        >
+        <span>
+          {"Posted on "}
+          <time datetime={date} itemprop="datePublished">{parseDateStr(date).readableDate}</time>
+        </span>
       </div>
     </section>
     <article
