@@ -1,7 +1,6 @@
 ---
 import Navbar from "./Navbar/Navbar.vue"
 import Footer from "./Footer.svelte"
-import SearchModal from "./SearchModal.vue"
 
 import "@fontsource/inter"
 import "@fontsource/inter/600.css"
@@ -29,7 +28,7 @@ const siteTitle = "Kuroji Fusky"
 const _title = pathCrumbs !== "/" ? `${title} | ${siteTitle}` : title
 ---
 
-<html lang="en">
+<html lang="en" class="scroll-pt-20 scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -86,6 +85,5 @@ const _title = pathCrumbs !== "/" ? `${title} | ${siteTitle}` : title
       <slot />
     </main>
     <Footer />
-    <SearchModal client:visible />
   </body>
 </html>

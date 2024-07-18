@@ -45,7 +45,7 @@ export const rendererOptions: Partial<Options> = {
     [MARKS.CODE]: (t) =>
       sanitizedHTML(
         "code",
-        { class: "rounded-md bg-kuro-lavender-900 text-[0.9rem] py-0.5 px-1" },
+        { class: "rounded-md bg-kuro-lavender-900 text-[0.96rem] py-0.5 px-1" },
         t
       )
   },
@@ -89,23 +89,9 @@ export const rendererOptions: Partial<Options> = {
       const strippedUrl = fields.url?.split("/").at(-1)
 
       if (sys.contentType.sys.id === "youTubeVideo") {
-        return sanitizedHTML(
-          "yt-embed-wrapper",
-          {
-            videoid: strippedUrl
-          }
-          // sanitizedHTML(
-          //   "iframe",
-          //   {
-          //     src: `https://www.youtube-nocookie.com/embed/${strippedUrl}`,
-          //     allow: "clipboard-write; encrypted-media; web-share;",
-          //     class:
-          //       "rounded-md h-[56.25vw] w-screen mx-auto block aspect-video rounded-md overflow-hidden block",
-          //     frameborder: "0"
-          //   },
-          //   null
-          // )
-        )
+        return sanitizedHTML("yt-embed-wrapper", {
+          videoid: strippedUrl
+        })
       }
 
       return sanitizedHTML("p", {}, JSON.stringify(node))
@@ -124,4 +110,30 @@ export const rendererOptions: Partial<Options> = {
   }
 }
 
-export const parseForTOC: Partial<Options> = {}
+const renderNothing = () => ""
+
+export const parseForTOC: Partial<Options> = {
+  renderNode: {
+    [BLOCKS.HEADING_2]: (node, next) =>
+      sanitizedHTML(
+        "a",
+        { class: "block", href: `#${kebabCase(next(node.content))}`, "data-astro-prefetch": false },
+        next(node.content)
+      ),
+    [BLOCKS.HEADING_3]: (node, next) =>
+      sanitizedHTML(
+        "a",
+        {
+          class: "block pl-4",
+          href: `#${kebabCase(next(node.content))}`,
+          "data-astro-prefetch": false
+        },
+        next(node.content)
+      ),
+    [BLOCKS.PARAGRAPH]: renderNothing,
+    [BLOCKS.UL_LIST]: renderNothing,
+    [BLOCKS.OL_LIST]: renderNothing,
+    [BLOCKS.QUOTE]: renderNothing,
+    [BLOCKS.TABLE]: renderNothing
+  }
+}
