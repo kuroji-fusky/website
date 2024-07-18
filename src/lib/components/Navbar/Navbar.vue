@@ -27,6 +27,8 @@ const handleMobileThingy = () => {
 }
 
 onMounted(() => {
+  handleMobileThingy()
+
   window.addEventListener("resize", handleMobileThingy)
 })
 onUnmounted(() => {

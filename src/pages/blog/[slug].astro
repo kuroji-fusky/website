@@ -1,5 +1,6 @@
 ---
 import { Image } from "astro:assets"
+import { kebabCase } from "lodash-es"
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer"
 
 import Layout from "$components/Layout.astro"
@@ -34,6 +35,11 @@ const { protocol, host } = Astro.url
 const baseUrl = `${protocol}//${host}`
 ---
 
+<script>
+  // Importing client-side Lit components because frick you that's why
+  await import("$lib/components/embeds/YoutubeEmbed")
+</script>
+
 <Layout {title} {description} webpageType="article">
   <div
     class="mt-8 px-8 max-w-screen-xl mx-auto prose-headings:font-bold flex flex-col gap-y-5 [&_p]:leading-8"
@@ -47,7 +53,7 @@ const baseUrl = `${protocol}//${host}`
           categories.map((cat) => (
             <a
               class="bg-clip-text text-transparent font-semibold bg-gradient-to-tr to-kuro-royalblue-200 from-kuro-lavender-400 hover:selection:text-white selection:text-white"
-              href={`${baseUrl}/blog/category/${cat.toLowerCase()}`}
+              href={`${baseUrl}/blog/category/${kebabCase(cat)}`}
             >
               {cat}
             </a>

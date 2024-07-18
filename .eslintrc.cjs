@@ -21,5 +21,10 @@ module.exports = {
     }
   ],
 
-  rules: {}
+  rules: {
+    "@stylistic/object-curly-newline": 0,
+
+    "import/no-deprecated": 0,
+    "import/namespace": 0
+  }
 }

@@ -5,6 +5,8 @@
     "paths": {
       "$lib/*": ["src/lib/*"],
       "$components/*": ["src/lib/components/*"]
-    }
+    },
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false
   }
 }
