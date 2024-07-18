@@ -45,8 +45,11 @@ onUnmounted(() => {
         </a>
         <span>{{ pathCrumbs }}</span>
       </div>
-      <div class="flex [&_button]:px-3.5 [&_button]:py-3.5 hover:[&_button]:text-kuro-lavender-400">
-        <button class="md:hidden block" @click="isNavExpanded = !isNavExpanded">
+      <div class="flex">
+        <button
+          class="md:hidden block px-3.5 py-3.5 hover:text-kuro-lavender-400"
+          @click="isNavExpanded = !isNavExpanded"
+        >
           <IconMenu height="19" width="19" />
         </button>
         <div
@@ -83,9 +86,6 @@ onUnmounted(() => {
             </template>
           </div>
         </div>
-        <button>
-          <IconSearch height="19" width="19" />
-        </button>
       </div>
     </div>
   </nav>

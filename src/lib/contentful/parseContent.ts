@@ -43,7 +43,11 @@ export const rendererOptions: Partial<Options> = {
     [MARKS.BOLD]: (t) => sanitizedHTML("strong", {}, t),
     [MARKS.ITALIC]: (t) => sanitizedHTML("em", {}, t),
     [MARKS.CODE]: (t) =>
-      sanitizedHTML("code", { class: "rounded-md bg-kuro-lavender-900 text-base py-0.5 px-1" }, t)
+      sanitizedHTML(
+        "code",
+        { class: "rounded-md bg-kuro-lavender-900 text-[0.9rem] py-0.5 px-1" },
+        t
+      )
   },
   renderNode: {
     [BLOCKS.HEADING_2]: (node, next) => kebabHeadings("h2", node.content[0], next(node.content)),
@@ -74,7 +78,7 @@ export const rendererOptions: Partial<Options> = {
         {
           src: `https:${embedFields.file.url}`,
           alt: embedFields.title,
-          class: "rounded-md max-h-[32rem] mx-auto"
+          class: "rounded-xl max-h-[32rem] mx-auto"
         },
         null
       )

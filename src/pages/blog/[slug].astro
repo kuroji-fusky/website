@@ -6,6 +6,7 @@ import { documentToHtmlString } from "@contentful/rich-text-html-renderer"
 import Layout from "$components/Layout.astro"
 import { blogPosts, rendererOptions } from "$lib/contentful"
 import { parseDateStr } from "$lib/parseDateStr"
+import BlogHeader from "$lib/components/blog/BlogHeader.svelte"
 
 export async function getStaticPaths() {
   const posts = await blogPosts({
@@ -47,23 +48,7 @@ const baseUrl = `${protocol}//${host}`
     itemscope
   >
     <meta itemprop="thumbnailUrl" content={banner} />
-    <section>
-      <span class="inline-flex mb-2.5 gap-x-6">
-        {
-          categories.map((cat) => (
-            <a
-              class="bg-clip-text text-transparent font-semibold bg-gradient-to-tr to-kuro-royalblue-200 from-kuro-lavender-400 hover:selection:text-white selection:text-white"
-              href={`${baseUrl}/blog/category/${kebabCase(cat)}`}
-            >
-              {cat}
-            </a>
-          ))
-        }
-      </span>
-      <h1 class="text-3xl lg:text-[2.625rem] lg:leading-tight not-prose font-extrabold text-white">
-        {title}
-      </h1>
-      <p class="text-base lg:text-lg opacity-65 py-2 lg:py-3.5">{description}</p>
+    <BlogHeader {categories} {title} {description} {date} {baseUrl}>
       <Image
         widths={[540, 960, 1440]}
         height={1920}
@@ -78,19 +63,11 @@ const baseUrl = `${protocol}//${host}`
         draggable="false"
         itemprop="image"
       />
-      <div class="flex items-center py-5 gap-x-4">
-        <div class="flex-1 flex flex-wrap gap-3">Tags placeholder</div>
-        <div class="border-l-2 border-l-kuro-violet-50 h-4"></div>
-        <span>
-          {"Posted on "}
-          <time datetime={date} itemprop="datePublished">{parseDateStr(date).readableDate}</time>
-        </span>
-      </div>
-    </section>
+    </BlogHeader>
     <div class="flex gap-x-6">
       <article
         set:html={documentToHtmlString(shit, rendererOptions)}
-        class="flex-1 text-base lg:text-lg prose-p:font-normal text-white prose-h2:text-3xl prose-h3:text-2xl prose-headings:py-3 prose-p:my-2 first:prose-p:mt-0 last:prose-p:mb-0"
+        class="flex-1 text-base lg:text-lg prose-p:font-normal text-white prose-h2:text-3xl prose-h3:text-2xl prose-headings:py-1.5 prose-p:my-4 first:prose-p:mt-0 last:prose-p:mb-0"
       />
       <aside class="[align-self:start] w-64 sticky top-20">
         <div class="my-2 font-bold text-xl">In this article</div>

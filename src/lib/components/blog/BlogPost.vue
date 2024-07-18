@@ -17,7 +17,7 @@ const props = withDefaults(
 
 const { readableDate, isoDate } = parseDateStr(props.date)
 
-const _parsedSlug = `/blog/${props.slug}`
+const _parsedSlug = `/blog/${props.slug}?from=featured_shelf`
 
 const isLayoutCompactOnly = props.style === "big" || props.style === "normal"
 </script>

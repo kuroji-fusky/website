@@ -7,12 +7,13 @@ export class YoutubeEmbed extends LitElement {
 
   render() {
     return html`<div style="position: relative; width: 100%; height: 0;padding-bottom: 56.25%;">
-      <iframe
-        src="https://www.youtube-nocookie.com/embed/${this.videoId}"
-        frameborder="0"
-        style="position: absolute; width: 100%;height: 100%; left: 0; top: 0; border-radius: 0.5rem;"
-      ></iframe>
-    </div>`
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/${this.videoId}"
+          frameborder="0"
+          style="position: absolute; width: 100%;height: 100%; left: 0; top: 0; border-radius: 0.5rem;"
+        ></iframe>
+      </div>
+      <div></div> `
   }
 }
 

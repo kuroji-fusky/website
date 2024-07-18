@@ -5,7 +5,7 @@ import twDefaults from "tailwindcss/defaultTheme"
 const { sans, mono } = twDefaults.fontFamily
 
 export default {
-  content: ["./src/**/*.{astro,md,mdx,vue,ts}"],
+  content: ["./src/**/*.{astro,md,mdx,vue,ts,svelte}"],
   experimental: {
     optimizeUniversalDefaults: true
   },
