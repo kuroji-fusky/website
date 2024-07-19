@@ -1,10 +1,21 @@
 ---
-import Layout from "$components/Layout.astro"
+import Layout from "src/layouts/Layout.astro"
 import { Schema } from "astro-seo-schema"
+import { Image } from "astro:assets"
 ---
 
 <Layout title="Home">
-  <section class="h-[calc(100dvh-3rem)]">hero</section>
+  <section class="h-[calc(100dvh-3rem)]">
+    <Image
+      height={1280}
+      width={720}
+      loading="eager"
+      sizes="(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px"
+      class="w-1/4 object-cover aspec transition-transform duration-300"
+      src="https://fuskylabs-cdn.imgix.net/commissions/23/dougly_icon-transformed.png"
+      alt=""
+    />
+  </section>
 </Layout>
 <Schema
   item={{
