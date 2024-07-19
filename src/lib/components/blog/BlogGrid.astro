@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets"
-import type { BlogPostsReturnType } from "$lib/contentful"
-import BlogPost from "./BlogPost.vue"
+import type { BlogPostsReturnType } from "$contentful"
+import BlogItem from "./BlogItem.svelte"
 
 interface Props {
   posts: BlogPostsReturnType
@@ -16,26 +16,24 @@ const { posts, heading } = Astro.props
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-9">
     {
       posts.map((item) => (
-        <BlogPost
+        <BlogItem
           slug={item.slug}
           title={item.title}
           description={item.description}
           date={item.date}
           category={item.category}
         >
-          {item.banner && (
-            <Image
-              widths={[240, 540, 720]}
-              height={1280}
-              width={720}
-              loading="eager"
-              sizes="(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px"
-              class="w-full object-cover aspect-video transition-transform duration-300"
-              src={item.banner}
-              alt={`Banner for ${item.title}`}
-            />
-          )}
-        </BlogPost>
+          <Image
+            widths={[240, 540, 720]}
+            height={1280}
+            width={720}
+            loading="eager"
+            sizes="(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px"
+            class="w-full object-cover aspect-video transition-transform duration-300"
+            src={item.banner}
+            alt={`Banner for ${item.title}`}
+          />
+        </BlogItem>
       ))
     }
   </div>

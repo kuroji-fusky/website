@@ -2,9 +2,9 @@
 import { Image } from "astro:assets"
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer"
 
-import Layout from "$components/Layout.astro"
-import { fetchBlogPosts, rendererOptions, parseForTOC } from "$lib/contentful"
-import BlogHeader from "$lib/components/blog/BlogHeader.svelte"
+import Layout from "src/layouts/Layout.astro"
+import { fetchBlogPosts, rendererOptions, parseForTOC } from "$contentful"
+import BlogHeader from "$components/blog/BlogHeader.svelte"
 
 export async function getStaticPaths() {
   const posts = await fetchBlogPosts({
@@ -36,7 +36,7 @@ const baseUrl = `${protocol}//${host}`
 
 <script>
   // Importing client-side Lit components because frick you that's why
-  await import("$lib/components/embeds/YoutubeEmbed")
+  await import("$components/embeds/YoutubeEmbed")
 </script>
 
 <Layout {title} {description} webpageType="article">

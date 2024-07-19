@@ -3,6 +3,12 @@
 
   export let interactiveMode = false
 
+  const filterOptions = ["Category", "Tag", "Chronological"] as const
+
+  type LiteralFilterOpts = (typeof filterOptions)[number] | ""
+
+  let activeItem: LiteralFilterOpts = ""
+
   onMount(() => {})
 </script>
 

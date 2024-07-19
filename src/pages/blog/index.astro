@@ -1,11 +1,11 @@
 ---
-import Layout from "$components/Layout.astro"
-import BlogGrid from "$lib/components/blog/BlogGrid.astro"
-import { fetchBlogPosts } from "$lib/contentful"
+import Layout from "src/layouts/Layout.astro"
+import BlogGrid from "$components/blog/BlogGrid.astro"
+import { fetchBlogPosts } from "$contentful"
 import config from "$lib/constants"
-import BlogPost from "$components/blog/BlogPost.vue"
+import BlogItem from "$components/blog/BlogItem.svelte"
 import { Image } from "astro:assets"
-import BlogBrowserShelf from "$lib/components/blog/BlogBrowserShelf.svelte"
+import BlogBrowserShelf from "$components/blog/BlogBrowserShelf.svelte"
 
 const posts = await fetchBlogPosts({ limit: 9 })
 
@@ -23,13 +23,14 @@ const {
     <BlogBrowserShelf client:idle interactiveMode />
     <section class="flex gap-x-8 flex-col lg:flex-row">
       <div class="flex-shrink-0 w-full lg:w-3/5 lg:pb-0 pb-6">
-        <BlogPost
-          style="big"
+        <BlogItem
+          size="heading"
           title={postFeaturedBig.title}
           description={postFeaturedBig.description}
           date={postFeaturedBig.date}
           slug={postFeaturedBig.slug}
           category={postFeaturedBig.category}
+          referrer="featured_shelf"
         >
           <Image
             widths={[240, 540, 720]}
@@ -41,30 +42,31 @@ const {
             src={postFeaturedBig.banner}
             alt={`Banner for ${postFeaturedBig.title}`}
           />
-        </BlogPost>
+        </BlogItem>
       </div>
       <div class="gap-y-4 divide-y-2 divide-kuro-lavender-800 first:*:pt-0 last:*:pb-0 *:py-4">
         {
           postFeaturedRest.map((item) => (
-            <BlogPost
+            <BlogItem
               title={item.title}
               description={item.description}
               date={item.date}
               slug={item.slug}
               category={item.category}
-              style="compact"
+              size="small"
+              referrer="featured_shelf"
             >
               <Image
-                widths={[240, 540]}
+                widths={[240, 480]}
                 height={600}
                 width={600}
                 quality={60}
                 loading="eager"
-                sizes="(max-width: 360px) 240px, (max-width: 720px) 540px"
+                sizes="(max-width: 360px) 240px, (max-width: 720px) 480px"
                 src={item.banner}
                 alt={`Banner for ${item.title}`}
               />
-            </BlogPost>
+            </BlogItem>
           ))
         }
       </div>

@@ -4,8 +4,14 @@
     "baseUrl": ".",
     "paths": {
       "$lib/*": ["src/lib/*"],
-      "$components/*": ["src/lib/components/*"]
+      "$contentful": ["src/lib/contentful"],
+      "$components/*": ["src/lib/components/*"],
+      "$icons/*": ["src/lib/icons/*"]
     },
+
+    "types": ["unplugin-icons/types/astro"],
+
+    // For Lit components
     "experimentalDecorators": true,
     "useDefineForClassFields": false
   }
