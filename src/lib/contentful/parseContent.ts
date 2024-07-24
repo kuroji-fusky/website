@@ -21,8 +21,17 @@ export const rendererOptions: Partial<Options> = {
   renderNode: {
     [BLOCKS.HEADING_2]: (node, next) => kebabHeadings("h2", node.content[0], next(node.content)),
     [BLOCKS.HEADING_3]: (node, next) => kebabHeadings("h3", node.content[0], next(node.content)),
+    [BLOCKS.HR]: (node) =>
+      sanitizedHTML("hr", { class: "border-kuro-lavender-200 opacity-75" }, null),
     [BLOCKS.UL_LIST]: (node, next) =>
-      sanitizedHTML("ul", { class: "list-disc ml-6" }, next(node.content)),
+      sanitizedHTML(
+        "ul",
+        {
+          class:
+            "flex flex-col ml-2 before:[&_li]:content-['–'] before:[&_li]:opacity-50 before:[&_li]:font-extrabold [&_li]:inline-flex [&_li]:gap-x-3"
+        },
+        next(node.content)
+      ),
     [BLOCKS.QUOTE]: (node, next) =>
       sanitizedHTML(
         "blockquote",
@@ -37,7 +46,7 @@ export const rendererOptions: Partial<Options> = {
       if (!nodeContent.some((x) => (x as any).value === ""))
         return sanitizedHTML("p", {}, next(nodeContent))
 
-      return sanitizedHTML("div", {}, next(nodeContent))
+      return sanitizedHTML("p", {}, next(nodeContent))
     },
     [BLOCKS.EMBEDDED_ASSET]: (node) => {
       const embedFields = node.data.target.fields
@@ -69,7 +78,7 @@ export const rendererOptions: Partial<Options> = {
       sanitizedHTML(
         "a",
         {
-          class: "text-kuro-lavender-300 hover:text-kuro-lavender-400 hover:underline",
+          class: "text-kuro-lavender-300 hover:text-kuro-lavender-400 underline hover:no-underline",
           href: node.data.uri,
           target: "_blank",
           rel: "noopenner noreferrer"
@@ -103,6 +112,10 @@ export const parseForTOC: Partial<Options> = {
     [BLOCKS.UL_LIST]: renderNothing,
     [BLOCKS.OL_LIST]: renderNothing,
     [BLOCKS.QUOTE]: renderNothing,
-    [BLOCKS.TABLE]: renderNothing
+    [BLOCKS.HR]: renderNothing,
+    [BLOCKS.TABLE]: renderNothing,
+    [BLOCKS.TABLE_CELL]: renderNothing,
+    [BLOCKS.TABLE_HEADER_CELL]: renderNothing,
+    [BLOCKS.TABLE_ROW]: renderNothing
   }
 }

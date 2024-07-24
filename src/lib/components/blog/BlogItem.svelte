@@ -42,11 +42,11 @@
   }
 
   #bi-banner.small {
-    @apply size-36 flex-shrink-0 [&_img]:aspect-square;
+    @apply size-36 flex-shrink-0;
   }
   #bi-banner.normal,
   #bi-banner.heading {
-    @apply w-full [&_img]:aspect-video;
+    @apply w-full;
   }
 
   #bi-details.small {
