@@ -1,13 +1,12 @@
-import type { Options } from "@contentful/rich-text-html-renderer"
 import { BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types"
-import type { CustomInlineEntry } from "./types"
+import type { CustomInlineEntry, PartialRenderer } from "../types"
 import { kebabCase } from "lodash-es"
-import sanitizedHTML from "./sanitizeHTML"
+import { sanitizedHTML, renderNothing } from "./utils"
 
 const kebabHeadings = (tag: keyof HTMLElementTagNameMap, heading: any, node: any) =>
   sanitizedHTML(tag, { id: kebabCase(heading.value) }, node)
 
-export const rendererOptions: Partial<Options> = {
+export const rendererOptions: PartialRenderer = {
   renderMark: {
     [MARKS.BOLD]: (t) => sanitizedHTML("strong", {}, t),
     [MARKS.ITALIC]: (t) => sanitizedHTML("em", {}, t),
@@ -21,14 +20,13 @@ export const rendererOptions: Partial<Options> = {
   renderNode: {
     [BLOCKS.HEADING_2]: (node, next) => kebabHeadings("h2", node.content[0], next(node.content)),
     [BLOCKS.HEADING_3]: (node, next) => kebabHeadings("h3", node.content[0], next(node.content)),
-    [BLOCKS.HR]: (node) =>
-      sanitizedHTML("hr", { class: "border-kuro-lavender-200 opacity-75" }, null),
+    [BLOCKS.HR]: () => sanitizedHTML("hr", { class: "border-kuro-lavender-200 opacity-75" }, null),
     [BLOCKS.UL_LIST]: (node, next) =>
       sanitizedHTML(
         "ul",
         {
           class:
-            "flex flex-col ml-2 before:[&_li]:content-['–'] before:[&_li]:opacity-50 before:[&_li]:font-extrabold [&_li]:inline-flex [&_li]:gap-x-3"
+            "flex flex-col ml-2 before:[&_li]:content-['–'] before:[&_li]:opacity-30 [&_li]:inline-flex [&_li]:gap-x-3"
         },
         next(node.content)
       ),
@@ -43,10 +41,63 @@ export const rendererOptions: Partial<Options> = {
       ),
     [BLOCKS.PARAGRAPH]: (node, next) => {
       const nodeContent = node.content
-      if (!nodeContent.some((x) => (x as any).value === ""))
+      if (!nodeContent.some((x) => (x as any).value === "")) {
         return sanitizedHTML("p", {}, next(nodeContent))
+      }
 
-      return sanitizedHTML("p", {}, next(nodeContent))
+      const nodeData = nodeContent[1].data
+
+      // Check if paragraph is a standalone link and a YouTube embed
+      if (!nodeContent.some((x) => (x as any).nodeType === "hyperLink")) {
+        const _uri = nodeData.uri
+        const strippedUrl = _uri?.split("/")
+
+        // YouTube
+        if (_uri?.includes("youtu.be") || _uri?.includes("youtube.com/")) {
+          const isShorts = _uri?.includes("shorts")
+
+          return sanitizedHTML("yt-embed-wrapper", {
+            "video-id": strippedUrl.at(-1),
+            "shorts-layout": isShorts
+          })
+        }
+
+        // Twitter
+        if (_uri?.includes("twitter.com") || _uri?.includes("x.com")) {
+          return sanitizedHTML("post-embed-wrapper", {
+            provider: "x-twitter",
+            "post-id": strippedUrl[5]
+          })
+        }
+
+        // Reddit
+        if (_uri?.includes("reddit.com")) {
+          return sanitizedHTML("post-embed-wrapper", {
+            provider: "reddit",
+            "post-id": strippedUrl[5]
+          })
+        }
+      }
+
+      // Check if paragraph is an inline entry
+      if (nodeContent.some((x) => (x as any).nodeType === "embedded-entry-inline")) {
+        const _target = nodeData.target
+        const _contentId = _target.sys.contentType.sys.id
+
+        const _fields = _target.fields
+
+        if (_contentId === "codeBlock")
+          return sanitizedHTML(
+            "prism-code-renderer",
+            {
+              "file-name": _fields.fileName
+            },
+            sanitizedHTML("code", { class: "text-base" }, _fields.code)
+          )
+      }
+
+      // Otherwise, return the debug information, because I have skill issue
+      return sanitizedHTML("p", {}, JSON.stringify(nodeContent))
     },
     [BLOCKS.EMBEDDED_ASSET]: (node) => {
       const embedFields = node.data.target.fields
@@ -60,19 +111,6 @@ export const rendererOptions: Partial<Options> = {
         },
         null
       )
-    },
-
-    [INLINES.EMBEDDED_ENTRY]: (node) => {
-      const { sys, fields } = node.data.target as CustomInlineEntry
-      const strippedUrl = fields.url?.split("/").at(-1)
-
-      if (sys.contentType.sys.id === "youTubeVideo") {
-        return sanitizedHTML("yt-embed-wrapper", {
-          videoid: strippedUrl
-        })
-      }
-
-      return sanitizedHTML("p", {}, JSON.stringify(node))
     },
     [INLINES.HYPERLINK]: (node, next) =>
       sanitizedHTML(
@@ -88,9 +126,7 @@ export const rendererOptions: Partial<Options> = {
   }
 }
 
-const renderNothing = () => ""
-
-export const parseForTOC: Partial<Options> = {
+export const parseForTOC: PartialRenderer = {
   renderNode: {
     [BLOCKS.HEADING_2]: (node, next) =>
       sanitizedHTML(

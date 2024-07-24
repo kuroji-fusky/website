@@ -1,6 +1,6 @@
 import { LitElement, customElement, property, html } from "./LitImports"
 
-@customElement("agnostic-social-embed-wrapper")
+@customElement("post-embed-wrapper")
 export class SocialEmbed extends LitElement {
   @property({ type: String }) src = ""
 
@@ -11,6 +11,6 @@ export class SocialEmbed extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    "agnostic-social-embed-wrapper": HTMLElement
+    "post-embed-wrapper": HTMLElement
   }
 }

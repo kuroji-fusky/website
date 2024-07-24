@@ -1,10 +1,12 @@
+export const renderNothing = () => ""
+
 /**
  * @param tag A vaild HTML tag
  * @param attrs Attributes from the HTML element you provided
  * @param content Anything that'll be appended from `textContent`
  * @returns A gorgeous HTML string that's safe to parse for Contentful to eat :3
  */
-const sanitizedHTML = <Tag extends keyof HTMLElementTagNameMap, Content = string>(
+export const sanitizedHTML = <Tag extends keyof HTMLElementTagNameMap, Content = string>(
   tag: Tag,
   attrs?: Partial<Omit<HTMLElementTagNameMap[Tag], keyof HTMLElementTagNameMap[Tag]>>,
   content?: Content
@@ -27,5 +29,3 @@ const sanitizedHTML = <Tag extends keyof HTMLElementTagNameMap, Content = string
 
   return [START_TAG, content, END_TAG].join("")
 }
-
-export default sanitizedHTML

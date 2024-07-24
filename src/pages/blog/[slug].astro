@@ -15,7 +15,7 @@ export async function getStaticPaths() {
     }
   })
 
-  return posts.map((item) => ({
+  const parsedPosts = posts.map((item) => ({
     params: { slug: item.slug },
     props: {
       title: item.title,
@@ -26,6 +26,8 @@ export async function getStaticPaths() {
       categories: item.category
     }
   }))
+
+  return parsedPosts
 }
 
 const { title, description, shit, date, banner, categories } = Astro.props
@@ -37,6 +39,7 @@ const baseUrl = `${protocol}//${host}`
 <script>
   // Importing client-side Lit components because frick you that's why
   await import("$components/embeds/YoutubeEmbed")
+  await import("$components/embeds/CodeBlockRenderer")
 </script>
 
 <Layout {title} {description} webpageType="article">
