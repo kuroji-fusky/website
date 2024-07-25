@@ -6,6 +6,21 @@ import { sanitizedHTML, renderNothing } from "./utils"
 const kebabHeadings = (tag: keyof HTMLElementTagNameMap, heading: any, node: any) =>
   sanitizedHTML(tag, { id: kebabCase(heading.value) }, node)
 
+const ytThumbnailFallback = (ytId: string) => {
+  const tite = ytId.split("/").at(-1)
+  const imgUrl = `https://img.youtube.com/vi/${tite}`
+
+  return sanitizedHTML(
+    "p",
+    {},
+    sanitizedHTML(
+      "a",
+      { href: ytId, "data-astro-prefetch": "false", target: "_blank" },
+      sanitizedHTML("img", { src: `${imgUrl}/maxresdefault.jpg`, alt: "" }, null)
+    )
+  )
+}
+
 export const rendererOptions: PartialRenderer = {
   renderMark: {
     [MARKS.BOLD]: (t) => sanitizedHTML("strong", {}, t),
@@ -55,19 +70,27 @@ export const rendererOptions: PartialRenderer = {
       // Check if paragraph is a standalone link and a YouTube embed
       if (isNodeHyperlink) {
         const _uri = nodeData.uri
-        const strippedUrl = _uri?.split("/")
+        const strippedUrl = _uri?.split("/").at(-1)
 
         // YouTube
         if (_uri?.includes("youtu.be") || _uri?.includes("youtube.com/")) {
           if (_uri?.includes("shorts"))
-            return sanitizedHTML("yt-embed-wrapper", {
-              "video-id": strippedUrl.at(-1),
-              "is-shorts": ""
-            })
+            return sanitizedHTML(
+              "yt-embed-wrapper",
+              {
+                "video-id": strippedUrl,
+                "is-shorts": ""
+              },
+              ytThumbnailFallback(_uri)
+            )
 
-          return sanitizedHTML("yt-embed-wrapper", {
-            "video-id": strippedUrl.at(-1)
-          })
+          return sanitizedHTML(
+            "yt-embed-wrapper",
+            {
+              "video-id": strippedUrl
+            },
+            ytThumbnailFallback(_uri)
+          )
         }
 
         // Twitter
@@ -108,6 +131,7 @@ export const rendererOptions: PartialRenderer = {
       if (isNodeText) {
         return normalTextHTML
       }
+
       if (nodeContent.some((x: any) => x.value == "" && x.nodeType == "text")) {
         return ""
       }

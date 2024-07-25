@@ -19,13 +19,13 @@ export class YoutubeEmbed extends LitElement {
       --responsive-anchor: calc(var(--responsive-locked-height) * 1.5);
       --responsive-width: calc(var(--responsive-locked-height) / 2);
     }
-    .root {
+    .yt {
       position: relative;
       width: var(--responsive-width, 100%);
       height: 0;
       padding-bottom: var(--responsive-locked-height, 50.75%);
     }
-    .root iframe {
+    .yt iframe {
       position: absolute;
       width: 100%;
       height: 100%;
@@ -36,13 +36,18 @@ export class YoutubeEmbed extends LitElement {
   `
 
   render() {
-    return html`<div class="root${this.isYTShorts ? " has-shorts" : ""}">
-      <iframe
-        src="https://www.youtube-nocookie.com/embed/${this.videoId}"
-        frameborder="0"
-        class="${this.isYTShorts ? "has-shorts" : ""}"
-      ></iframe>
-    </div>`
+    return html`
+      <div class="yt${this.isYTShorts ? " has-shorts" : ""}">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/${this.videoId}"
+          frameborder="0"
+          class="${this.isYTShorts ? "has-shorts" : ""}"
+        ></iframe>
+        <span style="display: none;">
+          <slot></slot>
+        </span>
+      </div>
+    `
   }
 }
 
