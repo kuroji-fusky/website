@@ -1,5 +1,5 @@
 import { BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types"
-import type { CustomInlineEntry, PartialRenderer } from "../types"
+import type { PartialRenderer } from "../types"
 import { kebabCase } from "lodash-es"
 import { sanitizedHTML, renderNothing } from "./utils"
 
@@ -41,29 +41,37 @@ export const rendererOptions: PartialRenderer = {
       ),
     [BLOCKS.PARAGRAPH]: (node, next) => {
       const nodeContent = node.content
-      if (!nodeContent.some((x) => (x as any).value === "")) {
-        return sanitizedHTML("p", {}, next(nodeContent))
+      const normalTextHTML = sanitizedHTML("p", {}, next(nodeContent))
+
+      if (!nodeContent.some((x: any) => x.value === "")) {
+        return normalTextHTML
       }
 
       const nodeData = nodeContent[1].data
 
+      const isNodeHyperlink = nodeContent.some((x) => (x as any).nodeType !== "hyperLink")
+      const isNodeText = nodeContent.some((x) => (x as any).nodeType !== "text")
+
       // Check if paragraph is a standalone link and a YouTube embed
-      if (!nodeContent.some((x) => (x as any).nodeType === "hyperLink")) {
+      if (isNodeHyperlink) {
         const _uri = nodeData.uri
         const strippedUrl = _uri?.split("/")
 
         // YouTube
         if (_uri?.includes("youtu.be") || _uri?.includes("youtube.com/")) {
-          const isShorts = _uri?.includes("shorts")
+          if (_uri?.includes("shorts"))
+            return sanitizedHTML("yt-embed-wrapper", {
+              "video-id": strippedUrl.at(-1),
+              "is-shorts": ""
+            })
 
           return sanitizedHTML("yt-embed-wrapper", {
-            "video-id": strippedUrl.at(-1),
-            "shorts-layout": isShorts
+            "video-id": strippedUrl.at(-1)
           })
         }
 
         // Twitter
-        if (_uri?.includes("twitter.com") || _uri?.includes("x.com")) {
+        if (_uri?.includes("twitter.com/") || _uri?.includes("x.com")) {
           return sanitizedHTML("post-embed-wrapper", {
             provider: "x-twitter",
             "post-id": strippedUrl[5]
@@ -96,6 +104,14 @@ export const rendererOptions: PartialRenderer = {
           )
       }
 
+      // If node is just text, return as a normal link
+      if (isNodeText) {
+        return normalTextHTML
+      }
+      if (nodeContent.some((x: any) => x.value == "" && x.nodeType == "text")) {
+        return ""
+      }
+
       // Otherwise, return the debug information, because I have skill issue
       return sanitizedHTML("p", {}, JSON.stringify(nodeContent))
     },
@@ -126,24 +142,26 @@ export const rendererOptions: PartialRenderer = {
   }
 }
 
+const tocItem = (headingItem: string, cls?: string) => {
+  return sanitizedHTML(
+    "li",
+    {},
+    sanitizedHTML(
+      "a",
+      {
+        class: `block ${cls || "pl-0"}`,
+        href: `#${kebabCase(headingItem)}`,
+        "data-astro-prefetch": false
+      },
+      headingItem
+    )
+  )
+}
+
 export const parseForTOC: PartialRenderer = {
   renderNode: {
-    [BLOCKS.HEADING_2]: (node, next) =>
-      sanitizedHTML(
-        "a",
-        { class: "block", href: `#${kebabCase(next(node.content))}`, "data-astro-prefetch": false },
-        next(node.content)
-      ),
-    [BLOCKS.HEADING_3]: (node, next) =>
-      sanitizedHTML(
-        "a",
-        {
-          class: "block pl-4",
-          href: `#${kebabCase(next(node.content))}`,
-          "data-astro-prefetch": false
-        },
-        next(node.content)
-      ),
+    [BLOCKS.HEADING_2]: (node, next) => tocItem(next(node.content)),
+    [BLOCKS.HEADING_3]: (node, next) => tocItem(next(node.content), "pl-3"),
     [BLOCKS.PARAGRAPH]: renderNothing,
     [BLOCKS.UL_LIST]: renderNothing,
     [BLOCKS.OL_LIST]: renderNothing,

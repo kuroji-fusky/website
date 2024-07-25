@@ -1,11 +1,9 @@
-import { kebabCase } from "lodash-es"
-import { html, LitElement, customElement, property } from "./LitImports"
+import { html, css, LitElement, customElement, property } from "./LitImports"
 
 @customElement("yt-embed-wrapper")
 export class YoutubeEmbed extends LitElement {
   @property({ type: String, attribute: "video-id" }) videoId = ""
-  @property({ type: String, attribute: "initial-data" }) initialData = "{}"
-  @property({ type: Boolean, attribute: "shorts-layout" }) isYTShorts = false
+  @property({ type: Boolean, attribute: "is-shorts" }) isYTShorts = false
 
   connectedCallback() {
     super.connectedCallback()
@@ -15,12 +13,34 @@ export class YoutubeEmbed extends LitElement {
     // })
   }
 
+  static styles = css`
+    .has-shorts {
+      --responsive-locked-height: 66.5%;
+      --responsive-anchor: calc(var(--responsive-locked-height) * 1.5);
+      --responsive-width: calc(var(--responsive-locked-height) / 2);
+    }
+    .root {
+      position: relative;
+      width: var(--responsive-width, 100%);
+      height: 0;
+      padding-bottom: var(--responsive-locked-height, 50.75%);
+    }
+    .root iframe {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: var(--responsive-anchor, 0);
+      border-radius: 0.5rem;
+    }
+  `
+
   render() {
-    return html`<div style="position: relative; width: 100%; height: 0;padding-bottom: 56.25%;">
+    return html`<div class="root${this.isYTShorts ? " has-shorts" : ""}">
       <iframe
         src="https://www.youtube-nocookie.com/embed/${this.videoId}"
         frameborder="0"
-        style="position: absolute; width: 100%;height: 100%; left: 0; top: 0; border-radius: 0.5rem;"
+        class="${this.isYTShorts ? "has-shorts" : ""}"
       ></iframe>
     </div>`
   }

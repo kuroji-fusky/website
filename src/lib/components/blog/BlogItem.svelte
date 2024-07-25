@@ -22,9 +22,15 @@
     <slot />
   </a>
   <div id="bi-details" class={size}>
-    <h3 id="bi-heading" class="font-bold {size}">
-      <a href={parsedSlug} class="hover:underline hover:text-kuro-lavender-300">{title}</a>
-    </h3>
+    {#if size === "heading"}
+      <h2 id="bi-heading" class="font-bold {size}">
+        <a href={parsedSlug} class="hover:underline hover:text-kuro-lavender-300">{title}</a>
+      </h2>
+    {:else}
+      <h3 id="bi-heading" class="font-bold {size}">
+        <a href={parsedSlug} class="hover:underline hover:text-kuro-lavender-300">{title}</a>
+      </h3>
+    {/if}
     <p class="overflow-hidden opacity-75 leading-relaxed">
       {description}
     </p>

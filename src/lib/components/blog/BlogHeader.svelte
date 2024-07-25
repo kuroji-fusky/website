@@ -9,7 +9,7 @@
   export let date: string
 </script>
 
-<section>
+<div>
   <span class="inline-flex mb-2.5 gap-x-6">
     {#each categories as cat}
       <a
@@ -30,4 +30,4 @@
     <div class="border-l-2 opacity-50 h-4" />
     <time datetime={date} itemprop="datePublished">{parseDateStr(date).readableDate}</time>
   </div>
-</section>
+</div>

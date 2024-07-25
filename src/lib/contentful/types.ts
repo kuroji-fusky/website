@@ -15,21 +15,6 @@ export interface ContentEntries {
   }
 }
 
-export interface CustomInlineEntry<
-  F extends object = {
-    url?: string
-  }
-> {
-  sys: {
-    contentType: {
-      sys: {
-        id: string
-      }
-    }
-  }
-  fields: F
-}
-
 export type EntryFieldEmbed = EntryFieldTypes.Object<{
   fields: {
     file: {
