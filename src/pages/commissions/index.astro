@@ -1,0 +1,10 @@
+---
+import Layout from "src/layouts/Layout.astro"
+import config from "$lib/constants"
+
+const {
+  headings: { commissions }
+} = config
+---
+
+<Layout title={commissions.title} description={commissions.description}>commissions index</Layout>

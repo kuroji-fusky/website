@@ -14,5 +14,6 @@
     // For Lit components
     "experimentalDecorators": true,
     "useDefineForClassFields": false
-  }
+  },
+  "exclude": ["packages/shared/types/**"]
 }
