@@ -1,14 +1,14 @@
 module.exports = {
   root: true,
   env: {
-    es2020: true,
+    es2021: true,
     browser: true
   },
-  ignorePatterns: ["node_modules/", "kuro-api/", ".vercel/", ".astro/", ".env"],
+  ignorePatterns: ["node_modules/", ".vercel/", ".astro/", ".env"],
   extends: ["@fusky-labs/base", "plugin:astro/recommended"],
   parser: "astro-eslint-parser",
   parserOptions: {
-    ecmaVersion: 2020
+    ecmaVersion: 2021
   },
   overrides: [
     {
@@ -20,7 +20,6 @@ module.exports = {
       }
     }
   ],
-
   rules: {
     "@stylistic/object-curly-newline": 0,
 

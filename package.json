@@ -17,7 +17,7 @@
     "lint:fix": "prettier --write . && eslint --quiet --fix \"./**/*.{js,mjs,cjs,astro,svelte}\""
   },
   "workspaces": [
-    "fusky-labs-eslint/**"
+    "packages/fusky-labs-eslint/**"
   ],
   "dependencies": {
     "@astrojs/check": "^0.6.0",

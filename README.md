@@ -5,7 +5,7 @@
   <a href="https://kurojifusky.com">kurojifusky.com</a>
 </h1>
 
-The source code of my personal website! Written in Astro and Vue.
+The source code of my personal website! Written in Astro, Svelte, and Lit.
 
 ## APIs used
 
