@@ -46,14 +46,17 @@
           <div class="group/items group/topnav flex flex-col !items-start">
             {#if root.link}
               <a href={root.link} class="inline-flex items-center gap-x-1.5">
-                <span class="md:group-hover/topnav:text-kuro-lavender-300">{root.text}</span>
+                <span class="md:group-hover/topnav:text-kuro-lavender-300 select-none"
+                  >{root.text}</span
+                >
               </a>
               {#if root.subitems}
                 <NavbarSubItem items={root.subitems} />
               {/if}
             {:else}
               <div class="flex items-center gap-x-1.5">
-                <span class="cursor-default md:group-hover/topnav:text-kuro-lavender-300"
+                <span
+                  class="cursor-default md:group-hover/topnav:text-kuro-lavender-300 select-none"
                   >{root.text}</span
                 >
                 {#if root.subitems}
