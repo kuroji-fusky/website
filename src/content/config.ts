@@ -13,9 +13,17 @@ const showcaseTechnologies = z.enum([
   "redis"
 ])
 
-const showcaseInfras = z.enum(["vercel", "digitalocean", "docker", "aws", "gcp"])
+const showcaseInfras = z.enum([
+  "vercel",
+  "digitalocean",
+  "docker",
+  "supabase",
+  "aws",
+  "gcp"
+])
 
 export type ShowcaseTechnologiesLiteral = z.infer<typeof showcaseTechnologies>
+
 export type ShowcaseInfrasLiteral = z.infer<typeof showcaseInfras>
 
 export const collections = {
