@@ -12,6 +12,7 @@ const showcaseTechnologies = z.enum([
   "mongodb",
   "redis"
 ])
+
 const showcaseInfras = z.enum(["vercel", "digitalocean", "docker", "aws", "gcp"])
 
 export type ShowcaseTechnologiesLiteral = z.infer<typeof showcaseTechnologies>

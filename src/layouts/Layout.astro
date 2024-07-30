@@ -18,6 +18,7 @@ interface Props {
 Astro.response.headers.set("Cache-Control", "public, s-maxage=60, stale-while-revalidate=30")
 
 const { title, description, webpageType = "website", includeHeading } = Astro.props
+
 const { pathname: pathCrumbs } = Astro.url
 
 const canonicalUrl = new URL(pathCrumbs, Astro.site)
@@ -31,8 +32,11 @@ const _title = pathCrumbs !== "/" ? `${title} | ${siteTitle}` : title
 <html lang="en" class="scroll-pt-20 scroll-smooth">
   <head>
     <meta charset="utf-8" />
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <title>{_title}</title>
+
+    <link rel="icon" type="image/png" href="/apple-icon-128.png" />
+    <link rel="icon" type="image/png" href="/apple-icon-192.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 
     <meta name="darkreader-lock" />
 
@@ -41,19 +45,24 @@ const _title = pathCrumbs !== "/" ? `${title} | ${siteTitle}` : title
     <meta name="description" content={description} />
     {webpageType === "article" && <meta name="author" content="Kuroji Fusky" />}
 
+    {/* OG tags */}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:site_title" content={siteTitle} />
     <meta property="og:type" content={webpageType} />
     <meta property="og:url" content={canonicalUrl} />
 
+    {/* Twitter tags, won't include "twitter:title" since it falls back to "og:*" meta tags */}
     <meta name="twitter:creator" content={me} />
     <meta name="twitter:site" content={me} />
     <meta name="twitter:url" content={canonicalUrl} />
 
     <link rel="canonical" href={canonicalUrl} />
+
+    {/* Sitemap */}
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <!-- TODO make this dynamic -->
+
+    {/* TODO make this dynamic */}
     <link
       rel="alternate"
       type="application/rss+xml"
