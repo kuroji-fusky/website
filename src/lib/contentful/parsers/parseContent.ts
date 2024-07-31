@@ -1,10 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types"
 import type { PartialRenderer } from "../types"
 import { kebabCase } from "lodash-es"
 import { sanitizedHTML, renderNothing } from "./utils"
 
-const kebabHeadings = (tag: keyof HTMLElementTagNameMap, heading: any, node: any) =>
-  sanitizedHTML(tag, { id: kebabCase(heading.value) }, node)
+const kebabHeadings = (
+  tag: keyof HTMLElementTagNameMap,
+  heading: any,
+  node: any
+) => sanitizedHTML(tag, { id: kebabCase(heading.value) }, node)
 
 const ytThumbnailFallback = (ytId: string) => {
   const tite = ytId.split("/").at(-1)
@@ -16,7 +20,11 @@ const ytThumbnailFallback = (ytId: string) => {
     sanitizedHTML(
       "a",
       { href: ytId, "data-astro-prefetch": "false", target: "_blank" },
-      sanitizedHTML("img", { src: `${imgUrl}/maxresdefault.jpg`, alt: "" }, null)
+      sanitizedHTML(
+        "img",
+        { src: `${imgUrl}/maxresdefault.jpg`, alt: "" },
+        null
+      )
     )
   )
 }
@@ -33,9 +41,16 @@ export const rendererOptions: PartialRenderer = {
       )
   },
   renderNode: {
-    [BLOCKS.HEADING_2]: (node, next) => kebabHeadings("h2", node.content[0], next(node.content)),
-    [BLOCKS.HEADING_3]: (node, next) => kebabHeadings("h3", node.content[0], next(node.content)),
-    [BLOCKS.HR]: () => sanitizedHTML("hr", { class: "border-kuro-lavender-200 opacity-75" }, null),
+    [BLOCKS.HEADING_2]: (node, next) =>
+      kebabHeadings("h2", node.content[0], next(node.content)),
+    [BLOCKS.HEADING_3]: (node, next) =>
+      kebabHeadings("h3", node.content[0], next(node.content)),
+    [BLOCKS.HR]: () =>
+      sanitizedHTML(
+        "hr",
+        { class: "border-kuro-lavender-200 opacity-75" },
+        null
+      ),
     [BLOCKS.UL_LIST]: (node, next) =>
       sanitizedHTML(
         "ul",
@@ -111,7 +126,9 @@ export const rendererOptions: PartialRenderer = {
       }
 
       // Check if paragraph is an inline entry
-      if (nodeContent.some((x) => (x as any).nodeType === "embedded-entry-inline")) {
+      if (
+        nodeContent.some((x) => (x as any).nodeType === "embedded-entry-inline")
+      ) {
         const _target = nodeData.target
         const _contentId = _target.sys.contentType.sys.id
 
@@ -156,7 +173,8 @@ export const rendererOptions: PartialRenderer = {
       sanitizedHTML(
         "a",
         {
-          class: "text-kuro-lavender-300 hover:text-kuro-lavender-400 underline hover:no-underline",
+          class:
+            "text-kuro-lavender-300 hover:text-kuro-lavender-400 underline hover:no-underline",
           href: node.data.uri,
           target: "_blank",
           rel: "noopenner noreferrer"

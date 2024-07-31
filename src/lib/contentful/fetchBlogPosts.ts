@@ -1,5 +1,10 @@
 import { fetchContentEntries } from "./client"
-import type { AwaitedReturnType, ContentEntries, EntryFieldEmbed, EntryFieldTypes } from "./types"
+import type {
+  AwaitedReturnType,
+  ContentEntries,
+  EntryFieldEmbed,
+  EntryFieldTypes
+} from "./types"
 
 interface BlogPostContent {
   contentTypeId: "blogPost"
@@ -17,6 +22,7 @@ interface BlogPostContent {
 
 const sortInAscendingOrder = <T extends object>(arr: T[]) => {
   return arr.sort(
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
     (a, b) => Date.parse((b as unknown as any).date) - Date.parse((a as unknown as any).date)
   )
 }
@@ -24,13 +30,24 @@ const sortInAscendingOrder = <T extends object>(arr: T[]) => {
 export const fetchBlogPosts = async (pwops: ContentEntries) => {
   const { limit, category } = pwops
 
-  const entries = await fetchContentEntries<BlogPostContent>({ limit, category })
+  const entries = await fetchContentEntries<BlogPostContent>({
+    limit,
+    category
+  })
 
   const posts = entries.items.map((item) => {
-    const { banner, category, content, description, overridePublishDate, slug, title, isFeatured } =
-      item.fields
-    const image = banner ? `https:${banner.fields.file.url}?fm=webp` : ""
+    const {
+      banner,
+      category,
+      content,
+      description,
+      overridePublishDate,
+      slug,
+      title,
+      isFeatured
+    } = item.fields
 
+    const image = banner ? `https:${banner.fields.file.url}?fm=webp` : ""
     const datePublished = overridePublishDate ? overridePublishDate : item.sys.createdAt
 
     return {

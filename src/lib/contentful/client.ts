@@ -1,5 +1,4 @@
-import contentful from "contentful"
-import type { EntrySkeletonType } from "contentful"
+import contentful, { type EntrySkeletonType } from "contentful"
 import type { ContentEntries } from "./types"
 
 const CTF_DOMAIN = ".contentful.com"

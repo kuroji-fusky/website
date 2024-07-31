@@ -23,7 +23,6 @@ const showcaseInfras = z.enum([
 ])
 
 export type ShowcaseTechnologiesLiteral = z.infer<typeof showcaseTechnologies>
-
 export type ShowcaseInfrasLiteral = z.infer<typeof showcaseInfras>
 
 export const collections = {
