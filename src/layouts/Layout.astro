@@ -1,5 +1,5 @@
 ---
-import Navbar from "$components/Navbar/Navbar.svelte"
+import Navbar from "$components/Navbar"
 import Footer from "$components/Footer.astro"
 
 import "@fontsource/inter"
@@ -18,15 +18,14 @@ interface Props {
 Astro.response.headers.set("Cache-Control", "public, s-maxage=60, stale-while-revalidate=30")
 
 const { title, description, webpageType = "website", includeHeading } = Astro.props
+const { pathname } = Astro.url
 
-const { pathname: pathCrumbs } = Astro.url
-
-const canonicalUrl = new URL(pathCrumbs, Astro.site)
+const canonicalUrl = new URL(pathname, Astro.site)
 
 const me = "@kurojifusky"
 const siteTitle = "Kuroji Fusky"
 
-const _title = pathCrumbs !== "/" ? `${title} | ${siteTitle}` : title
+const _title = pathname !== "/" ? `${title} | ${siteTitle}` : title
 ---
 
 <html lang="en" class="scroll-pt-20 scroll-smooth">
@@ -34,8 +33,7 @@ const _title = pathCrumbs !== "/" ? `${title} | ${siteTitle}` : title
     <meta charset="utf-8" />
     <title>{_title}</title>
 
-    <link rel="icon" type="image/png" href="/apple-icon-128.png" />
-    <link rel="icon" type="image/png" href="/apple-icon-192.png" />
+    <link rel="icon" type="image/png" href="/favicon.png" sizes="128x128" />
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 
     <meta name="darkreader-lock" />
