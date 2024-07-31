@@ -6,9 +6,7 @@ import mdx from "@astrojs/mdx"
 import vercel from "@astrojs/vercel/serverless"
 import lit from "@astrojs/lit"
 import svelte from "@astrojs/svelte"
-
 import autoprefixer from "autoprefixer"
-
 import Icons from "unplugin-icons/vite"
 import { FileSystemIconLoader } from "unplugin-icons/loaders"
 
@@ -40,7 +38,8 @@ export default defineConfig({
       Icons({
         compiler: "astro",
         customCollections: {
-          kuro: FileSystemIconLoader("./src/lib/icons")
+          kuro: FileSystemIconLoader("./src/lib/icons/kuro"),
+          brands: FileSystemIconLoader("./src/lib/icons/brands")
         }
       })
     ],
