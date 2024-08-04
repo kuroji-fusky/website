@@ -6,6 +6,7 @@ import "@fontsource/inter"
 import "@fontsource/inter/600.css"
 import "@fontsource/inter/700.css"
 import "@fontsource/jetbrains-mono"
+import "@fontsource/unbounded/latin-700.css"
 
 interface Props {
   title: string
@@ -15,9 +16,18 @@ interface Props {
 }
 
 // Set Cache-Control headers for CDN caching
-Astro.response.headers.set("Cache-Control", "public, s-maxage=60, stale-while-revalidate=30")
+Astro.response.headers.set(
+  "Cache-Control",
+  "public, s-maxage=60, stale-while-revalidate=30"
+)
 
-const { title, description, webpageType = "website", includeHeading } = Astro.props
+const {
+  title,
+  description,
+  webpageType = "website",
+  includeHeading
+} = Astro.props
+
 const { pathname } = Astro.url
 
 const canonicalUrl = new URL(pathname, Astro.site)
@@ -50,7 +60,9 @@ const _title = pathname !== "/" ? `${title} | ${siteTitle}` : title
     <meta property="og:type" content={webpageType} />
     <meta property="og:url" content={canonicalUrl} />
 
-    {/* Twitter tags, won't include "twitter:title" since it falls back to "og:*" meta tags */}
+    {
+      /* Twitter tags, won't include "twitter:title" since it falls back to "og:*" meta tags */
+    }
     <meta name="twitter:creator" content={me} />
     <meta name="twitter:site" content={me} />
     <meta name="twitter:url" content={canonicalUrl} />
@@ -69,7 +81,11 @@ const _title = pathname !== "/" ? `${title} | ${siteTitle}` : title
     />
 
     <link rel="dns-prefetch" href="https://images.ctfassets.net/" />
-    <link rel="preconnect" href="https://images.ctfassets.net/" crossorigin="" />
+    <link
+      rel="preconnect"
+      href="https://images.ctfassets.net/"
+      crossorigin=""
+    />
   </head>
   <body
     class="font-body font-medium text-sm lg:text-base bg-kuro-dark2 text-kuro-violet-50 overflow-x-hidden selection:bg-kuro-lavender-600"

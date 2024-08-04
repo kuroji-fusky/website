@@ -9,6 +9,7 @@ const showcaseTechnologies = z.enum([
   "plasmo",
   "tauri",
   "flutter",
+  "fastapi",
   "mongodb",
   "redis"
 ])
@@ -25,20 +26,22 @@ const showcaseInfras = z.enum([
 export type ShowcaseTechnologiesLiteral = z.infer<typeof showcaseTechnologies>
 export type ShowcaseInfrasLiteral = z.infer<typeof showcaseInfras>
 
+const showcaseSchema = z.object({
+  title: z.string(),
+  repo: z.string(),
+  image: z.string().optional(),
+  type: showcaseType,
+  date: z.string().transform((s) => new Date(s)),
+  excerpt: z.string(),
+  details: z.object({
+    technologies: z.array(showcaseTechnologies).nullable(),
+    infrastructure: z.array(showcaseInfras).nullable()
+  })
+})
+
 export const collections = {
   showcase: defineCollection({
     type: "content",
-    schema: z.object({
-      title: z.string(),
-      repo: z.string(),
-      image: z.string(),
-      type: showcaseType,
-      date: z.string().transform((s) => new Date(s)),
-      excerpt: z.string(),
-      details: z.object({
-        technologies: z.array(showcaseTechnologies).nullable(),
-        infrastructure: z.array(showcaseInfras).nullable()
-      })
-    })
+    schema: showcaseSchema
   })
 }

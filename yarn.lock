@@ -616,6 +616,11 @@
   resolved "https://registry.yarnpkg.com/@fontsource/jetbrains-mono/-/jetbrains-mono-5.0.20.tgz#600171a052a4ef5fa75dd4815c7e6aae5c51ca65"
   integrity sha512-QkrihYWqftzs+04TinulIhnFqNwO6990HR07iCUae/6daOZAMy7urUPzytrRT9M8KLTTHBeHOY0CKqOs1+o2OQ==
 
+"@fontsource/unbounded@^5.0.20":
+  version "5.0.20"
+  resolved "https://registry.yarnpkg.com/@fontsource/unbounded/-/unbounded-5.0.20.tgz#9ac4e725f1dfe38f94f9d34e277a40fdf27af7ff"
+  integrity sha512-4BPJ3hLd4mDtYvYnCm2DANiyy9MPBZiNpWpgVUvUSe5Jee2nLBFIITbP/5i2Vs80LbP/AcGuXHwVtFwwclNqkg==
+
 "@humanwhocodes/config-array@^0.11.14":
   version "0.11.14"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.14.tgz#d78e481a039f7566ecc9660b4ea7fe6b1fec442b"
