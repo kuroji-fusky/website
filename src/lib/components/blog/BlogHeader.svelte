@@ -1,12 +1,26 @@
 <script lang="ts">
+  import { onMount } from "svelte"
   import { parseDateStr } from "$lib/parseDateStr"
   import { kebabCase } from "lodash-es"
+  import { globalNavTitle, globalNavShow } from "$lib/stores"
 
   export let baseUrl: string
   export let categories: string[]
   export let title: string
   export let description: string
   export let date: string
+
+  let headingTitleRef: HTMLHeadingElement
+
+  onMount(() => {
+    const sheesh = new IntersectionObserver(([entry]) => {
+      globalNavShow.set(!entry.isIntersecting)
+    })
+
+    sheesh.observe(headingTitleRef)
+
+    globalNavTitle.set(title)
+  })
 </script>
 
 <div>
@@ -20,14 +34,21 @@
       </a>
     {/each}
   </span>
-  <h1 class="text-3xl lg:text-[2.625rem] lg:leading-tight not-prose font-extrabold text-white">
+  <h1
+    bind:this={headingTitleRef}
+    class="text-3xl lg:text-[2.625rem] lg:leading-tight not-prose font-extrabold text-white"
+  >
     {title}
   </h1>
   <p class="text-base lg:text-lg opacity-65 py-2 lg:py-3.5">{description}</p>
-  <slot />
+  <div>
+    <slot />
+  </div>
   <div class="flex items-center py-5 gap-x-4">
     <div class="flex-1 flex flex-wrap gap-3">Tags placeholder</div>
     <div class="border-l-2 opacity-50 h-4" />
-    <time datetime={date} itemprop="datePublished">{parseDateStr(date).readableDate}</time>
+    <time datetime={date} itemprop="datePublished"
+      >{parseDateStr(date).readableDate}</time
+    >
   </div>
 </div>

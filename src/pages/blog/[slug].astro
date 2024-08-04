@@ -49,7 +49,7 @@ const baseUrl = `${protocol}//${host}`
     itemscope
   >
     <meta itemprop="thumbnailUrl" content={banner} />
-    <BlogHeader {categories} {title} {description} {date} {baseUrl}>
+    <BlogHeader client:idle {categories} {title} {description} {date} {baseUrl}>
       <Image
         widths={[540, 960, 1440]}
         height={1920}

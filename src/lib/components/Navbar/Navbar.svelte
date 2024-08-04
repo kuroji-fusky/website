@@ -1,14 +1,17 @@
 <script lang="ts">
   import { onMount } from "svelte"
+
   import NavbarSubItem from "./NavbarSubItem.svelte"
   import { navItems } from "./Navbar.constants"
 
   import MenuIcon from "~icons/lucide/menu?raw"
   import ChevronDownIcon from "~icons/lucide/chevron-down?raw"
   import LogoBrand from "~icons/kuro/logo-brand?raw"
+  import NavbarTitle from "./NavbarTitle.svelte"
 
   let isNavExpanded = false
 
+  // TODO remove this add clone navbar contents and use css media query
   const handleMobileThingy = () => {
     const isViewportMobile = window.matchMedia("(max-width: 768px)").matches
 
@@ -25,13 +28,14 @@
 <nav class="z-10 py-2 sticky top-0 bg-kuro-dark2">
   <div class="mx-auto flex justify-between items-center px-8 max-w-screen-2xl">
     <div class="flex items-center gap-x-2">
-      <a href="/" title="Home page">
+      <a href="/" title="Home page" class="py-2 pr-1">
         <div class="h-[1.825rem]">
           {@html LogoBrand}
         </div>
       </a>
+      <NavbarTitle />
     </div>
-    <div class="flex">
+    <div class="flex flex-shrink-0">
       <button
         class="md:hidden block px-3.5 py-3.5 hover:text-kuro-lavender-400"
         on:click={() => (isNavExpanded = !isNavExpanded)}
@@ -46,7 +50,8 @@
           <div class="group/items group/topnav flex flex-col !items-start">
             {#if root.link}
               <a href={root.link} class="inline-flex items-center gap-x-1.5">
-                <span class="md:group-hover/topnav:text-kuro-lavender-300 select-none"
+                <span
+                  class="md:group-hover/topnav:text-kuro-lavender-300 select-none"
                   >{root.text}</span
                 >
               </a>
@@ -60,7 +65,9 @@
                   >{root.text}</span
                 >
                 {#if root.subitems}
-                  <span class="md:group-hover/topnav:rotate-180 transform-gpu transition-transform">
+                  <span
+                    class="md:group-hover/topnav:rotate-180 transform-gpu transition-transform"
+                  >
                     {@html ChevronDownIcon}
                   </span>
                 {/if}
