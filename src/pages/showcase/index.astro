@@ -1,47 +1,22 @@
 ---
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import ShowcaseItem from "$lib/components/showcase/ShowcaseItem.svelte"
 import { getCollection } from "astro:content"
 import Layout from "src/layouts/Layout.astro"
 
 const showcaseItems = await getCollection("showcase")
 
-const sortInAscendingOrder = <T extends object>(arr: T[]) => {
-  return arr.sort(
-    (a, b) =>
-      Date.parse((b as unknown as any).data.date) -
-      Date.parse((a as unknown as any).data.date)
-  )
-}
-
-const filtered = sortInAscendingOrder(showcaseItems)
+const filtered = showcaseItems.sort(
+  (a, b) =>
+    Date.parse((b as unknown as any).data.date) -
+    Date.parse((a as unknown as any).data.date)
+)
 ---
 
 <Layout title="Showcase">
   <div class="max-w-screen-2xl px-8 mx-auto flex">
     <div class="grid gap-y-4 flex-1">
-      {
-        filtered.map(({ slug, data }) => (
-          <div
-            class="h-[calc(100dvh-4rem)] flex items-center"
-            data-project-slug={slug}
-          >
-            <div class="my-auto grid gap-y-4">
-              <span>{data.type}</span>
-              <h2 class="text-6xl font-hero-heading font-bold">
-                <a href={`/showcase/${slug}`}>{data.title}</a>
-              </h2>
-              <span class="text-xl w-3/4 inline-block">{data.excerpt}</span>
-              <div class="flex flex-wrap gap-3 mt-auto">
-                {data.details.technologies!.map((t) => (
-                  <span class="py-1 px-2 rounded-md bg-kuro-royalblue-800">
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        ))
-      }
+      {filtered.map(({ slug, data }) => <ShowcaseItem {slug} {data} />)}
     </div>
     <div class="flex-shrink-0 w-2/5 bg-slate-600"></div>
   </div>

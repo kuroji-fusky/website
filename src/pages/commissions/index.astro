@@ -1,10 +1,10 @@
 ---
 import Layout from "src/layouts/Layout.astro"
-import config from "$lib/constants"
+import { routeSections } from "$lib/constants"
 
 const {
   headings: { commissions }
-} = config
+} = routeSections
 ---
 
 <Layout title={commissions.title} description={commissions.description}>

@@ -2,7 +2,7 @@
 import Layout from "src/layouts/Layout.astro"
 import BlogGrid from "$components/blog/BlogGrid.astro"
 import { fetchBlogPosts } from "$contentful"
-import config from "$lib/constants"
+import { routeSections } from "$lib/constants"
 import BlogItem from "$components/blog/BlogItem.svelte"
 import { Image } from "astro:assets"
 import BlogBrowserShelf from "$components/blog/BlogBrowserShelf.svelte"
@@ -15,7 +15,7 @@ const [postFeaturedBig, ...postFeaturedRest] = posts
 
 const {
   headings: { blog }
-} = config
+} = routeSections
 ---
 
 <Layout title={blog.title} description={blog.description} includeHeading>
@@ -44,7 +44,9 @@ const {
           />
         </BlogItem>
       </div>
-      <div class="gap-y-4 divide-y-2 divide-kuro-lavender-800 first:*:pt-0 last:*:pb-0 *:py-4">
+      <div
+        class="gap-y-4 divide-y-2 divide-kuro-lavender-800 first:*:pt-0 last:*:pb-0 *:py-4"
+      >
         {
           postFeaturedRest.map((item) => (
             <BlogItem
