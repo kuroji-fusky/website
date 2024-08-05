@@ -1,6 +1,3 @@
-[submodule "src/content/dream-journal"]
-path = src/content/dream-journal
-url = https://github.com/kurojifusky/dream-journal
 [submodule "packages/fusky-labs-eslint"]
 path = packages/fusky-labs-eslint
 url = https://github.com/fusky-labs/eslint-config
