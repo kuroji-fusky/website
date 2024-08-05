@@ -1,10 +1,14 @@
-const config = {
-  siteTitle: "Kuroji Fusky",
-  siteAuthorHandle: "@kurojifusky",
+/* eslint-disable import/no-unused-modules */
+export const siteTitle = "Kuroji Fusky"
+export const siteAuthorHandle = "@kurojifusky"
 
+export const routeSections = {
   // Headings used in pages
   headings: {
-    blog: { title: "Blog posts", description: "Browse the latest ramblings and shit" },
+    blog: {
+      title: "Blog posts",
+      description: "I ramble on nerd things, fursuit things, yeah lol"
+    },
     dreamJournal: {
       title: "Dream Journal",
       description: "Cataloging my weird ass dreams since the 2010s"
@@ -22,5 +26,3 @@ const config = {
     branding: { title: "Logo Branding", description: "" }
   }
 }
-
-export default config

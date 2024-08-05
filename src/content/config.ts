@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unused-modules */
 import { z, defineCollection } from "astro:content"
 
 const showcaseType = z.enum(["Browser extension", "Web application"])
@@ -39,9 +40,23 @@ const showcaseSchema = z.object({
   })
 })
 
+export type ShowcaseSchema = z.infer<typeof showcaseSchema>
+
+const dreamJournalSchema = z.object({
+  date: z.string().transform((s) => new Date(s)),
+  location: z.string(),
+  setting: z.string()
+})
+
+export type DreamJournalSchema = z.infer<typeof dreamJournalSchema>
+
 export const collections = {
   showcase: defineCollection({
     type: "content",
     schema: showcaseSchema
+  }),
+  "dream-journal": defineCollection({
+    type: "content",
+    schema: dreamJournalSchema
   })
 }
