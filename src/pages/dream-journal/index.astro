@@ -1,10 +1,10 @@
 ---
 import Layout from "src/layouts/Layout.astro"
-import { routeSections } from "$lib/constants"
+import { routeSections } from "src/constants"
 
 const {
   headings: { dreamJournal }
-} = config
+} = routeSections
 ---
 
 <Layout title={dreamJournal.title} description={dreamJournal.description}>

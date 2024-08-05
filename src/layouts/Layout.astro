@@ -2,11 +2,16 @@
 import Navbar from "$components/Navbar"
 import Footer from "$components/Footer.astro"
 
-import "@fontsource/inter"
-import "@fontsource/inter/600.css"
-import "@fontsource/inter/700.css"
+import "@fontsource/inter/latin-300.css"
+import "@fontsource/inter/latin-600.css"
+import "@fontsource/inter/latin-700.css"
+import "@fontsource/inter/latin-ext-300.css"
+import "@fontsource/inter/latin-ext-600.css"
+import "@fontsource/inter/latin-ext-700.css"
 import "@fontsource/jetbrains-mono"
 import "@fontsource/unbounded/latin-700.css"
+
+import { siteTitle, siteAuthorHandle as me } from "../constants"
 
 interface Props {
   title: string
@@ -31,9 +36,6 @@ const {
 const { pathname } = Astro.url
 
 const canonicalUrl = new URL(pathname, Astro.site)
-
-const me = "@kurojifusky"
-const siteTitle = "Kuroji Fusky"
 
 const _title = pathname !== "/" ? `${title} | ${siteTitle}` : title
 ---
