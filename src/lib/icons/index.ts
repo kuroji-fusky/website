@@ -1,5 +1,3 @@
-/* eslint-disable import/no-unused-modules */
-
 export type UnpluginIconType = (
   props: astroHTML.JSX.SVGAttributes
 ) => astroHTML.JSX.Element

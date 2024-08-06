@@ -34,6 +34,7 @@ module.exports = {
 
     "import/no-deprecated": 0,
     "import/namespace": 0,
-    "import/no-useless-path-segments": 1
+    "import/no-useless-path-segments": 1,
+    "import/no-unused-modules": 0
   }
 }

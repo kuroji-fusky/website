@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unused-modules */
 export const siteTitle = "Kuroji Fusky"
 export const siteAuthorHandle = "@kurojifusky"
 

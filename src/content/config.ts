@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unused-modules */
 import { z, defineCollection } from "astro:content"
 
 const showcaseType = z.enum(["Browser extension", "Web application"])
