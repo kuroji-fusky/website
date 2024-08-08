@@ -1,8 +1,8 @@
 ---
-import Layout from "src/layouts/Layout.astro"
+import Layout from "$layouts/Layout.astro"
 import BlogGrid from "$components/blog/BlogGrid.astro"
-import { fetchBlogPosts } from "$contentful"
-import { routeSections } from "src/constants"
+import { fetchBlogPosts } from "$lib/contentful"
+import { routeSections } from "$lib/constants"
 import BlogItem from "$components/blog/BlogItem.svelte"
 import { Image } from "astro:assets"
 import BlogBrowserShelf from "$components/blog/BlogBrowserShelf.svelte"

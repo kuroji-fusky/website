@@ -4,9 +4,7 @@ import ShowcaseItemHero from "../showcase/ShowcaseItemHero.svelte"
 import { getCollection } from "astro:content"
 
 const showcaseItems = (await getCollection("showcase")).sort(
-  (a, b) =>
-    Date.parse((b as unknown as any).data.date) -
-    Date.parse((a as unknown as any).data.date)
+  (a, b) => Date.parse((b as unknown as any).data.date) - Date.parse((a as unknown as any).data.date)
 )
 ---
 

@@ -1,6 +1,8 @@
 import type { NavItem } from "./Navbar.types"
 
-type NestedNavItems = Array<Pick<NavItem, "text" | "link"> & { subitems?: NavItem[] }>
+type NestedNavItems = Array<
+  Pick<NavItem, "text" | "link"> & { subitems?: NavItem[] }
+>
 
 export const navItems: NestedNavItems = [
   {
@@ -17,11 +19,11 @@ export const navItems: NestedNavItems = [
         excerpt: "All the characters I own or created",
         link: "/characters"
       },
-      {
-        text: "Dream Journal",
-        excerpt: "Some stuff that I catalog for storybuilding",
-        link: "/dream-journal"
-      },
+      // {
+      //   text: "Dream Journal",
+      //   excerpt: "Some stuff that I catalog for storybuilding",
+      //   link: "/dream-journal"
+      // },
       {
         text: "The Vault",
         excerpt: "Abandoned projects or some historic relics that I've made",

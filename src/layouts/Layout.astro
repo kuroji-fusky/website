@@ -11,26 +11,23 @@ import "@fontsource/inter/latin-ext-700.css"
 import "@fontsource/jetbrains-mono"
 import "@fontsource/unbounded/latin-700.css"
 
-import { siteTitle, siteAuthorHandle as me } from "../constants"
+import { siteTitle, siteAuthorHandle as me } from "../lib/constants"
+import ParseArticle from "$components/ParseArticle.astro"
 
 interface Props {
   title: string
   description?: string
   webpageType?: "website" | "article"
   includeHeading?: true
+  mdxMargin?: true
 }
-
-// Set Cache-Control headers for CDN caching
-Astro.response.headers.set(
-  "Cache-Control",
-  "public, s-maxage=60, stale-while-revalidate=30"
-)
 
 const {
   title,
   description,
   webpageType = "website",
-  includeHeading
+  includeHeading,
+  mdxMargin
 } = Astro.props
 
 const { pathname } = Astro.url
@@ -40,7 +37,11 @@ const canonicalUrl = new URL(pathname, Astro.site)
 const _title = pathname !== "/" ? `${title} | ${siteTitle}` : title
 ---
 
-<html lang="en" class="scroll-pt-20 scroll-smooth">
+<html
+  lang="en"
+  class="scroll-pt-20 scroll-smooth"
+  data-freaky-ass-nigga-he-a-69-god=""
+>
   <head>
     <meta charset="utf-8" />
     <title>{_title}</title>
@@ -107,7 +108,17 @@ const _title = pathname !== "/" ? `${title} | ${siteTitle}` : title
           </div>
         )
       }
-      <slot />
+      {
+        mdxMargin ? (
+          <div class="max-w-screen-2xl mx-auto px-8">
+            <ParseArticle>
+              <slot />
+            </ParseArticle>
+          </div>
+        ) : (
+          <slot />
+        )
+      }
     </main>
     <Footer />
   </body>

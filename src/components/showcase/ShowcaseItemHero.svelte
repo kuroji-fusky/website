@@ -39,7 +39,9 @@
   <div class="my-auto grid gap-y-4">
     <span>{data.type}</span>
     <h2 class="text-6xl font-hero-heading font-bold">
-      <a href={`/showcase/${slug}`}>{data.title}</a>
+      <a href={`/showcase/${slug}`} data-astro-prefetch="viewport"
+        >{data.title}</a
+      >
     </h2>
     <span class="text-xl w-3/4 inline-block">{data.excerpt}</span>
     <div class="flex flex-wrap gap-3 mt-auto">

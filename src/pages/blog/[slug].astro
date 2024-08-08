@@ -2,8 +2,8 @@
 import { Image } from "astro:assets"
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer"
 
-import Layout from "src/layouts/Layout.astro"
-import { fetchBlogPosts, rendererOptions, parseForTOC } from "$contentful"
+import Layout from "$layouts/Layout.astro"
+import { fetchBlogPosts, rendererOptions, parseForTOC } from "$lib/contentful"
 import BlogHeader from "$components/blog/BlogHeader.svelte"
 
 export async function getStaticPaths() {

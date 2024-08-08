@@ -2,7 +2,8 @@
   import { onMount } from "svelte"
   import { parseDateStr } from "$lib/parseDateStr"
   import { kebabCase } from "lodash-es"
-  import { globalNavTitle, globalNavShow } from "$lib/stores"
+  import { globalNavTitle, globalNavShow } from "../../stores"
+  import observeDOM from "../../lib/observe"
 
   export let baseUrl: string
   export let categories: string[]
@@ -13,11 +14,7 @@
   let headingTitleRef: HTMLHeadingElement
 
   onMount(() => {
-    const sheesh = new IntersectionObserver(([entry]) => {
-      globalNavShow.set(!entry.isIntersecting)
-    })
-
-    sheesh.observe(headingTitleRef)
+    observeDOM(globalNavShow, headingTitleRef)
 
     globalNavTitle.set(title)
   })

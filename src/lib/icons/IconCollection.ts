@@ -1,7 +1,7 @@
 import type {
   ShowcaseInfrasLiteral,
   ShowcaseTechnologiesLiteral
-} from "../content/config"
+} from "../../content/config"
 
 import AstroIcon from "~icons/brands/astro.svg?raw"
 import FlutterIcon from "~icons/brands/flutter.svg?raw"
