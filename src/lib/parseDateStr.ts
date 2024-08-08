@@ -2,7 +2,10 @@ interface ParseDateStrOptions {
   includeTime?: boolean
 }
 
-export const parseDateStr = (dateStr: string, options?: ParseDateStrOptions) => {
+export const parseDateStr = (
+  dateStr: string | Date,
+  options?: ParseDateStrOptions
+) => {
   const d = new Date(dateStr)
 
   const isoDate = d.toISOString()

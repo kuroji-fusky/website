@@ -13,6 +13,7 @@
     SvelteIcon,
     TauriIcon,
     FastApiIcon,
+    PlasmoIcon,
     type UnpluginIconType
   } from "$lib/icons"
 
@@ -24,7 +25,7 @@
   const techIcon: Record<ShowcaseTechnologiesLiteral, UnpluginIconType> = {
     astro: AstroIcon,
     flutter: FlutterIcon,
-    plasmo: "lol",
+    plasmo: PlasmoIcon,
     fastapi: FastApiIcon,
     tauri: TauriIcon,
     redis: RedisIcon,
@@ -34,7 +35,7 @@
   }
 </script>
 
-<div class="h-[calc(100dvh-4rem)] flex items-center" data-project-slug={slug}>
+<div class="h-[calc(100dvh-6rem)] flex items-center" data-project-slug={slug}>
   <div class="my-auto grid gap-y-4">
     <span>{data.type}</span>
     <h2 class="text-6xl font-hero-heading font-bold">

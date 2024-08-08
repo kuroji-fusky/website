@@ -1,6 +1,7 @@
-export type UnpluginIconType = (
-  props: astroHTML.JSX.SVGAttributes
-) => astroHTML.JSX.Element
+import type {
+  ShowcaseInfrasLiteral,
+  ShowcaseTechnologiesLiteral
+} from "../content/config"
 
 import AstroIcon from "~icons/brands/astro.svg?raw"
 import FlutterIcon from "~icons/brands/flutter.svg?raw"
@@ -17,26 +18,27 @@ import VercelIcon from "~icons/brands/vercel.svg?raw"
 import AWSIcon from "~icons/brands/aws.svg?raw"
 import DigitalOceanIcon from "~icons/brands/digitalocean.svg?raw"
 
-import GithubIcon from "~icons/brands/github.svg?raw"
+import type { UnpluginIconType } from "$lib/icons"
 
-export {
-  // Technologies
-  AstroIcon,
-  FlutterIcon,
-  RedisIcon,
-  MongodbIcon,
-  NextjsIcon,
-  SvelteIcon,
-  TauriIcon,
-  FastApiIcon,
-  PlasmoIcon,
-
-  // Infra
-  SupabaseIcon,
-  VercelIcon,
-  AWSIcon,
-  DigitalOceanIcon,
-
-  // Etc
-  GithubIcon
+const iconCollection: Record<
+  ShowcaseTechnologiesLiteral | ShowcaseInfrasLiteral,
+  UnpluginIconType | string
+> = {
+  astro: AstroIcon,
+  flutter: FlutterIcon,
+  plasmo: PlasmoIcon,
+  fastapi: FastApiIcon,
+  tauri: TauriIcon,
+  redis: RedisIcon,
+  mongodb: MongodbIcon,
+  nextjs: NextjsIcon,
+  sveltekit: SvelteIcon,
+  aws: AWSIcon,
+  digitalocean: DigitalOceanIcon,
+  docker: "docker",
+  gcp: "gcp",
+  vercel: VercelIcon,
+  supabase: SupabaseIcon
 }
+
+export default iconCollection

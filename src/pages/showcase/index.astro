@@ -1,23 +1,9 @@
 ---
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import ShowcaseItem from "$lib/components/showcase/ShowcaseItem.svelte"
-import { getCollection } from "astro:content"
 import Layout from "src/layouts/Layout.astro"
-
-const showcaseItems = await getCollection("showcase")
-
-const filtered = showcaseItems.sort(
-  (a, b) =>
-    Date.parse((b as unknown as any).data.date) -
-    Date.parse((a as unknown as any).data.date)
-)
 ---
 
 <Layout title="Showcase">
   <div class="max-w-screen-2xl px-8 mx-auto flex">
-    <div class="grid gap-y-4 flex-1">
-      {filtered.map(({ slug, data }) => <ShowcaseItem {slug} {data} />)}
-    </div>
     <div class="flex-shrink-0 w-2/5 bg-slate-600"></div>
   </div>
 </Layout>

@@ -1,6 +1,6 @@
 [submodule "packages/fusky-labs-eslint"]
-path = packages/fusky-labs-eslint
-url = https://github.com/fusky-labs/eslint-config
+  path = packages/fusky-labs-eslint
+  url = https://github.com/fusky-labs/eslint-config
 [submodule "packages/shared"]
-path = packages/shared
-url = https://github.com/kurojifusky/kuro-utils
+  path = packages/shared
+  url = https://github.com/kurojifusky/kuro-utils

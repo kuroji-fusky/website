@@ -2,10 +2,12 @@
 import Layout from "src/layouts/Layout.astro"
 import { Schema } from "astro-seo-schema"
 import { Image } from "astro:assets"
+import ShowcaseItems from "$components/sections/ShowcaseItems.astro"
 ---
 
 <Layout title="Home">
-  <section class="h-[calc(100dvh-3rem)]">
+  {/* Hero */}
+  <!-- <section class="h-[calc(100dvh-3rem)]">
     <Image
       height={1280}
       width={720}
@@ -15,8 +17,11 @@ import { Image } from "astro:assets"
       src="https://fuskylabs-cdn.imgix.net/commissions/23/dougly_icon-transformed.png"
       alt=""
     />
-  </section>
+  </section> -->
+  {/* Showcase */}
+  <ShowcaseItems />
 </Layout>
+
 <Schema
   item={{
     "@context": "https://schema.org",
