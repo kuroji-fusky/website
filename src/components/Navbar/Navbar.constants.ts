@@ -41,6 +41,13 @@ export const navItems: NestedNavItems = [
   },
   {
     text: "About",
-    link: "/about"
+    link: "/about",
+    subitems: [
+      {
+        text: "Branding",
+        excerpt: "Logo branding",
+        link: "/branding"
+      }
+    ]
   }
 ]
