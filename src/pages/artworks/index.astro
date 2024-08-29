@@ -1,0 +1,36 @@
+---
+import DetailHeading from "$components/DetailHeading.astro"
+import Layout from "$layouts/Layout.astro"
+import _artworkData from "$lib/artwork-sheets"
+import PieIcon from "~icons/lucide/pie-chart"
+
+const finalizedData = _artworkData.filter((x) => x.status !== "In progress")
+---
+
+<Layout title="Artworks" description="ina mo">
+  <DetailHeading title="Artworks" description="Arts and stuff">
+    <a
+      class="px-3.5 py-1.5 rounded-md border text-sm inline-flex gap-x-1.5 items-center"
+      href="/artworks/stats"
+    >
+      <PieIcon />
+      <span>Stats</span>
+    </a>
+  </DetailHeading>
+  <div class="flex flex-wrap max-w-screen-2xl px-8 mx-auto gap-3">
+    {
+      finalizedData.map((x) => (
+        <div class="overflow-hidden relative">
+          <img
+            src={x.url}
+            alt=""
+            class="h-80 rounded-lg select-none"
+            draggable="false"
+          />
+          <div>{x.date}</div>
+          <div>{x.dateComplete}</div>
+        </div>
+      ))
+    }
+  </div>
+</Layout>

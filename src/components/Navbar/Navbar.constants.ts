@@ -10,9 +10,9 @@ export const navItems: NestedNavItems = [
     link: "",
     subitems: [
       {
-        text: "Gallery",
-        excerpt: "Some photography and art pieces I commissoned from artists",
-        link: "/gallery"
+        text: "Artworks",
+        excerpt: "All the art pieces I commissoned from artists",
+        link: "/artworks"
       },
       {
         text: "Characters",

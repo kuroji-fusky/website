@@ -2,6 +2,9 @@
 import Navbar from "$components/Navbar"
 import Footer from "$components/Footer.astro"
 
+import { siteTitle, siteAuthorHandle as me } from "../lib/constants"
+import ParseArticle from "$components/ParseArticle.astro"
+
 import "@fontsource/inter/latin-400.css"
 import "@fontsource/inter/latin-600.css"
 import "@fontsource/inter/latin-700.css"
@@ -10,9 +13,6 @@ import "@fontsource/inter/latin-ext-600.css"
 import "@fontsource/inter/latin-ext-700.css"
 import "@fontsource/jetbrains-mono"
 import "@fontsource/unbounded/latin-700.css"
-
-import { siteTitle, siteAuthorHandle as me } from "../lib/constants"
-import ParseArticle from "$components/ParseArticle.astro"
 
 interface Props {
   title: string
@@ -33,15 +33,10 @@ const {
 const { pathname } = Astro.url
 
 const canonicalUrl = new URL(pathname, Astro.site)
-
 const _title = pathname !== "/" ? `${title} | ${siteTitle}` : title
 ---
 
-<html
-  lang="en"
-  class="scroll-pt-20 scroll-smooth"
-  data-freaky-ass-nigga-he-a-69-god=""
->
+<html lang="en" class="scroll-pt-20 scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <title>{_title}</title>
