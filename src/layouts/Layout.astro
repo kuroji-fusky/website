@@ -8,9 +8,6 @@ import ParseArticle from "$components/ParseArticle.astro"
 import "@fontsource/inter/latin-400.css"
 import "@fontsource/inter/latin-600.css"
 import "@fontsource/inter/latin-700.css"
-import "@fontsource/inter/latin-ext-400.css"
-import "@fontsource/inter/latin-ext-600.css"
-import "@fontsource/inter/latin-ext-700.css"
 import "@fontsource/jetbrains-mono"
 import "@fontsource/unbounded/latin-700.css"
 
@@ -18,18 +15,10 @@ interface Props {
   title: string
   description?: string
   webpageType?: "website" | "article"
-  includeHeading?: true
   mdxMargin?: true
 }
 
-const {
-  title,
-  description,
-  webpageType = "website",
-  includeHeading,
-  mdxMargin
-} = Astro.props
-
+const { title, description, webpageType = "website", mdxMargin } = Astro.props
 const { pathname } = Astro.url
 
 const canonicalUrl = new URL(pathname, Astro.site)

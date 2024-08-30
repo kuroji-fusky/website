@@ -17,6 +17,10 @@ export const routeSections = {
       description:
         "The Vault contains all the unfinished and/or rejected works and content that never seen the light of day and is used for archival content."
     },
+    artworks: {
+      title: "Artworks",
+      description: "A gallery of all the commissioned pieces from artists"
+    },
     music: { title: "Discography", description: "Music stuff" },
     branding: { title: "Logo Branding", description: "" }
   }

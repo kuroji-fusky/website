@@ -1,12 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { google } from "googleapis"
 
 const key = import.meta.env.GOOGLE_API_KEY
 const sheesh = google.sheets("v4")
 
-const spreadsheetId = "1u0GbPLMf5LJfEoX8iHVYYwDudFtdq2pRC5UMeLNqq-Q"
 const options = {
   key,
-  spreadsheetId,
+  spreadsheetId: "1u0GbPLMf5LJfEoX8iHVYYwDudFtdq2pRC5UMeLNqq-Q",
   prettyPrint: false
 }
 
@@ -32,7 +32,7 @@ type Artwork = Array<{
     platform: string
     priceUSD: string
     pricePHP: string
-    [whatever: string]: string
+    [x: string]: string
   }>
 }>
 
@@ -87,8 +87,9 @@ otherSheeshData.forEach((item) => {
 })
 
 const artworkData = collectedArtworks.sort(
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  (a, b) => Date.parse((b as unknown as any).date) - Date.parse((a as unknown as any).date)
+  (a, b) =>
+    Date.parse((b as unknown as any).date) -
+    Date.parse((a as unknown as any).date)
 )
 
 export default artworkData

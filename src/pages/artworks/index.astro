@@ -4,12 +4,19 @@ import Layout from "$layouts/Layout.astro"
 import _artworkData from "$lib/artwork-sheets"
 import PieIcon from "~icons/lucide/pie-chart"
 import { Image } from "astro:assets"
+import { routeSections } from "$lib/constants"
 
 const finalizedData = _artworkData.filter((x) => x.status !== "In progress")
+
+const {
+  headings: {
+    artworks: { title, description }
+  }
+} = routeSections
 ---
 
-<Layout title="Artworks" description="ina mo">
-  <DetailHeading client:idle title="Artworks" description="Arts and stuff">
+<Layout {title} {description}>
+  <DetailHeading client:idle {title} {description}>
     <a
       class="px-3.5 py-1.5 rounded-md border text-sm inline-flex gap-x-1.5 items-center"
       href="/artworks/stats"
@@ -23,7 +30,7 @@ const finalizedData = _artworkData.filter((x) => x.status !== "In progress")
   >
     {
       finalizedData.map((x) => (
-        <div class="overflow-hidden relative group">
+        <div class="overflow-hidden relative group" id="artwork-item">
           <Image
             inferSize={true}
             widths={[400, 600, 840, 900]}
