@@ -91,21 +91,13 @@ const _title = pathname !== "/" ? `${title} | ${siteTitle}` : title
     <a
       href="#skip-to-content"
       class="fixed top-2 left-2 pointer-events-none focus:pointer-events-auto focus:opacity-100 focus:translate-x-0 translate-x-full opacity-0 bg-kuro-lavender-700 z-50 px-4 py-2.5 rounded-md"
-      >Skip to content?</a
+      data-astro-prefetch="false">Skip to content?</a
     >
     <Navbar client:idle />
     <main class="min-h-[calc(100dvh-4.25rem)]" id="skip-to-content">
       {
-        includeHeading && (
-          <div class="px-8 max-w-screen-2xl mx-auto my-6">
-            <h1 class="text-4xl font-extrabold mb-2.5">{title}</h1>
-            <p class="opacity-75">{description}</p>
-          </div>
-        )
-      }
-      {
         mdxMargin ? (
-          <div class="max-w-screen-2xl mx-auto px-8">
+          <div class="padding-width-responsive max-w-screen-2xl mx-auto">
             <ParseArticle>
               <slot />
             </ParseArticle>
@@ -118,3 +110,16 @@ const _title = pathname !== "/" ? `${title} | ${siteTitle}` : title
     <Footer />
   </body>
 </html>
+
+<style is:global>
+  @tailwind base;
+  @tailwind components;
+
+  @layer components {
+    .padding-width-responsive {
+      @apply px-5 md:px-8;
+    }
+  }
+
+  @tailwind utilities;
+</style>

@@ -26,7 +26,9 @@
 </script>
 
 <nav class="z-10 py-2 sticky top-0 bg-kuro-dark2">
-  <div class="mx-auto flex justify-between items-center px-8 max-w-screen-2xl">
+  <div
+    class="padding-width-responsive mx-auto flex justify-between items-center max-w-screen-2xl"
+  >
     <div class="flex items-center gap-x-2">
       <a href="/" title="Home page" class="py-2 pr-1">
         <div class="h-[1.825rem]">

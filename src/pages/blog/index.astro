@@ -6,6 +6,7 @@ import { routeSections } from "$lib/constants"
 import BlogItem from "$components/blog/BlogItem.svelte"
 import { Image } from "astro:assets"
 import BlogBrowserShelf from "$components/blog/BlogBrowserShelf.svelte"
+import DetailHeading from "$components/DetailHeading.svelte"
 
 const posts = await fetchBlogPosts({ limit: 9 })
 
@@ -18,8 +19,9 @@ const {
 } = routeSections
 ---
 
-<Layout title={blog.title} description={blog.description} includeHeading>
-  <div class="mx-auto max-w-screen-2xl px-8">
+<Layout title={blog.title} description={blog.description}>
+  <DetailHeading title={blog.title} description={blog.description} />
+  <div class="mx-auto max-w-screen-2xl padding-width-responsive">
     <BlogBrowserShelf client:idle interactiveMode />
     <section class="flex gap-x-8 flex-col lg:flex-row">
       <div class="flex-shrink-0 w-full lg:w-3/5 lg:pb-0 pb-6">
@@ -37,6 +39,7 @@ const {
             height={1280}
             width={720}
             loading="eager"
+            format="webp"
             sizes="(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px"
             class="w-full object-cover aspect-video transition-transform duration-300"
             src={postFeaturedBig.banner}
@@ -60,6 +63,7 @@ const {
             >
               <Image
                 widths={[240, 480]}
+                format="webp"
                 height={600}
                 width={600}
                 quality={60}

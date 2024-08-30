@@ -1,14 +1,15 @@
 ---
-import DetailHeading from "$components/DetailHeading.astro"
+import DetailHeading from "$components/DetailHeading.svelte"
 import Layout from "$layouts/Layout.astro"
 import _artworkData from "$lib/artwork-sheets"
 import PieIcon from "~icons/lucide/pie-chart"
+import { Image } from "astro:assets"
 
 const finalizedData = _artworkData.filter((x) => x.status !== "In progress")
 ---
 
 <Layout title="Artworks" description="ina mo">
-  <DetailHeading title="Artworks" description="Arts and stuff">
+  <DetailHeading client:idle title="Artworks" description="Arts and stuff">
     <a
       class="px-3.5 py-1.5 rounded-md border text-sm inline-flex gap-x-1.5 items-center"
       href="/artworks/stats"
@@ -17,20 +18,31 @@ const finalizedData = _artworkData.filter((x) => x.status !== "In progress")
       <span>Stats</span>
     </a>
   </DetailHeading>
-  <div class="flex flex-wrap max-w-screen-2xl px-8 mx-auto gap-3">
+  <section
+    class="flex flex-wrap max-w-screen-2xl padding-width-responsive mx-auto gap-3"
+  >
     {
       finalizedData.map((x) => (
-        <div class="overflow-hidden relative">
-          <img
+        <div class="overflow-hidden relative group">
+          <Image
+            inferSize={true}
+            widths={[400, 600, 840, 900]}
+            quality={75}
+            format="webp"
             src={x.url}
             alt=""
-            class="h-80 rounded-lg select-none"
+            class="h-80 rounded-lg select-none w-auto"
+            loading="eager"
             draggable="false"
+            fetchpriority="high"
+            sizes="(max-width: 360px) 400px, (max-width: 720px) 600px, (max-width: 1367px) 840px, (max-width: 1600px) 900px"
           />
-          <div>{x.date}</div>
-          <div>{x.dateComplete}</div>
+
+          <div class="absolute inset-0 pb-2.5 px-3 flex flex-col justify-end group-hover:opacity-100 opacity-0 bg-gradient-to-t from-black/65 to-75% transition-all">
+            {x.date}
+          </div>
         </div>
       ))
     }
-  </div>
+  </section>
 </Layout>
