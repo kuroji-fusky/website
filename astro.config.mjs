@@ -58,6 +58,11 @@ export default defineConfig({
       {
         protocol: "https",
         hostname: "fuskylabs-cdn.imgix.net"
+      },
+      // !!! This is only temporary, will be offloading my images to imgix soon
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com"
       }
     ]
   },
