@@ -10,19 +10,16 @@ const sourceRepoUrl = "https://github.com/kurojifusky/kurojifusky.com"
 >
   <footer class="flex flex-col gap-y-8 text-sm flex-1">
     <div
-      class="flex justify-between hover:[&_a]:underline [&_a]:text-kuro-lavender-200 hover:[&_a]:text-kuro-lavender-300"
+      class="flex flex-col-reverse md:flex-row gap-y-6 justify-between hover:[&_a]:underline [&_a]:text-kuro-lavender-200 hover:[&_a]:text-kuro-lavender-300"
     >
       <span class="font-normal opacity-50"
         >{`© ${currentYear} Fusky Labs, LLC`}</span
       >
-      <div class="flex gap-x-6 items-center">
+      <div
+        class="flex gap-x-5 items-start md:items-center gap-y-4 flex-col md:flex-row"
+      >
         <a href="/copyright">Copyright</a>
-        <span
-          role="link"
-          tabindex="0"
-          class="hover:underline text-kuro-lavender-200 hover:text-kuro-lavender-300"
-          >Tech stack</span
-        >
+        <a href="/socials">Socials</a>
         <a
           href={sourceRepoUrl}
           target="_blank"

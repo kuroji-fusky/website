@@ -1,18 +1,18 @@
-<script>
+<script lang="ts">
   import { navItems } from "./Navbar.constants"
   import ChevronDownIcon from "~icons/lucide/chevron-down?raw"
 </script>
 
 <div class="lg:flex hidden">
   {#each navItems as root}
-    <div class="px-3 py-3 inline-flex items-center gap-x-1.5 flex-col">
+    <div class="px-3.5 py-3 inline-flex items-center gap-x-1.5 flex-col">
       {#if root.link}
         <a href={root.link} class="inline-flex items-center gap-x-1.5">
           <span class="select-none">{root.text}</span>
           {#if root.subitems}
-            <span class="chevron">
+            <div class="chevron">
               {@html ChevronDownIcon}
-            </span>
+            </div>
           {/if}
         </a>
         {#if root.subitems}
@@ -26,9 +26,9 @@
             >{root.text}</span
           >
           {#if root.subitems}
-            <span class="chevron">
+            <div class="chevron">
               {@html ChevronDownIcon}
-            </span>
+            </div>
           {/if}
         </div>
         {#if root.subitems}
@@ -38,6 +38,10 @@
       {/if}
     </div>
   {/each}
+</div>
+
+<div>
+  <!-- other content -->
 </div>
 
 <style lang="postcss">
