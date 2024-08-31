@@ -1,14 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { fetchContentEntries } from "./client"
 import type {
   AwaitedReturnType,
   ContentEntries,
+  ContentfulFieldConstructor,
   EntryFieldEmbed,
   EntryFieldTypes
 } from "./types"
 
-interface BlogPostContent {
-  contentTypeId: "blogPost"
-  fields: {
+type BlogPostContent = ContentfulFieldConstructor<
+  "blogPost",
+  {
     title: EntryFieldTypes.Text
     description: EntryFieldTypes.Text
     category: EntryFieldTypes.Array<EntryFieldTypes.Symbol>
@@ -17,13 +19,21 @@ interface BlogPostContent {
     slug: EntryFieldTypes.Text
     isFeatured: EntryFieldTypes.Boolean
     banner: EntryFieldEmbed
+    authors: EntryFieldTypes.Array<EntryFieldTypes.Symbol>
+    fromSeries: EntryFieldTypes.Object<{
+      fields: {
+        title: string
+        slug: string
+      }
+    }>
   }
-}
+>
 
 const sortInAscendingOrder = <T extends object>(arr: T[]) => {
   return arr.sort(
-    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-    (a, b) => Date.parse((b as unknown as any).date) - Date.parse((a as unknown as any).date)
+    (a, b) =>
+      Date.parse((b as unknown as any).date) -
+      Date.parse((a as unknown as any).date)
   )
 }
 
@@ -44,11 +54,15 @@ export const fetchBlogPosts = async (pwops: ContentEntries) => {
       overridePublishDate,
       slug,
       title,
-      isFeatured
+      isFeatured,
+      authors,
+      fromSeries
     } = item.fields
 
     const image = banner ? `https:${banner.fields.file.url}?fm=webp` : ""
-    const datePublished = overridePublishDate ? overridePublishDate : item.sys.createdAt
+    const datePublished = overridePublishDate
+      ? overridePublishDate
+      : item.sys.createdAt
 
     return {
       isFeatured,
@@ -57,6 +71,8 @@ export const fetchBlogPosts = async (pwops: ContentEntries) => {
       description,
       category,
       content,
+      authors,
+      fromSeries,
       banner: image,
       date: datePublished
     }

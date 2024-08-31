@@ -5,6 +5,7 @@ import { documentToHtmlString } from "@contentful/rich-text-html-renderer"
 import Layout from "$layouts/Layout.astro"
 import { fetchBlogPosts, rendererOptions, parseForTOC } from "$lib/contentful"
 import BlogHeader from "$components/blog/BlogHeader.svelte"
+import { parseDateStr } from "$lib/parseDateStr"
 
 export async function getStaticPaths() {
   const posts = await fetchBlogPosts({
@@ -23,12 +24,15 @@ export async function getStaticPaths() {
       date: item.date,
       shit: item.content,
       banner: item.banner,
-      categories: item.category
+      categories: item.category,
+      fromSeries: item.fromSeries
     }
   }))
 }
 
-const { title, description, shit, date, banner, categories } = Astro.props
+const { title, description, shit, date, banner, categories, fromSeries } =
+  Astro.props
+
 const { protocol, host } = Astro.url
 
 const baseUrl = `${protocol}//${host}`
@@ -48,23 +52,40 @@ const baseUrl = `${protocol}//${host}`
     itemscope
   >
     <meta itemprop="thumbnailUrl" content={banner} />
-    <BlogHeader client:idle {categories} {title} {description} {date} {baseUrl}>
-      <Image
-        widths={[540, 960, 1440]}
-        height={1920}
-        width={1080}
-        quality={90}
-        loading="eager"
-        format="webp"
-        sizes="(max-width: 360px) 540px, (max-width: 720px) 960px, (max-width: 1600px) 1440px"
-        class="overflow-hidden aspect-video rounded-lg w-full object-cover"
-        src={banner}
-        alt={`Banner for ${title}`}
-        fetchpriority="high"
-        draggable="false"
-        itemprop="image"
-      />
-    </BlogHeader>
+    <div>
+      <BlogHeader
+        client:idle
+        {categories}
+        {title}
+        {description}
+        {baseUrl}
+        {fromSeries}
+      >
+        <Image
+          widths={[540, 960, 1440]}
+          height={1920}
+          width={1080}
+          quality={90}
+          loading="eager"
+          format="webp"
+          sizes="(max-width: 360px) 540px, (max-width: 720px) 960px, (max-width: 1600px) 1440px"
+          class="overflow-hidden aspect-video rounded-lg w-full object-cover"
+          src={banner}
+          alt={`Banner for ${title}`}
+          fetchpriority="high"
+          draggable="false"
+          itemprop="image"
+        />
+      </BlogHeader>
+      <div class="flex items-center py-5 gap-x-4">
+        <div class="flex-1 flex flex-wrap gap-3">Tags placeholder</div>
+        <div class="border-l-2 opacity-50 h-4"></div>
+        <time datetime={date} itemprop="datePublished"
+          >{parseDateStr(date).readableDate}</time
+        >
+      </div>
+    </div>
+
     <div class="flex">
       <article
         set:html={documentToHtmlString(shit, rendererOptions)}
