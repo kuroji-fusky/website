@@ -15,15 +15,17 @@ const [postFeaturedBig, ...postFeaturedRest] = posts
   .slice(0, 4)
 
 const {
-  headings: { blog }
+  headings: {
+    blog: { description, title }
+  }
 } = routeSections
 ---
 
-<Layout title={blog.title} description={blog.description}>
-  <DetailHeading title={blog.title} description={blog.description} />
+<Layout {title} {description}>
+  <DetailHeading client:idle {title} {description} />
   <div class="mx-auto max-w-screen-2xl padding-width-responsive">
     <BlogBrowserShelf client:idle interactiveMode />
-    <section class="flex gap-x-8 flex-col lg:flex-row">
+    <section class="relative mb-10 flex gap-x-8 flex-col lg:flex-row">
       <div class="flex-shrink-0 w-full lg:w-3/5 lg:pb-0 pb-6">
         <BlogItem
           size="heading"

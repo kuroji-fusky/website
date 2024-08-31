@@ -32,6 +32,7 @@ type Artwork = Array<{
     platform: string
     priceUSD: string
     pricePHP: string
+    notes: string
     [x: string]: string
   }>
 }>
@@ -54,7 +55,8 @@ commissionSheeshData.forEach((item) => {
     pricePHP,
     priceUSD,
     purchaseDate,
-    completeDate
+    completeDate,
+    notes
   ] = item
 
   collectedArtworks.push({
@@ -69,7 +71,8 @@ commissionSheeshData.forEach((item) => {
     details: {
       platform,
       priceUSD,
-      pricePHP
+      pricePHP,
+      notes
     }
   })
 })
@@ -87,9 +90,8 @@ otherSheeshData.forEach((item) => {
 })
 
 const artworkData = collectedArtworks.sort(
-  (a, b) =>
-    Date.parse((b as unknown as any).date) -
-    Date.parse((a as unknown as any).date)
+  // prettier-ignore
+  (a, b) => Date.parse((b as unknown as any).date) - Date.parse((a as unknown as any).date)
 )
 
 export default artworkData

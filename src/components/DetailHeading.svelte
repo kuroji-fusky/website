@@ -9,7 +9,7 @@
   let headingTitleRef: HTMLHeadElement
 
   onMount(() => {
-    observeDOM(globalNavShow, headingTitleRef)
+    observeDOM(globalNavShow, headingTitleRef, { rootMargin: "-4% 0% 0% 0%" })
 
     globalNavTitle.set(title)
   })
@@ -20,6 +20,9 @@
 >
   <div class="flex justify-between items-center">
     <div>
+      <div class="empty:hidden">
+        <slot name="breadcrumbs" />
+      </div>
       <h1 class="text-4xl font-extrabold mb-2.5" bind:this={headingTitleRef}>
         {title}
       </h1>

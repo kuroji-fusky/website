@@ -13,7 +13,7 @@
 </script>
 
 <div
-  class="sticky top-[3.75rem] lg:top-[4.25rem] bg-kuro-dark2 z-[2] pt-2 pb-4 mb-4 flex justify-between"
+  class="sticky top-[3.25rem] lg:top-[3.75rem] bg-kuro-dark2 z-[2] pt-2 pb-4 mb-4 flex justify-between"
 >
   {#if interactiveMode}
     <div
@@ -21,7 +21,9 @@
     >
       <span class="opacity-50 font-normal mr-1">Filter by</span>
       {#each filterOptions as filterItem}
-        <button class="bg-kuro-lavender-900 hover:bg-kuro-lavender-800">{filterItem}</button>
+        <button class="bg-kuro-lavender-900 hover:bg-kuro-lavender-800"
+          >{filterItem}</button
+        >
       {/each}
     </div>
   {/if}

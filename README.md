@@ -5,12 +5,13 @@
   <a href="https://kurojifusky.com">kurojifusky.com</a>
 </h1>
 
-The source code of my personal website! Written in Astro, Svelte, and Lit.
+The source code of my personal website! Written in Astro + Svelte.
 
 ## APIs used
 
 - Contentful
-- YouTube Data API
+- Google Sheets API
+- YouTube Data v3 API
 
 ## Running the abominations locally
 
@@ -23,14 +24,14 @@ The source code of my personal website! Written in Astro, Svelte, and Lit.
 
 - This repo contains submodules and clone it with the following along with its corresponding submodules:
 
-  ```console
+  ```bash
   git clone https://github.com/kurojifusky/kurojifusky.com --recurse-submodules
   cd kurojifusky.com
   ```
 
 - Install dependencies with `yarn`:
 
-  ```ps1
+  ```bash
   yarn install # or yarn
   ```
 
