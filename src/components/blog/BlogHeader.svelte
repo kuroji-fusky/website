@@ -12,8 +12,6 @@
   export let description: string
   export let fromSeries: BlogPostsReturnType[number]["fromSeries"]
 
-  const { slug: seriesSlug, title: seriesTitle } = fromSeries.fields
-
   let headingTitleRef: HTMLHeadingElement
 
   onMount(() => {
@@ -52,8 +50,8 @@
     >
     <span>
       From the series:
-      <a href={`/blog/series/${seriesSlug}`} class="font-semibold"
-        >{seriesTitle}</a
+      <a href={`/blog/series/${fromSeries.fields.slug}`} class="font-semibold"
+        >{fromSeries.fields.title}</a
       >
     </span>
   </div>
