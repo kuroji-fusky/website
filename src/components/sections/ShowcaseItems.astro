@@ -12,10 +12,6 @@ const showcaseItems = (await getCollection("showcase")).sort(
 
 <section>
   <div class="grid gap-y-4 flex-1">
-    {
-      showcaseItems.map(({ slug, data }) => (
-        <ShowcaseItemHero client:idle {slug} {data} />
-      ))
-    }
+    {showcaseItems.map(({ slug, data }) => <ShowcaseItemHero {slug} {data} />)}
   </div>
 </section>

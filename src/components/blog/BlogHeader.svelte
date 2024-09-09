@@ -21,7 +21,7 @@
   })
 </script>
 
-<span class="inline-flex mb-2.5 gap-x-6">
+<span class="inline-flex flex-wrap mb-2.5 gap-x-6 gap-y-2.5">
   {#each categories as cat}
     <a
       class="bg-clip-text text-transparent font-semibold bg-gradient-to-tr to-kuro-royalblue-200 from-kuro-lavender-400 hover:selection:text-white selection:text-white"

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { navItems } from "./Navbar.constants"
   import ChevronDownIcon from "~icons/lucide/chevron-down?raw"
+  import ExternalLinkIcon from "~icons/lucide/external-link?raw"
 </script>
 
 <div class="lg:flex hidden">
@@ -38,10 +39,6 @@
       {/if}
     </div>
   {/each}
-</div>
-
-<div>
-  <!-- other content -->
 </div>
 
 <style lang="postcss">
