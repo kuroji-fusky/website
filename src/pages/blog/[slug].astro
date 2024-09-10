@@ -1,11 +1,12 @@
 ---
-import { Image } from "astro:assets"
+import { Image, getImage } from "astro:assets"
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer"
 
 import Layout from "$layouts/Layout.astro"
 import { fetchBlogPosts, rendererOptions, parseForTOC } from "$lib/contentful"
 import BlogHeader from "$components/blog/BlogHeader.svelte"
 import { parseDateStr } from "$lib/parseDateStr"
+import BlogAuthors from "$components/blog/BlogAuthors.astro"
 
 export async function getStaticPaths() {
   const posts = await fetchBlogPosts({
@@ -25,17 +26,32 @@ export async function getStaticPaths() {
       shit: item.content,
       banner: item.banner,
       categories: item.category,
-      fromSeries: item.fromSeries
+      fromSeries: item.fromSeries,
+      authors: item.authors
     }
   }))
 }
 
-const { title, description, shit, date, banner, categories, fromSeries } =
-  Astro.props
+const {
+  title,
+  description,
+  shit,
+  date,
+  banner,
+  categories,
+  fromSeries,
+  authors
+} = Astro.props
 
 const { protocol, host } = Astro.url
 
 const baseUrl = `${protocol}//${host}`
+
+const backdropImg = await getImage({
+  src: banner,
+  format: "webp",
+  inferSize: true
+})
 ---
 
 <script>
@@ -45,12 +61,18 @@ const baseUrl = `${protocol}//${host}`
 </script>
 
 <Layout {title} {description} webpageType="article">
+  <Fragment slot="img-preload">
+    <!-- From [slug] -->
+    <meta property="og:image" content={backdropImg.src} />
+    <meta name="twitter:image" content={backdropImg.src} />
+    <link rel="preload" href={backdropImg.src} as="image" />
+  </Fragment>
   <div
-    class="mt-8 padding-width-responsive max-w-screen-xl mx-auto prose-headings:font-bold flex flex-col gap-y-5 [&_p]:leading-7 lg:[&_p]:leading-8"
-    itemtype="http://schema.org/Blog"
+    class="mt-8 padding-width-responsive max-w-screen-lg mx-auto prose-headings:font-bold flex flex-col gap-y-5 [&_p]:leading-7 lg:[&_p]:leading-8"
+    itemtype="https://schema.org/Blog"
     itemscope
   >
-    <meta itemprop="thumbnailUrl" content={banner} />
+    <meta itemprop="thumbnailUrl" content={backdropImg.src} />
     <div>
       <BlogHeader
         client:idle
@@ -77,8 +99,10 @@ const baseUrl = `${protocol}//${host}`
         />
       </BlogHeader>
       <div class="flex items-center py-5 gap-x-4">
-        <div class="flex-1 flex flex-wrap gap-3">Tags placeholder</div>
-        <div class="border-l-2 opacity-50 h-4"></div>
+        <div class="flex-1 flex flex-wrap gap-2.5 items-center">
+          <pan class="opacity-65">Posted by</pan>
+          <BlogAuthors {authors} hasAvatar />
+        </div>
         <time datetime={date} itemprop="datePublished"
           >{parseDateStr(date).readableDate}</time
         >

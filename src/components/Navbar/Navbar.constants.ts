@@ -19,11 +19,6 @@ export const navItems: NestedNavItems = [
         excerpt: "All the characters I own or created",
         link: "/characters"
       },
-      // {
-      //   text: "Dream Journal",
-      //   excerpt: "Some stuff that I catalog for storybuilding",
-      //   link: "/dream-journal"
-      // },
       {
         text: "The Vault",
         excerpt: "Abandoned projects or some historic relics that I've made",

@@ -79,7 +79,10 @@ export const rendererOptions: PartialRenderer = {
 
       const nodeData = nodeContent[1].data
 
-      const isNodeHyperlink = nodeContent.some((x) => (x as any).nodeType !== "hyperLink")
+      const isNodeHyperlink = nodeContent.some(
+        (x) => (x as any).nodeType !== "hyperLink"
+      )
+
       const isNodeText = nodeContent.some((x) => (x as any).nodeType !== "text")
 
       // Check if paragraph is a standalone link and a YouTube embed
@@ -184,7 +187,7 @@ export const rendererOptions: PartialRenderer = {
   }
 }
 
-const tocItem = (headingItem: string, cls?: string) => {
+const tocItem = (heading: any, node: any, cls?: string) => {
   return sanitizedHTML(
     "li",
     {},
@@ -192,18 +195,20 @@ const tocItem = (headingItem: string, cls?: string) => {
       "a",
       {
         class: `block ${cls || "pl-0"}`,
-        href: `#${kebabCase(headingItem)}`,
+        href: `#${kebabCase(heading.value)}`,
         "data-astro-prefetch": false
       },
-      headingItem
+      node
     )
   )
 }
 
 export const parseForTOC: PartialRenderer = {
   renderNode: {
-    [BLOCKS.HEADING_2]: (node, next) => tocItem(next(node.content)),
-    [BLOCKS.HEADING_3]: (node, next) => tocItem(next(node.content), "pl-3"),
+    [BLOCKS.HEADING_2]: (node, next) =>
+      tocItem(node.content[0], next(node.content)),
+    [BLOCKS.HEADING_3]: (node, next) =>
+      tocItem(node.content[0], next(node.content), "pl-3.5"),
     [BLOCKS.PARAGRAPH]: renderNothing,
     [BLOCKS.UL_LIST]: renderNothing,
     [BLOCKS.OL_LIST]: renderNothing,

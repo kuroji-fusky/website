@@ -3,6 +3,7 @@ import { Image } from "astro:assets"
 import BlogItem from "./BlogItem.svelte"
 
 import type { BlogPostsReturnType } from "$lib/contentful"
+import BlogAuthors from "./BlogAuthors.astro"
 
 interface Props {
   postFeaturedBig: BlogPostsReturnType[number]
@@ -17,7 +18,6 @@ const { postFeaturedBig, postFeaturedRest } = Astro.props
   <div class="relative flex gap-x-8 flex-col lg:flex-row">
     <div class="flex-shrink-0 w-full lg:w-3/5 lg:pb-0 pb-6">
       <BlogItem
-        size="heading"
         title={postFeaturedBig.title}
         description={postFeaturedBig.description}
         date={postFeaturedBig.date}
@@ -26,6 +26,7 @@ const { postFeaturedBig, postFeaturedRest } = Astro.props
         referrer="featured_shelf"
       >
         <Image
+          slot="banner"
           widths={[240, 540, 720]}
           height={1280}
           width={720}
@@ -36,6 +37,11 @@ const { postFeaturedBig, postFeaturedRest } = Astro.props
           src={postFeaturedBig.banner}
           alt={`Banner for ${postFeaturedBig.title}`}
         />
+        <BlogAuthors
+          slot="authors"
+          authors={postFeaturedBig.authors}
+          hasAvatar
+        />
       </BlogItem>
     </div>
     <div
@@ -43,27 +49,31 @@ const { postFeaturedBig, postFeaturedRest } = Astro.props
     >
       {
         postFeaturedRest.map((item) => (
-          <BlogItem
-            title={item.title}
-            description={item.description}
-            date={item.date}
-            slug={item.slug}
-            category={item.category}
-            size="small"
-            referrer="featured_shelf"
-          >
-            <Image
-              widths={[240, 480]}
-              format="webp"
-              height={600}
-              width={600}
-              quality={60}
-              loading="eager"
-              sizes="(max-width: 360px) 240px, (max-width: 720px) 480px"
-              src={item.banner}
-              alt={`Banner for ${item.title}`}
-            />
-          </BlogItem>
+          <>
+            <BlogItem
+              title={item.title}
+              description={item.description}
+              date={item.date}
+              slug={item.slug}
+              category={item.category}
+              size="small"
+              referrer="featured_shelf"
+            >
+              <Image
+                slot="banner"
+                widths={[240, 480]}
+                format="webp"
+                height={600}
+                width={600}
+                quality={60}
+                loading="eager"
+                sizes="(max-width: 360px) 240px, (max-width: 720px) 480px"
+                src={item.banner}
+                alt={`Banner for ${item.title}`}
+              />
+              <BlogAuthors slot="authors" authors={item.authors} />
+            </BlogItem>
+          </>
         ))
       }
     </div>

@@ -6,11 +6,8 @@ export const routeSections = {
   headings: {
     blog: {
       title: "Blog posts",
-      description: "I ramble on nerd things, fursuit things, yeah lol"
-    },
-    dreamJournal: {
-      title: "Dream Journal",
-      description: "Cataloging my weird ass dreams since the 2010s"
+      description:
+        "I ramble on nerd things or possibly the things I found interesting"
     },
     vault: {
       title: "The Vault",

@@ -2,6 +2,7 @@
 import { Image } from "astro:assets"
 import type { BlogPostsReturnType } from "$lib/contentful"
 import BlogItem from "./BlogItem.svelte"
+import BlogAuthors from "./BlogAuthors.astro"
 
 interface Props {
   posts: BlogPostsReturnType
@@ -24,6 +25,7 @@ const { posts, heading } = Astro.props
           category={item.category}
         >
           <Image
+            slot="banner"
             widths={[240, 540, 720]}
             height={1280}
             width={720}
@@ -33,6 +35,7 @@ const { posts, heading } = Astro.props
             src={item.banner}
             alt={`Banner for ${item.title}`}
           />
+          <BlogAuthors slot="authors" authors={item.authors} />
         </BlogItem>
       ))
     }

@@ -7,7 +7,6 @@
   export let date: string
   export let slug: string
   export let category: string[] = [""]
-  export let authors: string[] = ["Kuroji Fusky"]
   export let referrer: string = ""
   export let size: "small" | "normal" | "heading" = "normal"
 
@@ -21,7 +20,7 @@
     href={parsedSlug}
     class="overflow-hidden aspect-video rounded-md hover:*:scale-[1.025] [&_img]:h-full [&_img]:object-cover [&_img]:transition-transform [&_img]:duration-300 {size}"
   >
-    <slot />
+    <slot name="banner" />
   </a>
   <div id="blog-item-details" class={size}>
     <div id="blog-item-category-wrapper" class="flex flex-wrap {size}">
@@ -33,6 +32,8 @@
         >
       {/each}
     </div>
+
+    <!-- Heading -->
     {#if size === "heading"}
       <h2 id="blog-item-heading" class="font-bold {size}">
         <a
@@ -48,13 +49,20 @@
         >
       </h3>
     {/if}
+
+    <!-- Description/Excerpt -->
     <p class="overflow-hidden opacity-75 leading-relaxed">
       {description}
     </p>
+
+    <!-- Author & Date -->
     <span class="inline-flex items-center gap-x-1.5 text-sm">
-      <span>Authors</span>
+      <slot name="authors" />
       <span class="size-0.5 rounded-full bg-white/75" />
-      <time datetime={isoDate} class="font-mono opacity-75">{readableDate}</time
+      <time
+        datetime={isoDate}
+        class="font-mono opacity-75 text-[0.8rem] leading-none"
+        >{readableDate}</time
       >
     </span>
   </div>

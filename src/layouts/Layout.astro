@@ -1,15 +1,15 @@
 ---
-import Navbar from "$components/Navbar"
-import Footer from "$components/Footer.astro"
-
 import { siteTitle, siteAuthorHandle as me } from "../lib/constants"
-import ParseArticle from "$components/ParseArticle.astro"
 
 import "@fontsource/inter/latin-400.css"
 import "@fontsource/inter/latin-600.css"
 import "@fontsource/inter/latin-700.css"
 import "@fontsource/jetbrains-mono"
 import "@fontsource/unbounded/latin-700.css"
+
+import ParseArticle from "$components/ParseArticle.astro"
+import Container from "$components/Container.svelte"
+import Footer from "$components/Footer.astro"
 
 interface Props {
   title: string
@@ -45,7 +45,6 @@ const _title = pathname !== "/" ? `${title} | ${siteTitle}` : title
 
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
-    {webpageType === "article" && <meta name="author" content={author} />}
 
     {/* OG tags */}
     <meta property="og:title" content={title} />
@@ -66,19 +65,14 @@ const _title = pathname !== "/" ? `${title} | ${siteTitle}` : title
     {/* Sitemap */}
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    {/* !!! TODO make this dynamic !!! */}
+    <!-- Special thanks to Alex Nguyen -- https://alexnguyen.co.nz/blog/preloading-images-with-astro/ -->
+    <slot name="img-preload" />
+
     <link
       rel="alternate"
       type="application/rss+xml"
       title="Kuroji Fusky"
       href={new URL("rss.xml", Astro.site)}
-    />
-
-    <link rel="dns-prefetch" href="https://images.ctfassets.net/" />
-    <link
-      rel="preconnect"
-      href="https://images.ctfassets.net/"
-      crossorigin=""
     />
   </head>
   <body
@@ -89,33 +83,37 @@ const _title = pathname !== "/" ? `${title} | ${siteTitle}` : title
       class="fixed top-2 left-2 pointer-events-none focus:pointer-events-auto focus:opacity-100 focus:translate-x-0 translate-x-full opacity-0 bg-kuro-lavender-700 z-50 px-4 py-2.5 rounded-md"
       data-astro-prefetch="false">Skip to content?</a
     >
-    <Navbar client:idle />
-    <main class="min-h-[calc(100dvh-4.25rem)]" id="skip-to-content">
-      {
-        mdxMargin ? (
-          <div class="padding-width-responsive max-w-screen-2xl mx-auto">
-            <ParseArticle>
-              <slot />
-            </ParseArticle>
-          </div>
-        ) : (
-          <slot />
-        )
-      }
-    </main>
-    <Footer />
+    <Container client:idle>
+      <main id="skip-to-content" class="min-h-[calc(100dvh-10rem)]">
+        {
+          mdxMargin ? (
+            <div
+              has-mdx-margin=""
+              class="padding-width-responsive max-w-screen-2xl mx-auto"
+            >
+              <ParseArticle>
+                <slot />
+              </ParseArticle>
+            </div>
+          ) : (
+            <slot />
+          )
+        }
+      </main>
+      <Footer />
+    </Container>
   </body>
-</html>
 
-<style is:global>
-  @tailwind base;
-  @tailwind components;
+  <style is:global>
+    @tailwind base;
+    @tailwind components;
 
-  @layer components {
-    .padding-width-responsive {
-      @apply px-5 md:px-8;
+    @layer components {
+      .padding-width-responsive {
+        @apply px-5 md:px-8;
+      }
     }
-  }
 
-  @tailwind utilities;
-</style>
+    @tailwind utilities;
+  </style>
+</html>

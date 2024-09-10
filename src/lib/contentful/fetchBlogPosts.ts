@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { fetchContentEntries } from "./client"
+import type { BlogAuthorContent } from "./fetchBlogAuthor"
+import type { BlogSeriesContent } from "./fetchBlogSeries"
 import type {
   AwaitedReturnType,
   ContentEntries,
@@ -19,13 +21,8 @@ type BlogPostContent = ContentfulFieldConstructor<
     slug: EntryFieldTypes.Text
     isFeatured: EntryFieldTypes.Boolean
     banner: EntryFieldEmbed
-    authors: EntryFieldTypes.Array<EntryFieldTypes.Symbol>
-    fromSeries: EntryFieldTypes.Object<{
-      fields: {
-        title: string
-        slug: string
-      }
-    }>
+    authors: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<BlogAuthorContent>>
+    fromSeries: EntryFieldTypes.EntryLink<BlogSeriesContent>
   }
 >
 
@@ -35,6 +32,14 @@ const sortInAscendingOrder = <T extends object>(arr: T[]) => {
       Date.parse((b as unknown as any).date) -
       Date.parse((a as unknown as any).date)
   )
+}
+
+interface _TempAuthorOverride {
+  fields: {
+    name: string
+    slug: string
+    avatar: EntryFieldEmbed
+  }
 }
 
 export const fetchBlogPosts = async (pwops: ContentEntries) => {
@@ -64,6 +69,21 @@ export const fetchBlogPosts = async (pwops: ContentEntries) => {
       ? overridePublishDate
       : item.sys.createdAt
 
+    // A lot of type mangling here, will need a custom type and func to handle this mess
+    const authorsArr = authors
+      ? authors.map((author) => {
+          const { avatar, name, slug } = (
+            author as unknown as _TempAuthorOverride
+          ).fields
+
+          return {
+            avatar: `https:${(avatar as unknown as EntryFieldEmbed["data"]).fields.file.url}`,
+            name,
+            slug
+          }
+        })
+      : []
+
     return {
       isFeatured,
       title,
@@ -71,7 +91,7 @@ export const fetchBlogPosts = async (pwops: ContentEntries) => {
       description,
       category,
       content,
-      authors,
+      authors: authorsArr,
       fromSeries,
       banner: image,
       date: datePublished

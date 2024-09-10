@@ -6,7 +6,7 @@ import type {
   EntryFieldTypes
 } from "./types"
 
-type BlogSeriesContent = ContentfulFieldConstructor<
+export type BlogSeriesContent = ContentfulFieldConstructor<
   "blogSeries",
   {
     title: EntryFieldTypes.Text
