@@ -12,7 +12,12 @@ interface Props {
   categories: string[]
   title: string
   description: string
-  fromSeries: BlogPostsReturnType[number]["fromSeries"]
+  fromSeries: {
+    fields: {
+      slug: string
+      title: string
+    }
+  }
   authors: BlogPostsReturnType[number]["authors"]
   date: string
   banner: string

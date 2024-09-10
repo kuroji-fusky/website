@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props
 const { Content } = await entry.render()
 
-const { date, details, repo, title, image, excerpt: description } = entry.data
+const { date, details, repo, title, excerpt: description } = entry.data
 
 const { isoDate, readableDate } = parseDateStr(date.toString())
 ---

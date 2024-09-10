@@ -24,7 +24,8 @@ export async function getStaticPaths() {
       shit: item.content,
       banner: item.banner,
       categories: item.category,
-      fromSeries: item.fromSeries,
+      /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+      fromSeries: item.fromSeries as any,
       authors: item.authors
     }
   }))
