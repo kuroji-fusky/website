@@ -5,6 +5,7 @@ import { documentToHtmlString } from "@contentful/rich-text-html-renderer"
 import Layout from "$layouts/Layout.astro"
 import { fetchBlogPosts, rendererOptions, parseForTOC } from "$lib/contentful"
 import BlogHeader from "$components/blog/BlogHeader.astro"
+import BlogTOC from "$components/blog/BlogTOC.svelte"
 
 export async function getStaticPaths() {
   const posts = await fetchBlogPosts({
@@ -66,7 +67,7 @@ const backdropImg = await getImage({
     <link rel="preload" href={backdropImg.src} as="image" />
   </Fragment>
   <div
-    class="mt-8 padding-width-responsive max-w-[1200px] mx-auto prose-headings:font-bold flex flex-col gap-y-5 [&_p]:leading-7 lg:[&_p]:leading-8"
+    class="mt-8 padding-width-responsive max-w-screen-xl mx-auto prose-headings:font-bold flex flex-col gap-y-5 [&_p]:leading-7 lg:[&_p]:leading-8"
     itemtype="https://schema.org/Blog"
     itemscope
   >
@@ -87,19 +88,14 @@ const backdropImg = await getImage({
     <div class="flex">
       <article
         set:html={documentToHtmlString(shit, rendererOptions)}
-        class="min-w-0 text-base lg:text-lg prose-p:font-normal w-full text-white prose-h2:text-3xl prose-h3:text-2xl prose-headings:py-1.5 prose-p:my-3 [&_li_p]:my-0"
+        class="min-w-0 text-base lg:text-lg prose-p:font-normal w-full text-white prose-h2:text-3xl prose-h3:text-2xl prose-headings:py-1.5 first:prose-p:mt-0 prose-p:my-3 [&_li_p]:my-0"
       />
-      <aside
-        class="bg-kuro-dark2 flex-shrink-0 md:flex [align-self:start] hidden md:w-56 lg:w-[16.75rem] sticky top-20 md:ml-5 lg:ml-10"
-      >
-        <div class="w-full">
-          <div class="mb-2 font-bold text-xl">On this article</div>
-          <ul
-            class="flex flex-col gap-y-1 [&_a]:text-white [&_a]:opacity-60 hover:[&_a]:opacity-100 hover:[&_a]:text-kuro-violet-100"
-            set:html={documentToHtmlString(shit, parseForTOC)}
-          />
-        </div>
-      </aside>
+      <BlogTOC client:idle>
+        <ul
+          class="flex flex-col gap-y-1 [&_a]:text-white [&_a]:opacity-60 hover:[&_a]:opacity-100 hover:[&_a]:text-kuro-violet-100"
+          set:html={documentToHtmlString(shit, parseForTOC)}
+        />
+      </BlogTOC>
     </div>
   </div>
 </Layout>
