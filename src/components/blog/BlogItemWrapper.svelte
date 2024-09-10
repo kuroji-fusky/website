@@ -68,7 +68,7 @@
   </div>
 </div>
 
-<style lang="postcss" global>
+<style lang="postcss">
   #blog-item.small {
     @apply flex-row gap-x-5;
   }

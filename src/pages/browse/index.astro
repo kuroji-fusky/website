@@ -1,0 +1,25 @@
+---
+import DetailHeading from "$components/DetailHeading.astro"
+import Layout from "$layouts/Layout.astro"
+
+const title = "Browse"
+const description =
+  "Browse through mountains of content; from blogs, scrapped projects, and other things"
+---
+
+<Layout {title} {description}>
+  <DetailHeading client:load {title} {description} />
+  <div class="px-8 mx-auto max-w-screen-2xl">
+    <section>
+      <h2>Portfolio</h2>
+    </section>
+
+    <section>
+      <h2>Developer focused</h2>
+    </section>
+
+    <section>
+      <h2>Others</h2>
+    </section>
+  </div>
+</Layout>

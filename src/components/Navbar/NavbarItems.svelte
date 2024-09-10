@@ -1,7 +1,20 @@
 <script lang="ts">
+  import { isSearchActive } from "./Navbar.store"
   import { navItems } from "./Navbar.constants"
+
   import ChevronDownIcon from "~icons/lucide/chevron-down?raw"
-  import ExternalLinkIcon from "~icons/lucide/external-link?raw"
+  import MenuIcon from "~icons/lucide/menu?raw"
+  import SearchIcon from "~icons/lucide/search?raw"
+
+  const focusOnSearchbox = () => {
+    isSearchActive.toggleState()
+
+    if ($isSearchActive) {
+      setTimeout(() => {
+        document.getElementById("global-search")!.focus()
+      }, 200)
+    }
+  }
 </script>
 
 <div class="lg:flex hidden">
@@ -40,6 +53,12 @@
     </div>
   {/each}
 </div>
+<button class="px-3 py-3.5" on:click={focusOnSearchbox}>
+  {@html SearchIcon}
+</button>
+<button class="lg:hidden block px-3.5 py-3.5">
+  {@html MenuIcon}
+</button>
 
 <style lang="postcss">
   .chevron {

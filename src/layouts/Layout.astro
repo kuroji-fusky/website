@@ -1,15 +1,15 @@
 ---
 import { siteTitle, siteAuthorHandle as me } from "../lib/constants"
 
-import "@fontsource/inter/latin-400.css"
-import "@fontsource/inter/latin-600.css"
-import "@fontsource/inter/latin-700.css"
+import "@fontsource/inter/400.css"
+import "@fontsource/inter/600.css"
+import "@fontsource/inter/700.css"
 import "@fontsource/jetbrains-mono"
 import "@fontsource/unbounded/latin-700.css"
 
 import ParseArticle from "$components/ParseArticle.astro"
-import Container from "$components/Container.svelte"
 import Footer from "$components/Footer.astro"
+import Navbar from "$components/Navbar"
 
 interface Props {
   title: string
@@ -76,25 +76,24 @@ const _title = pathname !== "/" ? `${title} | ${siteTitle}` : title
       class="fixed top-2 left-2 pointer-events-none focus:pointer-events-auto focus:opacity-100 focus:translate-x-0 translate-x-full opacity-0 bg-kuro-lavender-700 z-50 px-4 py-2.5 rounded-md"
       data-astro-prefetch="false">Skip to content?</a
     >
-    <Container client:idle>
-      <main id="skip-to-content" class="min-h-[calc(100dvh-10rem)]">
-        {
-          mdxMargin ? (
-            <div
-              has-mdx-margin=""
-              class="padding-width-responsive max-w-screen-2xl mx-auto"
-            >
-              <ParseArticle>
-                <slot />
-              </ParseArticle>
-            </div>
-          ) : (
-            <slot />
-          )
-        }
-      </main>
-      <Footer />
-    </Container>
+    <Navbar />
+    <main id="skip-to-content" class="min-h-[calc(100dvh-10rem)]">
+      {
+        mdxMargin ? (
+          <div
+            data-has-mdx-margin=""
+            class="padding-width-responsive max-w-screen-2xl mx-auto"
+          >
+            <ParseArticle>
+              <slot />
+            </ParseArticle>
+          </div>
+        ) : (
+          <slot />
+        )
+      }
+    </main>
+    <Footer />
   </body>
 
   <style is:global>

@@ -1,3 +1,3 @@
-import Navbar from "./Navbar.svelte"
+import Navbar from "./Navbar.astro"
 
 export default Navbar

@@ -4,7 +4,7 @@ import BlogGrid from "$components/blog/BlogGrid.astro"
 import { fetchBlogPosts } from "$lib/contentful"
 import { routeSections } from "$lib/constants"
 import BlogBrowserShelf from "$components/blog/BlogBrowserShelf.svelte"
-import DetailHeading from "$components/DetailHeading.svelte"
+import DetailHeading from "$components/DetailHeading.astro"
 import BlogShowcase from "$components/blog/BlogShowcase.astro"
 
 const posts = await fetchBlogPosts({ limit: 12 })
@@ -21,7 +21,7 @@ const {
 ---
 
 <Layout {title} {description}>
-  <DetailHeading client:idle {title} {description} />
+  <DetailHeading {title} {description} />
   <div class="mx-auto max-w-screen-2xl padding-width-responsive">
     <BlogBrowserShelf interactiveMode />
     <BlogShowcase {postFeaturedBig} {postFeaturedRest} />

@@ -5,25 +5,30 @@
   import { isSearchActive } from "./Navbar.store"
   import { fly, fade } from "svelte/transition"
   import { cubicOut } from "svelte/easing"
+  import Portal from "$components/Portal.svelte"
 
   let hasInputContent = false
   let currentFunnies: string
 
+  const defaultPlaceholder = "Search Kuro's stash"
   const funnies = [
-    "Search on Kuro's stash",
-    "Search on Kuro's stash",
-    "Search on Kuro's stash",
-    "Search on Kuro's stash",
+    defaultPlaceholder,
+    defaultPlaceholder,
+    defaultPlaceholder,
+    defaultPlaceholder,
+    defaultPlaceholder,
+    defaultPlaceholder,
+    defaultPlaceholder,
+    "Oh? Looks like someone wants to search my garbage~",
     "OwO",
-    "Search on Kuro's stash",
-    "Search on Kuro's stash",
-    "Search on Kuro's stash",
-    "Hey there, cutie~"
+    "How can I help you, cutie~?"
   ]
 
   $: $isSearchActive, updateFunnies()
 
   const updateFunnies = () => {
+    document.body.style.overflowY = $isSearchActive ? "hidden" : "visible"
+
     if ($isSearchActive) {
       currentFunnies = funnies[Math.floor(Math.random() * funnies.length)]
       return
@@ -58,7 +63,7 @@
 
 {#if $isSearchActive}
   <div
-    transition:fly={{ duration: 200, y: -8, easing: cubicOut }}
+    transition:fly={{ duration: 210, y: -5, easing: cubicOut }}
     class="absolute inset-x-0 mx-auto max-w-screen-lg w-full"
   >
     <div class="mt-4 py-5 px-8 w-full">
@@ -78,7 +83,6 @@
         />
         {#if hasInputContent}
           <button
-            transition:fade={{ duration: 150 }}
             class="p-2 absolute h-full right-0 inset-y-0 [&_svg]:size-5 flex items-center"
             on:click={clearInputValue}
           >
@@ -89,4 +93,14 @@
     </div>
     <div></div>
   </div>
+
+  <!-- Backdrop -->
+  <Portal>
+    <div
+      transition:fade={{ duration: 100 }}
+      class="fixed inset-0 z-[3] bg-kuro-dark2/80"
+      on:click={isSearchActive.toggleState}
+      aria-hidden
+    />
+  </Portal>
 {/if}

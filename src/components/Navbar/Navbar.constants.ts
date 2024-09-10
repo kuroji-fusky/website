@@ -7,7 +7,7 @@ type NestedNavItems = Array<
 export const navItems: NestedNavItems = [
   {
     text: "Browse",
-    link: "",
+    link: "/browse",
     subitems: [
       {
         text: "Artworks",

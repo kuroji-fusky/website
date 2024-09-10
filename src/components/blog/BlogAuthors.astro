@@ -14,9 +14,6 @@ const { authors, hasAvatar } = Astro.props
   {
     authors.map((author) => (
       <>
-        <Fragment slot="img-preload">
-          <link rel="preload" href={author.avatar} as="image" />
-        </Fragment>
         <a
           itemtype="https://schema.org/Person"
           itemprop="character"

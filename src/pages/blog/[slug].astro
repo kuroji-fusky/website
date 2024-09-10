@@ -1,12 +1,10 @@
 ---
-import { Image, getImage } from "astro:assets"
+import { getImage } from "astro:assets"
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer"
 
 import Layout from "$layouts/Layout.astro"
 import { fetchBlogPosts, rendererOptions, parseForTOC } from "$lib/contentful"
-import BlogHeader from "$components/blog/BlogHeader.svelte"
-import { parseDateStr } from "$lib/parseDateStr"
-import BlogAuthors from "$components/blog/BlogAuthors.astro"
+import BlogHeader from "$components/blog/BlogHeader.astro"
 
 export async function getStaticPaths() {
   const posts = await fetchBlogPosts({
@@ -62,51 +60,27 @@ const backdropImg = await getImage({
 
 <Layout {title} {description} webpageType="article">
   <Fragment slot="img-preload">
-    <!-- From [slug] -->
     <meta property="og:image" content={backdropImg.src} />
     <meta name="twitter:image" content={backdropImg.src} />
     <link rel="preload" href={backdropImg.src} as="image" />
   </Fragment>
   <div
-    class="mt-8 padding-width-responsive max-w-screen-lg mx-auto prose-headings:font-bold flex flex-col gap-y-5 [&_p]:leading-7 lg:[&_p]:leading-8"
+    class="mt-8 padding-width-responsive max-w-[1200px] mx-auto prose-headings:font-bold flex flex-col gap-y-5 [&_p]:leading-7 lg:[&_p]:leading-8"
     itemtype="https://schema.org/Blog"
     itemscope
   >
     <meta itemprop="thumbnailUrl" content={backdropImg.src} />
     <div>
       <BlogHeader
-        client:idle
         {categories}
         {title}
         {description}
         {baseUrl}
         {fromSeries}
-      >
-        <Image
-          widths={[540, 960, 1440]}
-          height={1920}
-          width={1080}
-          quality={90}
-          loading="eager"
-          format="webp"
-          sizes="(max-width: 360px) 540px, (max-width: 720px) 960px, (max-width: 1600px) 1440px"
-          class="overflow-hidden aspect-video rounded-lg w-full object-cover"
-          src={banner}
-          alt={`Banner for ${title}`}
-          fetchpriority="high"
-          draggable="false"
-          itemprop="image"
-        />
-      </BlogHeader>
-      <div class="flex items-center py-5 gap-x-4">
-        <div class="flex-1 flex flex-wrap gap-2.5 items-center">
-          <pan class="opacity-65">Posted by</pan>
-          <BlogAuthors {authors} hasAvatar />
-        </div>
-        <time datetime={date} itemprop="datePublished"
-          >{parseDateStr(date).readableDate}</time
-        >
-      </div>
+        {authors}
+        {date}
+        {banner}
+      />
     </div>
 
     <div class="flex">

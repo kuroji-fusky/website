@@ -4,10 +4,10 @@
 </script>
 
 {#if $globalNavTitle && $globalNavShow}
-  <button
-    transition:fly={{ duration: 200, y: 6 }}
+  <span
+    transition:fly={{ duration: 200, y: 10 }}
     class="font-semibold text-xl select-none truncate text-white"
   >
     {$globalNavTitle}
-  </button>
+  </span>
 {/if}
