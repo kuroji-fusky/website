@@ -16,16 +16,9 @@ interface Props {
   description?: string
   webpageType?: "website" | "article"
   mdxMargin?: true
-  author?: string
 }
 
-const {
-  title,
-  description,
-  webpageType = "website",
-  author,
-  mdxMargin
-} = Astro.props
+const { title, description, webpageType = "website", mdxMargin } = Astro.props
 
 const { pathname } = Astro.url
 

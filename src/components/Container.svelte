@@ -10,7 +10,11 @@
   }`}
 >
   {#if $isSearchActive}
-    <div class="absolute inset-0 z-[3]" on:click={isSearchActive.toggleState} />
+    <div
+      class="absolute inset-0 z-[3]"
+      on:click={isSearchActive.toggleState}
+      aria-hidden
+    />
   {/if}
   <slot />
 </div>
