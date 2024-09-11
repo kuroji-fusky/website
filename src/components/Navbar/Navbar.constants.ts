@@ -1,4 +1,10 @@
-import type { NavItem } from "./Navbar.types"
+interface NavItem {
+  link?: string
+  text: string
+  excerpt: string
+  image?: string
+  icon?: unknown
+}
 
 type NestedNavItems = Array<
   Pick<NavItem, "text" | "link"> & { subitems?: NavItem[] }

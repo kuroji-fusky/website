@@ -80,10 +80,7 @@ const _title = pathname !== "/" ? `${title} | ${siteTitle}` : title
     <main id="skip-to-content" class="min-h-[calc(100dvh-10rem)]">
       {
         mdxMargin ? (
-          <div
-            data-has-mdx-margin=""
-            class="padding-width-responsive max-w-screen-2xl mx-auto"
-          >
+          <div class="padding-width-responsive max-w-screen-2xl mx-auto">
             <ParseArticle>
               <slot />
             </ParseArticle>

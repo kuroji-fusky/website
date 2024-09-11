@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { isSearchActive } from "./Navbar.store"
+  import { isSearchActive } from "$stores/index"
   import { navItems } from "./Navbar.constants"
 
   import ChevronDownIcon from "~icons/lucide/chevron-down?raw"
@@ -17,7 +17,7 @@
   }
 </script>
 
-<div class="lg:flex hidden">
+<div class="lg:flex hidden mr-1">
   {#each navItems as root}
     <div class="px-3.5 py-3 inline-flex items-center gap-x-1.5 flex-col">
       {#if root.link}

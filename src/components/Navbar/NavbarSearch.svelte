@@ -2,7 +2,7 @@
   import SearchIcon from "~icons/lucide/search?raw"
   import XClearIcon from "~icons/lucide/x?raw"
 
-  import { isSearchActive } from "./Navbar.store"
+  import { isSearchActive } from "$stores/index"
   import { fly, fade } from "svelte/transition"
   import { cubicOut } from "svelte/easing"
   import Portal from "$components/Portal.svelte"

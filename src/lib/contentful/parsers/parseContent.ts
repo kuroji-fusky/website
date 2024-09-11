@@ -110,41 +110,6 @@ export const rendererOptions: PartialRenderer = {
             ytThumbnailFallback(_uri)
           )
         }
-
-        // Twitter
-        if (_uri?.includes("twitter.com/") || _uri?.includes("x.com")) {
-          return sanitizedHTML("post-embed-wrapper", {
-            provider: "x-twitter",
-            "post-id": strippedUrl[5]
-          })
-        }
-
-        // Reddit
-        if (_uri?.includes("reddit.com")) {
-          return sanitizedHTML("post-embed-wrapper", {
-            provider: "reddit",
-            "post-id": strippedUrl[5]
-          })
-        }
-      }
-
-      // Check if paragraph is an inline entry
-      if (
-        nodeContent.some((x) => (x as any).nodeType === "embedded-entry-inline")
-      ) {
-        const _target = nodeData.target
-        const _contentId = _target.sys.contentType.sys.id
-
-        const _fields = _target.fields
-
-        if (_contentId === "codeBlock")
-          return sanitizedHTML(
-            "prism-code-renderer",
-            {
-              "file-name": _fields.fileName
-            },
-            sanitizedHTML("code", { class: "text-base" }, _fields.code)
-          )
       }
 
       // If node is just text, return as a normal link
