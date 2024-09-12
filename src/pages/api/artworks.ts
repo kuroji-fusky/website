@@ -28,8 +28,12 @@ type Artwork = Array<{
     name: string
     link: string
   }
-  date: string
-  dateComplete?: string
+  date: {
+    purchase: string
+    purchaseISO: string
+    complete: string
+    completeISO: string
+  }
   details?: Partial<{
     platform: string
     priceUSD: string
@@ -57,8 +61,12 @@ export const GET: APIRoute = async () => {
         name: artistName,
         link: artistLink
       },
-      date: purchaseDate,
-      dateComplete: completeDate,
+      date: {
+        purchase: purchaseDate,
+        purchaseISO: new Date(purchaseDate).toISOString(),
+        complete: !completeDate ? "" : completeDate,
+        completeISO: !completeDate ? "" : new Date(completeDate).toISOString()
+      },
       characters: chars.split(", "),
       details: {
         platform,
@@ -70,11 +78,14 @@ export const GET: APIRoute = async () => {
   })
 
   otherSheeshData.forEach((item) => {
-    const [type, chars, url, artist, date] = item
+    const [type, chars, url, artistName, date] = item
 
     collectedArtworks.push({
       type,
-      artist,
+      artist: {
+        link: "",
+        name: artistName
+      },
       date,
       url,
       characters: chars.split(", ")
@@ -87,5 +98,10 @@ export const GET: APIRoute = async () => {
     (a, b) => Date.parse((b as unknown as any).date) - Date.parse((a as unknown as any).date)
   )
 
-  return new Response(JSON.stringify(artworkData))
+  return new Response(JSON.stringify(artworkData), {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
 }

@@ -15,8 +15,8 @@ export const sanitizedHTML = <Tag extends keyof HTMLElementTagNameMap, Content =
   const START_TAG = `<${tag}>`
   const END_TAG = `</${tag}>`
 
-  const START_TAG_SC = `<${tag} `
-  const END_TAG_SC = ` />`
+  const START_TAG_VOID = `<${tag} `
+  const END_TAG_VOID = ` />`
 
   const parsedAttributes = attrs
     ? Object.entries(attrs)
@@ -24,8 +24,8 @@ export const sanitizedHTML = <Tag extends keyof HTMLElementTagNameMap, Content =
         .join(" ")
     : ""
 
-  if (tag === "img") return [START_TAG_SC, parsedAttributes, END_TAG_SC].join("")
-  if (parsedAttributes) return [START_TAG_SC, parsedAttributes, ">", content, END_TAG].join("")
+  if (tag === "img") return [START_TAG_VOID, parsedAttributes, END_TAG_VOID].join("")
+  if (parsedAttributes) return [START_TAG_VOID, parsedAttributes, ">", content, END_TAG].join("")
 
   return [START_TAG, content, END_TAG].join("")
 }

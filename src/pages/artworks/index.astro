@@ -48,9 +48,9 @@ const {
             fetchpriority="high"
             sizes="(max-width: 360px) 400px, (max-width: 720px) 600px, (max-width: 1367px) 840px, (max-width: 1600px) 900px"
           />
-
           <div class="absolute inset-0 pb-2.5 px-3 flex flex-col justify-end group-hover:opacity-100 opacity-0 bg-gradient-to-t from-black/65 to-75% transition-all">
-            {x.date}
+            <time datetime={x.date.completeISO}>{x.date.complete}</time>
+            <time datetime={x.date.purchaseISO}>{x.date.purchase}</time>
           </div>
         </div>
       ))
