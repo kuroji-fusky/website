@@ -1,12 +1,16 @@
 ---
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import DetailHeading from "$components/DetailHeading.astro"
 import Layout from "$layouts/Layout.astro"
-import _artworkData from "$lib/artwork-sheets"
 import PieIcon from "~icons/lucide/pie-chart"
 import { Image } from "astro:assets"
 import { routeSections } from "$lib/constants"
+import { GET } from "pages/api/artworks"
 
-const finalizedData = _artworkData.filter((x) => x.status !== "In progress")
+const req = await GET(Astro)
+const reqJSON = await req.json()
+
+const finalizedData = reqJSON.filter((x: any) => x.status !== "In progress")
 
 const {
   headings: {
@@ -29,7 +33,7 @@ const {
     class="flex flex-wrap max-w-screen-2xl padding-width-responsive mx-auto gap-3"
   >
     {
-      finalizedData.map((x) => (
+      finalizedData.map((x: any) => (
         <div class="overflow-hidden relative group" id="artwork-item">
           <Image
             inferSize={true}
