@@ -1,0 +1,41 @@
+---
+import { Image } from "astro:assets"
+
+interface Props {
+  src: string
+  alt?: string
+  class?: string
+  loading?: "eager" | "lazy"
+  widths?: number[]
+  sizes?: string
+  infer?: boolean
+  quality?: number
+}
+
+const {
+  src,
+  alt,
+  widths,
+  loading,
+  class: className,
+  sizes,
+  infer,
+  quality
+} = Astro.props
+---
+
+<div class="relative [&_img]:z-[1] [&_img]:relative select-none">
+  <div class="absolute inset-0 z-[2]" aria-hidden></div>
+  {/* @ts-ignore */}
+  <Image
+    {src}
+    alt={alt || ""}
+    class={className}
+    draggable="false"
+    {sizes}
+    {widths}
+    {loading}
+    {quality}
+    inferSize={infer}
+  />
+</div>
