@@ -6,19 +6,14 @@
   import { fly, fade } from "svelte/transition"
   import { cubicOut } from "svelte/easing"
   import Portal from "$components/Portal.svelte"
+  import { debounce } from "lodash-es"
 
   let hasInputContent = false
   let currentFunnies: string
 
-  const defaultPlaceholder = "Search Kuro's stash"
+  const defaultPlaceholder = [...Array(21)].map(() => "Search on Kuro's stash")
   const funnies = [
-    defaultPlaceholder,
-    defaultPlaceholder,
-    defaultPlaceholder,
-    defaultPlaceholder,
-    defaultPlaceholder,
-    defaultPlaceholder,
-    defaultPlaceholder,
+    ...defaultPlaceholder,
     "Oh? Looks like someone wants to search my garbage~",
     "OwO",
     "How can I help you, cutie~?"
@@ -35,19 +30,23 @@
     }
 
     hasInputContent = false
-    return
   }
 
   const toggleKeyboardState = (e: KeyboardEvent) => {
-    if (e.key === "Escape") {
-      isSearchActive.toggleState()
-      return
-    }
+    if (e.key !== "Escape") return
+
+    isSearchActive.toggleState()
   }
 
   const handleHasInput = (e: Event) => {
     hasInputContent = Boolean((e.target as HTMLInputElement).value)
+    if (!hasInputContent) updateFunnies()
   }
+
+  const inputDebounced = debounce((e: Event) => {
+    const textValue = (e.target as HTMLInputElement).value
+    console.log(textValue)
+  }, 300)
 
   const clearInputValue = () => {
     const searchInput = document.getElementById(
@@ -58,6 +57,7 @@
     hasInputContent = false
 
     searchInput.focus()
+    updateFunnies()
   }
 </script>
 
@@ -79,7 +79,10 @@
           placeholder={currentFunnies}
           class="pl-8 bg-transparent focus:outline-none text-2xl w-full"
           on:keydown={toggleKeyboardState}
-          on:input={handleHasInput}
+          on:input={(e) => {
+            inputDebounced(e)
+            handleHasInput(e)
+          }}
         />
         {#if hasInputContent}
           <button
@@ -97,8 +100,8 @@
   <!-- Backdrop -->
   <Portal>
     <div
-      transition:fade={{ duration: 100 }}
-      class="fixed inset-0 z-[3] bg-kuro-dark2/80"
+      transition:fade={{ duration: 200 }}
+      class="fixed inset-0 z-[3] bg-kuro-dark2/80 backdrop-blur-sm"
       on:click={isSearchActive.toggleState}
       aria-hidden
     />

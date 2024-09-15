@@ -1,6 +1,8 @@
 <script lang="ts">
   import { isSearchActive } from "$stores/index"
+  import { onMount } from "svelte"
   import { navItems } from "./Navbar.constants"
+  import { KuroDispatchMulti } from "../../lib/clientUtils"
 
   import ChevronDownIcon from "~icons/lucide/chevron-down?raw"
   import MenuIcon from "~icons/lucide/menu?raw"
@@ -15,9 +17,45 @@
       }, 200)
     }
   }
+
+  let navItemRef: HTMLDivElement
+
+  let isMobileNavExpanded = false
+
+  let isNavItemRootHover = false
+  let currentItemIndex = 0
+
+  onMount(() => {
+    const navItemsRoot = Array.from(navItemRef.children)
+
+    navItemsRoot.forEach((navItem, i) => {
+      const addMouseMoveListener = () => (currentItemIndex = i)
+
+      navItem.addEventListener("mouseenter", addMouseMoveListener)
+      return () => {
+        navItem.removeEventListener("mouseenter", addMouseMoveListener)
+      }
+    })
+
+    const navHoverTrue = () => (isNavItemRootHover = true)
+    const navHoverFalse = () => (isNavItemRootHover = false)
+
+    const handleLeaveEvents = new KuroDispatchMulti(navItemRef, [
+      "mouseleave",
+      "blur"
+    ])
+
+    navItemRef.addEventListener("mouseenter", navHoverTrue)
+    handleLeaveEvents.fire(navHoverFalse)
+
+    return () => {
+      navItemRef.removeEventListener("mouseenter", navHoverTrue)
+      handleLeaveEvents.clean(navHoverFalse)
+    }
+  })
 </script>
 
-<div class="lg:flex hidden mr-1">
+<div bind:this={navItemRef} class="lg:flex hidden mr-1">
   {#each navItems as root}
     <div class="px-3.5 py-3 inline-flex items-center gap-x-1.5 flex-col">
       {#if root.link}
@@ -29,26 +67,15 @@
             </div>
           {/if}
         </a>
-        {#if root.subitems}
-          <div data-dialog-portal-placeholder=""></div>
-          <!-- <NavbarSubItem items={root.subitems} /> -->
-        {/if}
       {:else}
         <div class="flex items-center gap-x-1.5">
-          <span
-            class="cursor-default md:group-hover/topnav:text-kuro-lavender-300 select-none"
-            >{root.text}</span
-          >
+          <span class="cursor-default select-none">{root.text}</span>
           {#if root.subitems}
             <div class="chevron">
               {@html ChevronDownIcon}
             </div>
           {/if}
         </div>
-        {#if root.subitems}
-          <div data-dialog-portal-placeholder=""></div>
-          <!-- <NavbarSubItem items={root.subitems} /> -->
-        {/if}
       {/if}
     </div>
   {/each}

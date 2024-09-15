@@ -12,7 +12,7 @@ const { posts, heading } = Astro.props
 
 <section>
   {heading && <h2 class="text-3xl py-4 font-bold">{heading}</h2>}
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-8">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10">
     {
       posts.map((item) => (
         <BlogItem
@@ -23,7 +23,7 @@ const { posts, heading } = Astro.props
           slug={item.slug}
           category={item.category}
           authors={item.authors}
-          size="normal"
+          size="small"
           referrer="latest"
         />
       ))

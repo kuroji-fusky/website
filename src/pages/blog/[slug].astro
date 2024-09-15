@@ -65,23 +65,21 @@ const backdropImg = await getImage({
     <link rel="preload" href={backdropImg.src} as="image" />
   </Fragment>
   <div
-    class="md:mt-3 mt-16 padding-width-responsive max-w-screen-xl mx-auto prose-headings:font-bold flex flex-col gap-y-5 [&_p]:leading-7 lg:[&_p]:leading-8"
+    class="md:mt-3 mt-16 padding-width-responsive max-w-screen-lg mx-auto prose-headings:font-bold flex flex-col gap-y-5 [&_p]:leading-7 lg:[&_p]:leading-8"
     itemtype="https://schema.org/Blog"
     itemscope
   >
     <meta itemprop="thumbnailUrl" content={backdropImg.src} />
-    <div>
-      <BlogHeader
-        {categories}
-        {title}
-        {description}
-        {baseUrl}
-        {fromSeries}
-        {authors}
-        {date}
-        {banner}
-      />
-    </div>
+    <BlogHeader
+      {categories}
+      {title}
+      {description}
+      {baseUrl}
+      {fromSeries}
+      {authors}
+      {date}
+      {banner}
+    />
 
     <div class="flex flex-col-reverse gap-y-2.5 md:flex-row">
       <article

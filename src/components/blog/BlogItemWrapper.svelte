@@ -56,7 +56,7 @@
     </p>
 
     <!-- Author & Date -->
-    <span class="inline-flex items-center gap-x-1.5 text-sm">
+    <div class="flex flex-wrap gap-y-2 items-center gap-x-1.5 text-sm">
       <slot name="authors" />
       <span class="size-0.5 rounded-full bg-white/75" />
       <time
@@ -64,7 +64,7 @@
         class="font-mono opacity-75 text-[0.8rem] leading-none"
         >{readableDate}</time
       >
-    </span>
+    </div>
   </div>
 </div>
 

@@ -7,7 +7,7 @@ import BlogBrowserShelf from "$components/blog/BlogBrowserShelf.svelte"
 import DetailHeading from "$components/DetailHeading.astro"
 import BlogShowcase from "$components/blog/BlogShowcase.astro"
 
-const posts = await fetchBlogPosts({ limit: 12 })
+const posts = await fetchBlogPosts({ limit: 25 })
 
 const [postFeaturedBig, ...postFeaturedRest] = posts
   .filter((x) => x.isFeatured === true)
@@ -22,9 +22,9 @@ const {
 
 <Layout {title} {description}>
   <DetailHeading {title} {description} />
-  <div class="mx-auto max-w-screen-2xl padding-width-responsive">
+  <div class="mx-auto max-w-screen-xl padding-width-responsive">
     <BlogBrowserShelf interactiveMode />
     <BlogShowcase {postFeaturedBig} {postFeaturedRest} />
-    <BlogGrid heading="Latest posts" {posts} />
+    <BlogGrid heading="Latest posts" posts={posts.slice(0, 6)} />
   </div>
 </Layout>

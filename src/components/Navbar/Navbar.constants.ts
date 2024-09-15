@@ -38,17 +38,6 @@ export const navItems: NestedNavItems = [
     ]
   },
   {
-    text: "Blog",
-    link: "/blog",
-    subitems: [
-      {
-        text: "Browse by category",
-        excerpt: "--",
-        link: "/blog/categories"
-      }
-    ]
-  },
-  {
     text: "Portfolio",
     link: "/portfolio",
     subitems: [
@@ -68,6 +57,10 @@ export const navItems: NestedNavItems = [
         link: "/portfolio/discography"
       }
     ]
+  },
+  {
+    text: "Blog",
+    link: "/blog"
   },
   {
     text: "About",
