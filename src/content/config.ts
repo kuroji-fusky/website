@@ -41,9 +41,16 @@ const showcaseSchema = z.object({
 
 export type ShowcaseSchema = z.infer<typeof showcaseSchema>
 
+const baseSchema = z.object({
+  title: z.string(),
+  description: z.string()
+})
+
 export const collections = {
   showcase: defineCollection({
     type: "content",
     schema: showcaseSchema
-  })
+  }),
+  about: baseSchema,
+  copyright: baseSchema
 }

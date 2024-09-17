@@ -2,15 +2,16 @@ import { defineConfig, squooshImageService } from "astro/config"
 
 import tailwind from "@astrojs/tailwind"
 import sitemap from "@astrojs/sitemap"
+import markdoc from "@astrojs/markdoc"
 import mdx from "@astrojs/mdx"
 import vercel from "@astrojs/vercel/serverless"
 import lit from "@astrojs/lit"
 import svelte from "@astrojs/svelte"
+
 import autoprefixer from "autoprefixer"
 import Icons from "unplugin-icons/vite"
 import { FileSystemIconLoader } from "unplugin-icons/loaders"
 
-// https://astro.build/config
 export default defineConfig({
   output: "hybrid",
   adapter: vercel({
@@ -32,7 +33,7 @@ export default defineConfig({
   prefetch: {
     prefetchAll: true
   },
-  integrations: [lit(), svelte(), tailwind(), mdx(), sitemap()],
+  integrations: [lit(), markdoc(), sitemap(), svelte(), tailwind(), mdx()],
   vite: {
     plugins: [
       Icons({

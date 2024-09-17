@@ -1,5 +1,5 @@
 ---
-import Layout from "$layouts/Layout.astro"
----
+import { getEntry } from "astro:content"
 
-<Layout title="About me" />
+const yes = await getEntry("about")
+---
