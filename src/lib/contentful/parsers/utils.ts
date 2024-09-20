@@ -6,9 +6,14 @@ export const renderNothing = () => ""
  * @param content Anything that'll be appended from `textContent`
  * @returns A gorgeous HTML string that's safe to parse for Contentful to eat :3
  */
-export const sanitizedHTML = <Tag extends keyof HTMLElementTagNameMap, Content = string>(
+export const sanitizedHTML = <
+  Tag extends keyof HTMLElementTagNameMap,
+  Content = string
+>(
   tag: Tag,
-  attrs?: Partial<Omit<HTMLElementTagNameMap[Tag], keyof HTMLElementTagNameMap[Tag]>>,
+  attrs?: Partial<
+    Omit<HTMLElementTagNameMap[Tag], keyof HTMLElementTagNameMap[Tag]>
+  >,
   content?: Content
 ) => {
   // `document` and `window` is not available for server so I had to deal cobbling with fukin arrays
@@ -24,8 +29,10 @@ export const sanitizedHTML = <Tag extends keyof HTMLElementTagNameMap, Content =
         .join(" ")
     : ""
 
-  if (tag === "img") return [START_TAG_VOID, parsedAttributes, END_TAG_VOID].join("")
-  if (parsedAttributes) return [START_TAG_VOID, parsedAttributes, ">", content, END_TAG].join("")
+  if (tag === "img")
+    return [START_TAG_VOID, parsedAttributes, END_TAG_VOID].join("")
+  if (parsedAttributes)
+    return [START_TAG_VOID, parsedAttributes, ">", content, END_TAG].join("")
 
   return [START_TAG, content, END_TAG].join("")
 }

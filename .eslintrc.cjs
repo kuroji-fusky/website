@@ -37,6 +37,8 @@ module.exports = {
     "import/no-useless-path-segments": 1,
     "import/no-unused-modules": 0,
 
-    "@typescript-eslint/ban-ts-comment": 0
+    "@typescript-eslint/ban-ts-comment": 0,
+
+    "svelte/no-at-html-tags": 0
   }
 }

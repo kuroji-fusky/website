@@ -5,7 +5,7 @@
 
   export let title: string
 
-  let titleRef: any
+  let titleRef: HTMLHeadingElement
 
   onMount(() => {
     observeDOM(isNavOpen, titleRef, { rootMargin: "-4% 0% 0% 0%" })

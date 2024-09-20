@@ -5,7 +5,7 @@
   "license": "UNLICENSED",
   "private": "true",
   "repository": {
-    "url": "https://github.com/kurojifusky/kurojifusky.com"
+    "url": "https://github.com/kuroji-fusky/kurojifusky.com"
   },
   "scripts": {
     "dev": "astro dev",
