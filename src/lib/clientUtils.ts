@@ -1,4 +1,4 @@
-export class KuroDispatchMulti<T extends Element | Window> {
+export class KuroEventDispatchMulti<T extends Element | Window> {
   private _target: T
   private _definedEvents: string[]
 
