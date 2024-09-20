@@ -25,7 +25,10 @@ export const sanitizedHTML = <
 
   const parsedAttributes = attrs
     ? Object.entries(attrs)
-        .map(([k, v]) => `${k}="${v}"`)
+        .map(([k, v]) => {
+          if (v === null) return null
+          return `${k}="${v}"`
+        })
         .join(" ")
     : ""
 

@@ -70,28 +70,34 @@ export const rendererOptions: PartialRenderer = {
         next(node.content)
       ),
     [BLOCKS.PARAGRAPH]: (node, next) => {
-      const nodeContent = node.content
-      const normalTextHTML = sanitizedHTML("p", {}, next(nodeContent))
+      const _nodeContent = node.content
+      const normalTextHTML = sanitizedHTML("p", {}, next(_nodeContent))
 
-      if (!nodeContent.some((x: any) => x.value === "")) {
-        return normalTextHTML
+      const isNodeType = (nt: string) => {
+        return _nodeContent.some((x) => (x as any).nodeType !== nt)
       }
 
-      const nodeData = nodeContent[1].data
+      if (!_nodeContent.some((x: any) => x.value === "")) return normalTextHTML
 
-      const isNodeHyperlink = nodeContent.some(
-        (x) => (x as any).nodeType !== "hyperLink"
-      )
-
-      const isNodeText = nodeContent.some((x) => (x as any).nodeType !== "text")
+      const isNodeHyperlink = isNodeType("hyperlink")
+      const isNodeText = isNodeType("text")
 
       // Check if paragraph is a standalone link and a YouTube embed
       if (isNodeHyperlink) {
+        const { data: nodeData, content: nodeContent } = _nodeContent[1] as any
+
+        if (!nodeContent) return normalTextHTML
+
+        const isTextYTEmbed = nodeContent.value === "[yt-embed]"
+
         const _uri = nodeData.uri
         const strippedUrl = _uri?.split("/").at(-1)
 
         // YouTube
-        if (_uri?.includes("youtu.be") || _uri?.includes("youtube.com/")) {
+        if (
+          isTextYTEmbed &&
+          (_uri?.includes("youtu.be") || _uri?.includes("youtube.com/"))
+        ) {
           if (_uri?.includes("shorts"))
             return sanitizedHTML(
               "yt-embed-wrapper",
@@ -112,17 +118,17 @@ export const rendererOptions: PartialRenderer = {
         }
       }
 
-      // If node is just text, return as a normal link
-      if (isNodeText) {
-        return normalTextHTML
-      }
+      // If node is just text, return as is
+      if (isNodeText) return normalTextHTML
 
-      if (nodeContent.some((x: any) => x.value == "" && x.nodeType == "text")) {
+      if (
+        _nodeContent.some((x: any) => x.value == "" && x.nodeType == "text")
+      ) {
         return ""
       }
 
       // Otherwise, return the debug information, because I have skill issue
-      return sanitizedHTML("p", {}, JSON.stringify(nodeContent))
+      return sanitizedHTML("p", {}, JSON.stringify(_nodeContent))
     },
     [BLOCKS.EMBEDDED_ASSET]: (node) => {
       const embedFields = node.data.target.fields
@@ -137,18 +143,20 @@ export const rendererOptions: PartialRenderer = {
         null
       )
     },
-    [INLINES.HYPERLINK]: (node, next) =>
-      sanitizedHTML(
+    [INLINES.HYPERLINK]: (node, next) => {
+      const _uriExternal = node.data.uri.startsWith("https://")
+      return sanitizedHTML(
         "a",
         {
           class:
             "text-kuro-lavender-300 hover:text-kuro-lavender-400 underline hover:no-underline",
           href: node.data.uri,
-          target: "_blank",
-          rel: "noopenner noreferrer"
+          target: _uriExternal ? "_blank" : null,
+          rel: _uriExternal ? "noopenner noreferrer" : null
         },
         next(node.content)
       )
+    }
   }
 }
 
@@ -159,7 +167,7 @@ const tocItem = (heading: any, node: any, cls?: string) => {
     sanitizedHTML(
       "a",
       {
-        class: `block ${cls || "pl-0"}`,
+        class: `block ${cls}`,
         href: `#${kebabCase(heading.value)}`,
         "data-astro-prefetch": false
       },
@@ -171,7 +179,7 @@ const tocItem = (heading: any, node: any, cls?: string) => {
 export const parseForTOC: PartialRenderer = {
   renderNode: {
     [BLOCKS.HEADING_2]: (node, next) =>
-      tocItem(node.content[0], next(node.content)),
+      tocItem(node.content[0], next(node.content), "pl-0"),
     [BLOCKS.HEADING_3]: (node, next) =>
       tocItem(node.content[0], next(node.content), "pl-3.5"),
     [BLOCKS.PARAGRAPH]: renderNothing,
