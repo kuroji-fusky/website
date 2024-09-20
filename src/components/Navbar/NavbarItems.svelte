@@ -20,11 +20,11 @@
 
   let navItemRef: HTMLDivElement
 
-  let isMobileNavExpanded = false
-
-  let isNavItemRootHover = false
+  // Desktop
   let currentItemIndex = 0
+  let isNavItemRootHover = false
 
+  // Mobile
   let isLayoutMobile = false
   let isMobileNavOpen = false
 
