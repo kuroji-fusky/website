@@ -25,6 +25,9 @@ export default defineConfig({
     clientPrerender: true
   },
   redirects: {
+    "/blog/category": "/blog",
+    "/blog/author": "/blog",
+    "/blog/authors": "/blog",
     "/blog/posts/[slug]": "/blog/[slug]",
     "/blog/post/[slug]": "/blog/[slug]",
     "/posts/[slug]": "/blog/[slug]",

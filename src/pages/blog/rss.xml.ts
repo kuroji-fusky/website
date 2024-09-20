@@ -3,11 +3,12 @@ import rss from "@astrojs/rss"
 import type { APIRoute } from "astro"
 import { parseDateStr } from "$lib/parseDateStr"
 
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 export const GET: APIRoute = async (ctx: any) => {
   const blogPosts = await fetchBlogPosts({})
 
   return rss({
-    title: "Kuro blog",
+    title: "Kuroji Fusky Blog",
     description: "Some nerd abomination",
     site: ctx.site,
     trailingSlash: false,

@@ -18,7 +18,7 @@ type TheVaultContent = ContentfulFieldConstructor<
 export const fetchVaultEntries = async (pwops: ContentEntries) => {
   const { limit, category } = pwops
 
-  const entries = await fetchContentEntries<TheVaultContent>({
+  const entries = await fetchContentEntries<TheVaultContent>("theVault", {
     limit,
     category
   })

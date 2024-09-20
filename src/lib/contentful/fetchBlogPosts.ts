@@ -45,7 +45,7 @@ interface _TempAuthorOverride {
 export const fetchBlogPosts = async (pwops: ContentEntries) => {
   const { limit, category } = pwops
 
-  const entries = await fetchContentEntries<BlogPostContent>({
+  const entries = await fetchContentEntries<BlogPostContent>("blogPost", {
     limit,
     category
   })

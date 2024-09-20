@@ -1,0 +1,73 @@
+---
+import {
+  fetchBlogPosts,
+  fetchBlogAuthor,
+  rendererOptions
+} from "$lib/contentful"
+import Layout from "$layouts/Layout.astro"
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer"
+import ParseArticle from "$components/ParseArticle.astro"
+import ImageWrapper from "$components/ImageWrapper.astro"
+import BlogGrid from "$components/blog/BlogGrid.astro"
+
+export async function getStaticPaths() {
+  const postAuthors = await fetchBlogAuthor({})
+
+  return postAuthors.map((author) => ({
+    params: { author: author.slug },
+    props: {
+      avatar: author.avatar,
+      displayName: author.displayName,
+      name: author.name,
+      biography: author.bio,
+      slug: author.slug
+    }
+  }))
+}
+
+const { name, avatar, biography, displayName, slug } = Astro.props
+
+const blogPosts = await fetchBlogPosts({ limit: 15 })
+
+const filteredPosts = blogPosts.filter((p) =>
+  p.authors.some((a) => a.slug === slug)
+)
+---
+
+<Layout title={`Posts from ${name}`}>
+  <section class="bg-kuro-royalblue-800">
+    <div
+      class="mx-auto max-w-screen-xl padding-width-responsive pb-9 pt-12 flex flex-col md:flex-row items-center md:items-start gap-y-8 gap-x-5"
+      itemscope
+      itemprop="https://schema.org/Person"
+    >
+      <div class="flex-shrink-0">
+        <ImageWrapper
+          itemprop="image"
+          src={avatar}
+          infer
+          class="size-40 md:size-48 lg:size-56 rounded-xl"
+        />
+      </div>
+      <div class="text-center md:text-left">
+        <h1
+          class="text-3xl lg:text-4xl font-extrabold mb-3.5 leading-none"
+          itemprop="name"
+        >
+          {displayName}
+        </h1>
+        <ParseArticle
+          itemprop="description"
+          set:html={documentToHtmlString(biography, rendererOptions)}
+        />
+      </div>
+    </div>
+  </section>
+  <section class="pt-2.5 mx-auto max-w-screen-xl padding-width-responsive">
+    <BlogGrid
+      heading="Posts from this author"
+      posts={filteredPosts}
+      referrer={`author:${slug}`}
+    />
+  </section>
+</Layout>

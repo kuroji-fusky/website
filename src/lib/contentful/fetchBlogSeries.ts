@@ -18,7 +18,7 @@ export type BlogSeriesContent = ContentfulFieldConstructor<
 export const fetchBlogSeries = async (pwops: ContentEntries) => {
   const { limit, category } = pwops
 
-  const entries = await fetchContentEntries<BlogSeriesContent>({
+  const entries = await fetchContentEntries<BlogSeriesContent>("blogSeries", {
     limit,
     category
   })

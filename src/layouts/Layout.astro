@@ -58,14 +58,7 @@ const _title = pathname !== "/" ? `${title} | ${siteTitle}` : title
     {/* Sitemap */}
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <slot name="img-preload" />
-
-    <link
-      rel="alternate"
-      type="application/rss+xml"
-      title="Kuroji Fusky"
-      href={new URL("rss.xml", Astro.site)}
-    />
+    <slot name="other-meta" />
   </head>
   <body
     class="font-body font-medium text-sm lg:text-base bg-kuro-dark2 text-kuro-violet-50 overflow-x-hidden selection:bg-kuro-lavender-600"

@@ -11,8 +11,9 @@ export type BlogAuthorContent = ContentfulFieldConstructor<
   "blogAuthor",
   {
     name: EntryFieldTypes.Text
+    displayName: EntryFieldTypes.Text
     slug: EntryFieldTypes.Text
-    description: EntryFieldTypes.Text
+    bio: EntryFieldTypes.RichText
     avatar: EntryFieldEmbed
   }
 >
@@ -20,17 +21,18 @@ export type BlogAuthorContent = ContentfulFieldConstructor<
 export const fetchBlogAuthor = async (pwops: ContentEntries) => {
   const { limit, category } = pwops
 
-  const entries = await fetchContentEntries<BlogAuthorContent>({
+  const entries = await fetchContentEntries<BlogAuthorContent>("blogAuthor", {
     limit,
     category
   })
 
   const posts = entries.items.map((item) => {
-    const { description, slug, name, avatar } = item.fields
+    const { bio, displayName, slug, name, avatar } = item.fields
 
     return {
       name,
-      description,
+      displayName,
+      bio,
       slug,
       avatar: `https:${avatar.fields.file.url}`
     }

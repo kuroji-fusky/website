@@ -15,12 +15,14 @@ const client = contentful.createClient({
   host: isDevelopment ? `${PREVIEW}${CTF_DOMAIN}` : `${DELIVERY}${CTF_DOMAIN}`
 })
 
-export const fetchContentEntries = async <Entry extends EntrySkeletonType>({
-  limit,
-  category
-}: Omit<ContentEntries, "img">) => {
+export const fetchContentEntries = async <Entry extends EntrySkeletonType>(
+  contentType: Entry["contentTypeId"],
+  options?: Omit<ContentEntries, "img">
+) => {
+  const { limit, category } = options!
+
   return await client.getEntries<Entry>({
-    content_type: "blogPost",
+    content_type: contentType,
     limit,
     "fields.category": category
   } as unknown as Entry)

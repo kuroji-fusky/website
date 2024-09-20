@@ -1,11 +1,12 @@
 ---
 import { kebabCase } from "lodash-es"
-import type { BlogPostsReturnType } from "$lib/contentful/fetchBlogPosts"
 import SparkleIcon from "~icons/lucide/sparkles"
-import PeekTitle from "$components/PeekTitle.svelte"
-import { Image } from "astro:assets"
-import BlogAuthors from "./BlogAuthors.astro"
+
+import type { BlogPostsReturnType } from "$lib/contentful/fetchBlogPosts"
 import { parseDateStr } from "$lib/parseDateStr"
+import PeekTitle from "$components/PeekTitle.svelte"
+import ImageWrapper from "$components/ImageWrapper.astro"
+import BlogAuthors from "./BlogAuthors.astro"
 
 interface Props {
   baseUrl: string
@@ -35,8 +36,7 @@ const {
 } = Astro.props
 ---
 
-<div data-ina-mo="">
-  {/* Categories */}
+<div>
   {/* Categories */}
   <span class="inline-flex flex-wrap mb-2.5 gap-x-6 gap-y-2.5">
     {
@@ -81,7 +81,7 @@ const {
 
   {/* Banner */}
   <div class="z-[2] relative">
-    <Image
+    <ImageWrapper
       widths={[540, 960, 1440]}
       height={1920}
       width={1080}
@@ -93,7 +93,6 @@ const {
       src={banner}
       alt={`Banner for ${title}`}
       fetchpriority="high"
-      draggable="false"
       itemprop="image"
     />
   </div>

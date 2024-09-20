@@ -13,7 +13,7 @@
       on:click={() => (isExpanded = !isExpanded)}
       class="my-2.5 w-full text-base flex md:hidden items-center"
     >
-      <div class=" flex-1 items-center gap-x-2">
+      <div class="flex flex-1 items-center gap-x-2">
         <span class=" [&_svg]:size-5 opacity-50">{@html TocIcon}</span>
         <span>Table of contents</span>
       </div>

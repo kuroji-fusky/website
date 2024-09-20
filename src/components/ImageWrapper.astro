@@ -10,32 +10,24 @@ interface Props {
   sizes?: string
   infer?: boolean
   quality?: number
+  itemprop?: string
+  width?: number
+  height?: number
+  format?: "webp"
+  fetchpriority?: "high" | "low" | "auto"
 }
 
-const {
-  src,
-  alt,
-  widths,
-  loading,
-  class: className,
-  sizes,
-  infer,
-  quality
-} = Astro.props
+const { alt, class: className, infer, ...others } = Astro.props
 ---
 
 <div class="relative [&_img]:z-[1] [&_img]:relative select-none">
   <div class="absolute inset-0 z-[2]" aria-hidden></div>
   {/* @ts-ignore */}
   <Image
-    {src}
     alt={alt || ""}
     class={className}
     draggable="false"
-    {sizes}
-    {widths}
-    {loading}
-    {quality}
     inferSize={infer}
+    {...others}
   />
 </div>

@@ -6,6 +6,7 @@ import Layout from "$layouts/Layout.astro"
 import { fetchBlogPosts, rendererOptions, parseForTOC } from "$lib/contentful"
 import BlogHeader from "$components/blog/BlogHeader.astro"
 import BlogTOC from "$components/blog/BlogTOC.svelte"
+import ParseArticle from "$components/ParseArticle.astro"
 
 export async function getStaticPaths() {
   const posts = await fetchBlogPosts({
@@ -43,9 +44,9 @@ const {
   authors
 } = Astro.props
 
-const { protocol, host } = Astro.url
+const { host } = Astro.url
 
-const baseUrl = `${protocol}//${host}`
+const baseUrl = `https://${host}`
 
 const backdropImg = await getImage({
   src: banner,
@@ -59,39 +60,39 @@ const backdropImg = await getImage({
 </script>
 
 <Layout {title} {description} webpageType="article">
-  <Fragment slot="img-preload">
+  <Fragment slot="other-meta">
     <meta property="og:image" content={backdropImg.src} />
     <meta name="twitter:image" content={backdropImg.src} />
     <link rel="preload" href={backdropImg.src} as="image" />
   </Fragment>
-  <div
-    class="md:mt-3 mt-16 padding-width-responsive max-w-screen-lg mx-auto prose-headings:font-bold flex flex-col gap-y-5 [&_p]:leading-7 lg:[&_p]:leading-8"
-    itemtype="https://schema.org/Blog"
-    itemscope
-  >
-    <meta itemprop="thumbnailUrl" content={backdropImg.src} />
-    <BlogHeader
-      {categories}
-      {title}
-      {description}
-      {baseUrl}
-      {fromSeries}
-      {authors}
-      {date}
-      {banner}
-    />
-
-    <div class="flex flex-col-reverse gap-y-2.5 md:flex-row">
-      <article
-        set:html={documentToHtmlString(shit, rendererOptions)}
-        class="min-w-0 text-base lg:text-lg prose-p:font-normal w-full text-white prose-h2:text-3xl prose-h3:text-2xl prose-headings:py-1.5 first:prose-p:mt-0 last:prose-p:mb-0 prose-p:my-3 [&_li_p]:my-0"
+  <div class="bg-kuro-lavender-900 relative">
+    <div
+      class="padding-width-responsive max-w-screen-lg mx-auto pt-3 prose-headings:font-bold flex flex-col gap-y-5 [&_p]:leading-7 lg:[&_p]:leading-8"
+      itemtype="https://schema.org/Blog"
+      itemscope
+    >
+      <meta itemprop="thumbnailUrl" content={backdropImg.src} />
+      <BlogHeader
+        {categories}
+        {title}
+        {description}
+        {baseUrl}
+        {fromSeries}
+        {authors}
+        {date}
+        {banner}
       />
-      <BlogTOC client:idle>
-        <ul
-          class="flex flex-col gap-y-1 [&_a]:text-white [&_a]:opacity-60 hover:[&_a]:opacity-100 hover:[&_a]:text-kuro-violet-100"
-          set:html={documentToHtmlString(shit, parseForTOC)}
-        />
-      </BlogTOC>
     </div>
+  </div>
+  <div
+    class="padding-width-responsive max-w-screen-lg mx-auto flex flex-col-reverse gap-y-2.5 md:flex-row"
+  >
+    <ParseArticle set:html={documentToHtmlString(shit, rendererOptions)} />
+    <BlogTOC client:idle>
+      <ul
+        class="flex flex-col gap-y-1 [&_a]:text-white [&_a]:opacity-60 hover:[&_a]:opacity-100 hover:[&_a]:text-kuro-violet-100"
+        set:html={documentToHtmlString(shit, parseForTOC)}
+      />
+    </BlogTOC>
   </div>
 </Layout>
