@@ -1,8 +1,3 @@
-import type {
-  ShowcaseInfrasLiteral,
-  ShowcaseTechnologiesLiteral
-} from "../../content/config"
-
 import AstroIcon from "~icons/brands/astro.svg?raw"
 import FlutterIcon from "~icons/brands/flutter.svg?raw"
 import RedisIcon from "~icons/brands/redis.svg?raw"
@@ -20,10 +15,7 @@ import DigitalOceanIcon from "~icons/brands/digitalocean.svg?raw"
 
 import type { UnpluginIconType } from "$lib/icons"
 
-const iconCollection: Record<
-  ShowcaseTechnologiesLiteral | ShowcaseInfrasLiteral,
-  UnpluginIconType | string
-> = {
+const iconCollection: Record<string, UnpluginIconType | string> = {
   astro: AstroIcon,
   flutter: FlutterIcon,
   plasmo: PlasmoIcon,
