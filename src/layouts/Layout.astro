@@ -58,6 +58,13 @@ const _title = pathname !== "/" ? `${title} | ${siteTitle}` : title
     {/* Sitemap */}
     <link rel="sitemap" href="/sitemap-index.xml" />
 
+    {/* Tracking */}
+    <script
+      defer
+      is:inline
+      src="https://cloud.umami.is/script.js"
+      data-website-id="dev"></script>
+
     <slot name="other-meta" />
   </head>
   <body

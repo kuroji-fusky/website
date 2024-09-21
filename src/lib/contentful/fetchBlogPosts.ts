@@ -2,6 +2,7 @@
 import { fetchContentEntries } from "./client"
 import type { BlogAuthorContent } from "./fetchBlogAuthor"
 import type { BlogSeriesContent } from "./fetchBlogSeries"
+import { parseMediaType } from "./parsers/utils"
 import type {
   AwaitedReturnType,
   ContentEntries,
@@ -77,7 +78,9 @@ export const fetchBlogPosts = async (pwops: ContentEntries) => {
           ).fields
 
           return {
-            avatar: `https:${(avatar as unknown as EntryFieldEmbed["data"]).fields.file.url}`,
+            avatar: parseMediaType(
+              avatar as unknown as EntryFieldEmbed["data"]
+            ),
             name,
             slug
           }

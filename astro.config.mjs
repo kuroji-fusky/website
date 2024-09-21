@@ -15,9 +15,6 @@ import { FileSystemIconLoader } from "unplugin-icons/loaders"
 export default defineConfig({
   output: "hybrid",
   adapter: vercel({
-    webAnalytics: {
-      enabled: true
-    },
     isr: true
   }),
   experimental: {

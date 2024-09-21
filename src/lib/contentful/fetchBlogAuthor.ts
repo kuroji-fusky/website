@@ -1,4 +1,5 @@
 import { fetchContentEntries } from "./client"
+import { parseMediaType } from "./parsers/utils"
 import type {
   AwaitedReturnType,
   ContentEntries,
@@ -34,7 +35,7 @@ export const fetchBlogAuthor = async (pwops: ContentEntries) => {
       displayName,
       bio,
       slug,
-      avatar: `https:${avatar.fields.file.url}`
+      avatar: parseMediaType(avatar)
     }
   })
 

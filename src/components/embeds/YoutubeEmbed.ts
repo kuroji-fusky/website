@@ -1,17 +1,10 @@
-import { html, css, LitElement, customElement, property } from "./LitImports"
+import { html, css, LitElement } from "lit"
+import { customElement, property } from "lit/decorators.js"
 
 @customElement("yt-embed-wrapper")
 export class YoutubeEmbed extends LitElement {
   @property({ type: String, attribute: "video-id" }) videoId = ""
   @property({ type: Boolean, attribute: "is-shorts" }) isYTShorts = false
-
-  connectedCallback() {
-    super.connectedCallback()
-
-    // window.addEventListener("resize", () => {
-    //   console.log("i'm growing")
-    // })
-  }
 
   static styles = css`
     .has-shorts {

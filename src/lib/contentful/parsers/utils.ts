@@ -1,3 +1,9 @@
+import type { EntryFieldEmbed } from "../types"
+
+export const parseMediaType = (data: EntryFieldEmbed["data"]) => {
+  return `https://${data.fields.file.url}`
+}
+
 export const renderNothing = () => ""
 
 /**
