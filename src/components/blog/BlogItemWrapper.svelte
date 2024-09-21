@@ -100,7 +100,7 @@
     @apply pt-1.5 text-sm gap-3;
   }
   #blog-item-category-wrapper.small {
-    @apply text-sm gap-3;
+    @apply text-sm gap-x-3 gap-y-2;
   }
 
   #blog-item-heading.small {

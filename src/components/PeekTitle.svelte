@@ -1,6 +1,6 @@
 <script lang="ts">
   import observeDOM from "$lib/observe"
-  import { isNavOpen, navTitle } from "$stores/index"
+  import { isTitleShown, navTitle } from "$stores/index"
   import { onMount } from "svelte"
 
   export let title: string
@@ -8,7 +8,7 @@
   let titleRef: HTMLHeadingElement
 
   onMount(() => {
-    observeDOM(isNavOpen, titleRef, { rootMargin: "-4% 0% 0% 0%" })
+    observeDOM(isTitleShown, titleRef, { rootMargin: "-4% 0% 0% 0%" })
 
     navTitle.set(title)
   })

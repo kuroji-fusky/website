@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { isNavOpen, navTitle } from "$stores/index"
+  import { isTitleShown, navTitle } from "$stores/index"
 
   let baseDir: string = ""
   let baseDirLabel: string = "Blog post"
 
-  $: hasNavTitle = $navTitle && $isNavOpen
+  $: hasNavTitle = $navTitle && $isTitleShown
 </script>
 
 <div

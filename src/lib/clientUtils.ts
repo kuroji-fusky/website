@@ -7,10 +7,12 @@ export class KuroEventDispatchMulti<T extends Element | Window> {
     this._definedEvents = events
   }
 
-  public fire(callback: (e?: unknown) => void) {
+  public fire(callback: (e?: unknown) => void, callOnInit?: boolean) {
     this._definedEvents.forEach((event) =>
       this._target.addEventListener(event, callback)
     )
+
+    if (callOnInit) callback()
   }
 
   public clean(callback: (e?: unknown) => void) {

@@ -1,49 +1,44 @@
 <script lang="ts">
-  import { isSearchActive } from "$stores/index"
   import { onMount } from "svelte"
+  import { fly } from "svelte/transition"
   import { navItems } from "./Navbar.constants"
-  import { KuroEventDispatchMulti } from "../../lib/clientUtils"
 
-  import ChevronDownIcon from "~icons/lucide/chevron-down?raw"
-  import MenuIcon from "~icons/lucide/menu?raw"
+  import cn from "$lib/cn"
+  import { KuroEventDispatchMulti } from "$lib/clientUtils"
+
   import SearchIcon from "~icons/lucide/search?raw"
+  import MenuIcon from "~icons/lucide/menu?raw"
 
-  const focusOnSearchbox = () => {
-    isSearchActive.toggleState()
-
-    if ($isSearchActive) {
-      setTimeout(() => {
-        document.getElementById("global-search")!.focus()
-      }, 200)
-    }
-  }
+  import { isSearchActive, isMobileNavOpen } from "./Navbar.stores"
+  import NavbarDesktopItem from "./NavbarDesktopItem.svelte"
+  import NavbarMobileItem from "./NavbarMobileItem.svelte"
+  import Backdrop from "$components/Backdrop.svelte"
 
   let navItemRef: HTMLDivElement
 
   // Desktop
-  let currentItemIndex = 0
   let isNavItemRootHover = false
 
   // Mobile
   let isLayoutMobile = false
-  let isMobileNavOpen = false
+
+  $: $isMobileNavOpen
+    ? document.body.classList.add("overflow-y-hidden")
+    : document.body.classList.remove("overflow-y-hidden")
 
   onMount(() => {
-    const handleMobileResize = () => {
-      isLayoutMobile = !window.matchMedia("(min-width: 1024px)").matches
-
-      if (!isLayoutMobile && isMobileNavOpen) {
-        isMobileNavOpen = false
-      }
-    }
-
-    window.addEventListener("resize", handleMobileResize)
-
     // For handling desktop subitems
     const navItemsRoot = Array.from(navItemRef.children)
 
     navItemsRoot.forEach((navItem, i) => {
-      const changeItemIndex = () => (currentItemIndex = i)
+      const changeItemIndex = () => {
+        if (!isLayoutMobile) {
+          const currentNavItemIndex = navItems[i]
+
+          console.log(currentNavItemIndex.subitems)
+          return
+        }
+      }
 
       navItem.addEventListener("mouseenter", changeItemIndex)
       return () => {
@@ -51,8 +46,13 @@
       }
     })
 
-    const navHoverTrue = () => (isNavItemRootHover = true)
-    const navHoverFalse = () => (isNavItemRootHover = false)
+    // Handling hover states
+    const navHoverTrue = () => {
+      if (!isLayoutMobile) isNavItemRootHover = true
+    }
+    const navHoverFalse = () => {
+      if (!isLayoutMobile) isNavItemRootHover = false
+    }
 
     const handleLeaveEvents = new KuroEventDispatchMulti(navItemRef, [
       "mouseleave",
@@ -60,56 +60,85 @@
     ])
 
     navItemRef.addEventListener("mouseenter", navHoverTrue)
+
     handleLeaveEvents.fire(navHoverFalse)
+
+    const handleMobileResize = () => {
+      isLayoutMobile = !window.matchMedia("(min-width: 1024px)").matches
+
+      if (!isLayoutMobile && $isMobileNavOpen) {
+        isMobileNavOpen.toggleState()
+        return
+      }
+    }
+
+    const resizeMobileEvent = new KuroEventDispatchMulti(window, ["resize"])
+
+    resizeMobileEvent.fire(handleMobileResize, true)
 
     return () => {
       navItemRef.removeEventListener("mouseenter", navHoverTrue)
+
+      resizeMobileEvent.clean(handleMobileResize)
       handleLeaveEvents.clean(navHoverFalse)
     }
   })
 
   // For handling both mobile and desktop layouts
   const handleMobileMenu = () => {
-    if (isLayoutMobile) {
-      isMobileNavOpen = !isMobileNavOpen
+    if (isLayoutMobile) isMobileNavOpen.toggleState()
+    return
+  }
+
+  // Search button
+  const focusOnSearchbox = () => {
+    isSearchActive.toggleState()
+
+    if ($isSearchActive) {
+      setTimeout(() => {
+        document.getElementById("global-search")!.focus()
+      }, 300)
     }
   }
 </script>
 
-<div bind:this={navItemRef} class="lg:flex hidden mr-1">
-  {#each navItems as root}
-    <div class="px-3.5 py-3 inline-flex items-center gap-x-1.5 flex-col">
-      {#if root.link}
-        <a href={root.link} class="inline-flex items-center gap-x-1.5">
-          <span class="select-none">{root.text}</span>
-          {#if root.subitems}
-            <div class="chevron">
-              {@html ChevronDownIcon}
-            </div>
-          {/if}
-        </a>
-      {:else}
-        <div class="flex items-center gap-x-1.5">
-          <span class="cursor-default select-none">{root.text}</span>
-          {#if root.subitems}
-            <div class="chevron">
-              {@html ChevronDownIcon}
-            </div>
-          {/if}
+<div
+  bind:this={navItemRef}
+  class={cn(
+    "z-10 bg-kuro-dark2 bottom-0 w-full top-14 left-0 absolute flex flex-col mr-0",
+    "lg:transition-[opacity] lg:duration-200 lg:w-auto lg:top-0 lg:relative lg:flex-row lg:mr-1 lg:opacity-100 lg:pointer-events-auto",
+    $isSearchActive ? "lg:!opacity-30 lg:!pointer-events-none" : ""
+  )}
+  inert={$isSearchActive ? true : null}
+>
+  {#each navItems as { link, text, subitems }, index}
+    <div
+      class="px-3.5 py-0 lg:py-3 lg:inline-flex items-center gap-x-1.5 flex-col"
+    >
+      <NavbarDesktopItem {link} {text} {subitems} />
+      {#if $isMobileNavOpen}
+        <div
+          id="transition-wrapper"
+          transition:fly={{ y: -15, delay: index * 50 }}
+          class="hover:[&_:is(button,a)]:bg-kuro-lavender-100/25 [&_:is(button,a)]:rounded-md"
+        >
+          <NavbarMobileItem {link} {text} {subitems} />
         </div>
       {/if}
     </div>
   {/each}
 </div>
-<button class="px-3 py-3.5" on:click={focusOnSearchbox}>
+<button
+  class={cn("px-3 py-3.5", $isMobileNavOpen && "hidden")}
+  on:click={focusOnSearchbox}
+>
   {@html SearchIcon}
 </button>
 <button class="lg:hidden block px-3.5 py-3.5" on:click={handleMobileMenu}>
   {@html MenuIcon}
 </button>
 
-<style lang="postcss">
-  .chevron {
-    @apply transform-gpu transition-transform opacity-60;
-  }
-</style>
+<Backdrop
+  state={$isMobileNavOpen}
+  class="fixed z-10 inset-x-0 top-12 bottom-0 bg-kuro-dark2/80 h-full backdrop-blur-sm"
+/>

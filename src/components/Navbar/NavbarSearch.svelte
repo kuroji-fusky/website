@@ -1,12 +1,14 @@
 <script lang="ts">
+  import { fly } from "svelte/transition"
+  import { cubicOut } from "svelte/easing"
+
+  import { debounce } from "lodash-es"
   import SearchIcon from "~icons/lucide/search?raw"
   import XClearIcon from "~icons/lucide/x?raw"
 
-  import { isSearchActive } from "$stores/index"
-  import { fly, fade } from "svelte/transition"
-  import { cubicOut } from "svelte/easing"
-  import Portal from "$components/Portal.svelte"
-  import { debounce } from "lodash-es"
+  import { isSearchActive } from "./Navbar.stores"
+
+  import Backdrop from "$components/Backdrop.svelte"
 
   let hasInputContent = false
   let currentFunnies: string
@@ -22,7 +24,9 @@
   $: $isSearchActive, updateFunnies()
 
   const updateFunnies = () => {
-    document.body.style.overflowY = $isSearchActive ? "hidden" : "visible"
+    $isSearchActive
+      ? document.body.classList.add("overflow-y-hidden")
+      : document.body.classList.remove("overflow-y-hidden")
 
     if ($isSearchActive) {
       currentFunnies = funnies[Math.floor(Math.random() * funnies.length)]
@@ -47,18 +51,6 @@
     const textValue = (e.target as HTMLInputElement).value
     console.log(textValue)
   }, 300)
-
-  const clearInputValue = () => {
-    const searchInput = document.getElementById(
-      "global-search"
-    ) as HTMLInputElement
-
-    searchInput.value = ""
-    hasInputContent = false
-
-    searchInput.focus()
-    updateFunnies()
-  }
 </script>
 
 {#if $isSearchActive}
@@ -75,7 +67,7 @@
         </span>
         <input
           id="global-search"
-          type="text"
+          type="search"
           placeholder={currentFunnies}
           class="pl-8 bg-transparent focus:outline-none text-2xl w-full"
           on:keydown={toggleKeyboardState}
@@ -84,26 +76,14 @@
             handleHasInput(e)
           }}
         />
-        {#if hasInputContent}
-          <button
-            class="p-2 absolute h-full right-0 inset-y-0 [&_svg]:size-5 flex items-center"
-            on:click={clearInputValue}
-          >
-            {@html XClearIcon}
-          </button>
-        {/if}
       </div>
     </div>
     <div></div>
   </div>
-
-  <!-- Backdrop -->
-  <Portal>
-    <div
-      transition:fade={{ duration: 200 }}
-      class="fixed inset-0 z-[3] bg-kuro-dark2/80 backdrop-blur-sm"
-      on:click={isSearchActive.toggleState}
-      aria-hidden
-    />
-  </Portal>
 {/if}
+
+<Backdrop
+  state={$isSearchActive}
+  class="fixed inset-0 z-10 bg-kuro-dark2/80 backdrop-blur-sm"
+  onClick={isSearchActive.toggleState}
+/>

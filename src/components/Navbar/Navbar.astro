@@ -17,17 +17,19 @@ import NavbarSearch from "./NavbarSearch.svelte"
       class="padding-width-responsive mx-auto flex items-center max-w-screen-xl"
     >
       <div class="flex flex-1 items-center gap-x-2 min-w-0">
-        <a href="/" title="Home page" class="py-2 pr-1 flex-shrink-0">
-          <div style="height: 1.675rem">
-            <LogoBrand />
-          </div>
+        <a
+          href="/"
+          title="Home page"
+          class="py-2 pr-1 flex-shrink-0 [&_svg]:!h-[1.33rem]"
+        >
+          <LogoBrand />
         </a>
         <NavbarTitle client:idle />
       </div>
-      <div class="flex relative flex-shrink-0">
+      <div class="flex flex-shrink-0">
         <NavbarItems client:load />
       </div>
     </div>
+    <NavbarSearch client:only="svelte" />
   </nav>
-  <NavbarSearch client:only="svelte" />
 </div>

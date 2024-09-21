@@ -6,6 +6,6 @@
   }
 </script>
 
-<div {...$$props} use:moveDom={"body"}>
+<kuroui-portal {...$$props} use:moveDom={"body"} class="contents">
   <slot />
-</div>
+</kuroui-portal>
