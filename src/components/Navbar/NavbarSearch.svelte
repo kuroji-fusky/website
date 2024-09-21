@@ -24,9 +24,7 @@
   $: $isSearchActive, updateFunnies()
 
   const updateFunnies = () => {
-    $isSearchActive
-      ? document.body.classList.add("overflow-y-hidden")
-      : document.body.classList.remove("overflow-y-hidden")
+    document.body.style.overflowY = $isSearchActive ? "hidden" : "visible"
 
     if ($isSearchActive) {
       currentFunnies = funnies[Math.floor(Math.random() * funnies.length)]

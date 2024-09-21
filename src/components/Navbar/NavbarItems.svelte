@@ -22,11 +22,9 @@
   // Mobile
   let isLayoutMobile = false
 
-  $: $isMobileNavOpen
-    ? document.body.classList.add("overflow-y-hidden")
-    : document.body.classList.remove("overflow-y-hidden")
-
   onMount(() => {
+    document.body.style.overflowY = isNavItemRootHover ? "hidden" : "visible"
+
     // For handling desktop subitems
     const navItemsRoot = Array.from(navItemRef.children)
 
