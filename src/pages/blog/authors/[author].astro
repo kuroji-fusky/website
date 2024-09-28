@@ -11,7 +11,7 @@ import ImageWrapper from "$components/ImageWrapper.astro"
 import BlogGrid from "$components/blog/BlogGrid.astro"
 
 export async function getStaticPaths() {
-  const postAuthors = await fetchBlogAuthor({})
+  const postAuthors = await fetchBlogAuthor()
 
   return postAuthors.map((author) => ({
     params: { author: author.slug },

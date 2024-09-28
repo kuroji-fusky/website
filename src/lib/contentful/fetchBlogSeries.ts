@@ -1,12 +1,8 @@
+import type { EntryFieldTypes } from "contentful"
 import { fetchContentEntries } from "./client"
-import type {
-  AwaitedReturnType,
-  ContentEntries,
-  ContentfulFieldConstructor,
-  EntryFieldTypes
-} from "./types"
+import type { DefineContentModel, ReturnTypeFromAwaited } from "./types"
 
-export type BlogSeriesContent = ContentfulFieldConstructor<
+export type BlogSeriesContent = DefineContentModel<
   "blogSeries",
   {
     title: EntryFieldTypes.Text
@@ -15,15 +11,16 @@ export type BlogSeriesContent = ContentfulFieldConstructor<
   }
 >
 
-export const fetchBlogSeries = async (pwops: ContentEntries) => {
-  const { limit, category } = pwops
+export const fetchBlogSeries = async () => {
+  const entries = await fetchContentEntries<BlogSeriesContent>("blogSeries")
 
-  const entries = await fetchContentEntries<BlogSeriesContent>("blogSeries", {
-    limit,
-    category
-  })
+  const items = entries.items.map((item) => ({
+    title: item.fields.title,
+    slug: item.fields.slug,
+    description: item.fields.description
+  }))
 
-  return entries
+  return items
 }
 
-export type BlogSeriesReturnType = AwaitedReturnType<typeof fetchBlogSeries>
+export type BlogSeriesReturnType = ReturnTypeFromAwaited<typeof fetchBlogSeries>

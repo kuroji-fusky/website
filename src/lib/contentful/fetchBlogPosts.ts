@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type { EntryFieldTypes } from "contentful"
+
 import { fetchContentEntries } from "./client"
 import type { BlogAuthorContent } from "./fetchBlogAuthor"
 import type { BlogSeriesContent } from "./fetchBlogSeries"
 import { parseMediaType } from "./parsers/utils"
 import type {
-  AwaitedReturnType,
-  ContentEntries,
-  ContentfulFieldConstructor,
+  ReturnTypeFromAwaited,
   EntryFieldEmbed,
-  EntryFieldTypes
+  DefineContentModel,
+  ResolveModelFields
 } from "./types"
 
-type BlogPostContent = ContentfulFieldConstructor<
+type BlogPostContent = DefineContentModel<
   "blogPost",
   {
     title: EntryFieldTypes.Text
@@ -35,20 +36,17 @@ const sortInAscendingOrder = <T extends object>(arr: T[]) => {
   )
 }
 
-interface _TempAuthorOverride {
-  fields: {
-    name: string
-    slug: string
-    avatar: EntryFieldEmbed
-  }
+interface BlogPostProps {
+  limit?: number
+  category?: string
 }
 
-export const fetchBlogPosts = async (pwops: ContentEntries) => {
+export const fetchBlogPosts = async (pwops: BlogPostProps) => {
   const { limit, category } = pwops
 
   const entries = await fetchContentEntries<BlogPostContent>("blogPost", {
     limit,
-    category
+    "fields.category": category
   })
 
   const posts = entries.items.map((item) => {
@@ -65,27 +63,25 @@ export const fetchBlogPosts = async (pwops: ContentEntries) => {
       fromSeries
     } = item.fields
 
-    const image = banner ? `https:${banner.fields.file.url}?fm=webp` : ""
+    const image = `${parseMediaType(banner)}?fm=webp`
+
     const datePublished = overridePublishDate
       ? overridePublishDate
       : item.sys.createdAt
 
-    // A lot of type mangling here, will need a custom type and func to handle this mess
-    const authorsArr = authors
-      ? authors.map((author) => {
-          const { avatar, name, slug } = (
-            author as unknown as _TempAuthorOverride
-          ).fields
+    if (!authors) {
+      throw new Error("Field for 'authors' is empty. Did you forget to fill it up?")
+    }
 
-          return {
-            avatar: parseMediaType(
-              avatar as unknown as EntryFieldEmbed["data"]
-            ),
-            name,
-            slug
-          }
-        })
-      : []
+    const authorsArr = authors.map((author) => {
+      const { avatar, name, slug } = (author as any).fields as ResolveModelFields<BlogAuthorContent>
+
+      return {
+        avatar: parseMediaType(avatar),
+        name,
+        slug
+      }
+    })
 
     return {
       isFeatured,
@@ -104,4 +100,4 @@ export const fetchBlogPosts = async (pwops: ContentEntries) => {
   return sortInAscendingOrder(posts)
 }
 
-export type BlogPostsReturnType = AwaitedReturnType<typeof fetchBlogPosts>
+export type BlogPostsReturnType = ReturnTypeFromAwaited<typeof fetchBlogPosts>

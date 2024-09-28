@@ -1,5 +1,7 @@
-import contentful, { type EntrySkeletonType } from "contentful"
-import type { ContentEntries } from "./types"
+import contentful, {
+  type EntriesQueries as Queries,
+  type EntrySkeletonType
+} from "contentful"
 
 const CTF_DOMAIN = ".contentful.com"
 const DELIVERY = "cdn"
@@ -12,18 +14,11 @@ const client = contentful.createClient({
   accessToken: isDevelopment
     ? import.meta.env.CONTENTFUL_PREVIEW_TOKEN
     : import.meta.env.CONTENTFUL_DELIVERY_TOKEN,
-  host: isDevelopment ? `${PREVIEW}${CTF_DOMAIN}` : `${DELIVERY}${CTF_DOMAIN}`
+  host: isDevelopment ? `${PREVIEW}${CTF_DOMAIN}` : `${DELIVERY}${CTF_DOMAIN}`,
+  insecure: false
 })
 
-export const fetchContentEntries = async <Entry extends EntrySkeletonType>(
-  contentType: Entry["contentTypeId"],
-  options?: Omit<ContentEntries, "img">
-) => {
-  const { limit, category } = options!
-
-  return await client.getEntries<Entry>({
-    content_type: contentType,
-    limit,
-    "fields.category": category
-  } as unknown as Entry)
-}
+export const fetchContentEntries = async <E extends EntrySkeletonType>(
+  id: E["contentTypeId"],
+  query?: Queries<E, undefined>
+) => await client.getEntries<E>({ content_type: id, ...query })

@@ -1,12 +1,8 @@
+import type { EntryFieldTypes } from "contentful"
 import { fetchContentEntries } from "./client"
-import type {
-  AwaitedReturnType,
-  ContentEntries,
-  ContentfulFieldConstructor,
-  EntryFieldTypes
-} from "./types"
+import type { DefineContentModel, ReturnTypeFromAwaited } from "./types"
 
-type TheVaultContent = ContentfulFieldConstructor<
+type TheVaultContent = DefineContentModel<
   "theVault",
   {
     title: EntryFieldTypes.Text
@@ -15,17 +11,10 @@ type TheVaultContent = ContentfulFieldConstructor<
   }
 >
 
-export const fetchVaultEntries = async (pwops: ContentEntries) => {
-  const { limit, category } = pwops
-
-  const entries = await fetchContentEntries<TheVaultContent>("theVault", {
-    limit,
-    category
-  })
+export const fetchVaultEntries = async () => {
+  const entries = await fetchContentEntries<TheVaultContent>("theVault")
 
   return entries
 }
 
-export type VaultContentReturnType = AwaitedReturnType<
-  typeof fetchContentEntries
->
+export type VaultContentReturnType = ReturnTypeFromAwaited<typeof fetchContentEntries>

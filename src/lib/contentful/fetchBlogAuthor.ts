@@ -1,14 +1,10 @@
-import { fetchContentEntries } from "./client"
-import { parseMediaType } from "./parsers/utils"
-import type {
-  AwaitedReturnType,
-  ContentEntries,
-  ContentfulFieldConstructor,
-  EntryFieldEmbed,
-  EntryFieldTypes
-} from "./types"
+import type { EntryFieldTypes } from "contentful"
 
-export type BlogAuthorContent = ContentfulFieldConstructor<
+import { fetchContentEntries } from "./client"
+import { parseMediaType } from "./parsers"
+import type { DefineContentModel, EntryFieldEmbed } from "./types"
+
+export type BlogAuthorContent = DefineContentModel<
   "blogAuthor",
   {
     name: EntryFieldTypes.Text
@@ -19,27 +15,14 @@ export type BlogAuthorContent = ContentfulFieldConstructor<
   }
 >
 
-export const fetchBlogAuthor = async (pwops: ContentEntries) => {
-  const { limit, category } = pwops
+export const fetchBlogAuthor = async () => {
+  const entries = await fetchContentEntries<BlogAuthorContent>("blogAuthor")
 
-  const entries = await fetchContentEntries<BlogAuthorContent>("blogAuthor", {
-    limit,
-    category
-  })
-
-  const posts = entries.items.map((item) => {
-    const { bio, displayName, slug, name, avatar } = item.fields
-
-    return {
-      name,
-      displayName,
-      bio,
-      slug,
-      avatar: parseMediaType(avatar)
-    }
-  })
-
-  return posts
+  return entries.items.map((item) => ({
+    name: item.fields.name,
+    displayName: item.fields.displayName,
+    bio: item.fields.bio,
+    slug: item.fields.slug,
+    avatar: parseMediaType(item.fields.avatar)
+  }))
 }
-
-export type BlogAuthorReturnType = AwaitedReturnType<typeof fetchBlogAuthor>

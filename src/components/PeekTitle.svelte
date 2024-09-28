@@ -1,5 +1,5 @@
 <script lang="ts">
-  import observeDOM from "$lib/observe"
+  import { observeDOM } from "$lib/utils"
   import { isTitleShown, navTitle } from "$stores/index"
   import { onMount } from "svelte"
 

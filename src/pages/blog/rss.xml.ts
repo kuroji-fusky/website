@@ -1,7 +1,8 @@
-import { fetchBlogPosts } from "$lib/contentful"
 import rss from "@astrojs/rss"
 import type { APIRoute } from "astro"
-import { parseDateStr } from "$lib/parseDateStr"
+
+import { fetchBlogPosts } from "$lib/contentful"
+import { parseDateStr } from "$lib/utils"
 
 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 export const GET: APIRoute = async (ctx: any) => {

@@ -4,7 +4,7 @@ import DetailHeading from "$components/DetailHeading.astro"
 import Layout from "$layouts/Layout.astro"
 import PieIcon from "~icons/lucide/pie-chart"
 import { Image } from "astro:assets"
-import { routeSections } from "$lib/constants"
+import { routeSections } from "$lib/utils"
 import { GET } from "pages/api/artworks"
 
 const req = await GET(Astro)

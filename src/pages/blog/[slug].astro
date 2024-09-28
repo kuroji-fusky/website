@@ -9,13 +9,7 @@ import BlogTOC from "$components/blog/BlogTOC.svelte"
 import ParseArticle from "$components/ParseArticle.astro"
 
 export async function getStaticPaths() {
-  const posts = await fetchBlogPosts({
-    img: {
-      width: 1920,
-      height: 1080,
-      quality: 90
-    }
-  })
+  const posts = await fetchBlogPosts({})
 
   return posts.map((item) => ({
     params: { slug: item.slug },

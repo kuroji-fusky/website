@@ -3,8 +3,8 @@
   import { fly } from "svelte/transition"
   import { navItems } from "./Navbar.constants"
 
-  import cn from "$lib/cn"
-  import { KuroEventDispatchMulti } from "$lib/clientUtils"
+  import { cn } from "$lib/utils"
+  import { KuroEventDispatchMulti } from "$lib/utils"
 
   import SearchIcon from "~icons/lucide/search?raw"
   import MenuIcon from "~icons/lucide/menu?raw"

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { parseDateStr } from "$lib/parseDateStr"
+  import { parseDateStr } from "$lib/utils"
   import { kebabCase } from "lodash-es"
 
   export let title: string

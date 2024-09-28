@@ -1,7 +1,7 @@
 <script lang="ts">
   import ChevronDownIcon from "~icons/lucide/chevron-down?raw"
   import type { navItems } from "./Navbar.constants"
-  import cn from "$lib/cn"
+  import { cn } from "$lib/utils"
 
   let isExpanded = false
 

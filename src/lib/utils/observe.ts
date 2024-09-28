@@ -1,7 +1,7 @@
 import type { Writable } from "svelte/store"
 
 /** Wrapper for `IntersectionObserver.isIntersecting` */
-const observeDOM = (
+export const observeDOM = (
   store: Writable<boolean>,
   target: Element,
   options?: IntersectionObserverInit
@@ -12,5 +12,3 @@ const observeDOM = (
 
   sheesh.observe(target)
 }
-
-export default observeDOM

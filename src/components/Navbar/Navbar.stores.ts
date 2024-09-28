@@ -1,4 +1,4 @@
-import { togglerStore } from "$lib/togglerStore"
+import { togglerStore } from "$stores/togglerStore"
 
 export const isMobileNavOpen = togglerStore(false)
 
