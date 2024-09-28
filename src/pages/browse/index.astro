@@ -1,5 +1,6 @@
 ---
 import DetailHeading from "$components/DetailHeading.astro"
+import LabeledSection from "$components/LabeledSection.astro"
 import Layout from "$layouts/Layout.astro"
 
 const title = "Browse"
@@ -9,17 +10,10 @@ const description =
 
 <Layout {title} {description}>
   <DetailHeading {title} {description} />
-  <div class="px-8 mx-auto max-w-screen-2xl">
-    <section>
-      <h2>Portfolio</h2>
-    </section>
-
-    <section>
-      <h2>Developer focused</h2>
-    </section>
-
-    <section>
-      <h2>Others</h2>
-    </section>
+  <div class="px-8 mx-auto max-w-screen-xl flex flex-col gap-y-3.5">
+    <LabeledSection title="Portfolio" />
+    <LabeledSection title="Developer focused" />
+    <LabeledSection title="Others" />
+    <LabeledSection title="Blog posts">lol</LabeledSection>
   </div>
 </Layout>

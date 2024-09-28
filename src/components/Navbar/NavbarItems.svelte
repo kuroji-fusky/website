@@ -18,6 +18,7 @@
 
   // Desktop
   let isNavItemRootHover = false
+  let navItemActiveIndex: number | null = null
 
   // Mobile
   let isLayoutMobile = false
@@ -125,6 +126,11 @@
       {/if}
     </div>
   {/each}
+  {#if isNavItemRootHover}
+    <div class="absolute top-10">
+      <div class="mt-2 p-2 rounded-md bg-purple-950">lmao</div>
+    </div>
+  {/if}
 </div>
 <button
   class={cn("px-3 py-3.5", $isMobileNavOpen && "hidden")}
