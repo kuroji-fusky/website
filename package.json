@@ -8,11 +8,12 @@
     "url": "https://github.com/kuroji-fusky/kurojifusky.com"
   },
   "scripts": {
+    "astro": "astro",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro",
+    "clean:build": "rimraf -v -- .vercel/ .astro/",
     "lint": "prettier --check . && eslint \"./**/*.{js,mjs,cjs,astro,svelte}\"",
     "lint:fix": "prettier --write . && eslint --quiet --fix \"./**/*.{js,mjs,cjs,astro,svelte}\""
   },
@@ -64,6 +65,7 @@
     "prettier": "^3.0.3",
     "prettier-plugin-astro": "^0.12.2",
     "prettier-plugin-svelte": "^3.2.6",
+    "rimraf": "^6.0.1",
     "tailwind-merge": "^2.5.2"
   }
 }

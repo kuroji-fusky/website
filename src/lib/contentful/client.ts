@@ -1,7 +1,5 @@
-import contentful, {
-  type EntriesQueries as Queries,
-  type EntrySkeletonType
-} from "contentful"
+import contentful from "contentful"
+import type { ctf } from "./types"
 
 const CTF_DOMAIN = ".contentful.com"
 const DELIVERY = "cdn"
@@ -18,7 +16,7 @@ const client = contentful.createClient({
   insecure: false
 })
 
-export const fetchContentEntries = async <E extends EntrySkeletonType>(
+export const fetchContentEntries = async <E extends ctf.Skeleton>(
   id: E["contentTypeId"],
-  query?: Queries<E, undefined>
+  query?: ctf.Queries<E>
 ) => await client.getEntries<E>({ content_type: id, ...query })

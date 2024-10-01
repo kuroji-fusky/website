@@ -1,17 +1,15 @@
-import type { EntryFieldTypes } from "contentful"
-
 import { fetchContentEntries } from "./client"
 import { parseMediaType } from "./parsers"
-import type { DefineContentModel, EntryFieldEmbed } from "./types"
+import type { ctf } from "./types"
 
-export type BlogAuthorContent = DefineContentModel<
+export type BlogAuthorContent = ctf.DefineModel<
   "blogAuthor",
   {
-    name: EntryFieldTypes.Text
-    displayName: EntryFieldTypes.Text
-    slug: EntryFieldTypes.Text
-    bio: EntryFieldTypes.RichText
-    avatar: EntryFieldEmbed
+    name: ctf.Fields.Text
+    displayName: ctf.Fields.Text
+    slug: ctf.Fields.Text
+    bio: ctf.Fields.RichText
+    avatar: ctf.Fields.Embed
   }
 >
 

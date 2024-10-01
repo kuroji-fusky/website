@@ -1,30 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { EntryFieldTypes } from "contentful"
-
 import { fetchContentEntries } from "./client"
+import { parseMediaType } from "./parsers/utils"
+
 import type { BlogAuthorContent } from "./fetchBlogAuthor"
 import type { BlogSeriesContent } from "./fetchBlogSeries"
-import { parseMediaType } from "./parsers/utils"
-import type {
-  ReturnTypeFromAwaited,
-  EntryFieldEmbed,
-  DefineContentModel,
-  ResolveModelFields
-} from "./types"
+import type { ctf, ReturnTypeFromAwaited } from "./types"
 
-type BlogPostContent = DefineContentModel<
+type BlogPostContent = ctf.DefineModel<
   "blogPost",
   {
-    title: EntryFieldTypes.Text
-    description: EntryFieldTypes.Text
-    category: EntryFieldTypes.Array<EntryFieldTypes.Symbol>
-    content: EntryFieldTypes.RichText
-    overridePublishDate: EntryFieldTypes.Date
-    slug: EntryFieldTypes.Text
-    isFeatured: EntryFieldTypes.Boolean
-    banner: EntryFieldEmbed
-    authors: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<BlogAuthorContent>>
-    fromSeries: EntryFieldTypes.EntryLink<BlogSeriesContent>
+    title: ctf.Fields.Text
+    description: ctf.Fields.Text
+    category: ctf.Fields.Array<ctf.Fields.Symbol>
+    content: ctf.Fields.RichText
+    overridePublishDate: ctf.Fields.Date
+    slug: ctf.Fields.Text
+    isFeatured: ctf.Fields.Boolean
+    banner: ctf.Fields.Embed
+    authors: ctf.Fields.Array<ctf.Fields.EntryLink<BlogAuthorContent>>
+    fromSeries: ctf.Fields.EntryLink<BlogSeriesContent>
   }
 >
 
@@ -70,11 +64,14 @@ export const fetchBlogPosts = async (pwops: BlogPostProps) => {
       : item.sys.createdAt
 
     if (!authors) {
-      throw new Error("Field for 'authors' is empty. Did you forget to fill it up?")
+      throw new Error(
+        "Field for 'authors' is empty. Did you forget to fill it up?"
+      )
     }
 
     const authorsArr = authors.map((author) => {
-      const { avatar, name, slug } = (author as any).fields as ResolveModelFields<BlogAuthorContent>
+      const { avatar, name, slug } = (author as any)
+        .fields as ctf.ResolveModelFields<BlogAuthorContent>
 
       return {
         avatar: parseMediaType(avatar),

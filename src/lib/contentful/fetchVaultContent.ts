@@ -1,13 +1,12 @@
-import type { EntryFieldTypes } from "contentful"
 import { fetchContentEntries } from "./client"
-import type { DefineContentModel, ReturnTypeFromAwaited } from "./types"
+import type { ctf, ReturnTypeFromAwaited } from "./types"
 
-type TheVaultContent = DefineContentModel<
+type TheVaultContent = ctf.DefineModel<
   "theVault",
   {
-    title: EntryFieldTypes.Text
-    excerpt: EntryFieldTypes.Text
-    content: EntryFieldTypes.RichText
+    title: ctf.Fields.Text
+    excerpt: ctf.Fields.Text
+    content: ctf.Fields.RichText
   }
 >
 
