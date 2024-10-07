@@ -11,6 +11,7 @@
     "astro": "astro",
     "dev": "astro dev",
     "start": "astro dev",
+    "prepare": "astro sync",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "clean:build": "rimraf -v -- .vercel/ .astro/",
