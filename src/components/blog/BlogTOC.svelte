@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { cn } from "$lib/utils"
   import ChevronDownIcon from "~icons/lucide/chevron-down?raw"
   import TocIcon from "~icons/lucide/list?raw"
 
@@ -6,9 +7,14 @@
 </script>
 
 <aside
-  class="bg-kuro-dark2 flex-shrink-0 md:[align-self:start] md:w-56 lg:w-60 sticky md:px-0 top-14 md:top-20 inset-x-0 md:ml-5 lg:ml-10 z-[2]"
+  class={cn(
+    "bg-kuro-dark2 flex-shrink-0 px-4 fixed bottom-9 z-[2] inset-x-6 border rounded-lg transition-[padding] duration-[250ms]",
+    "md:[align-self:start] md:border-none md:px-0 md:w-56 md:top-20 md:ml-5 md:sticky",
+    "lg:ml-10 lg:w-60",
+    isExpanded ? "pt-2" : ""
+  )}
 >
-  <div class="w-full">
+  <div class="w-full md:block flex flex-col-reverse">
     <button
       on:click={() => (isExpanded = !isExpanded)}
       class="my-2.5 w-full text-base flex md:hidden items-center"
@@ -18,8 +24,10 @@
         <span>Table of contents</span>
       </div>
       <span
-        class={`block md:hidden transition-transform transform-gpu duration-[250ms] ${isExpanded ? "rotate-180" : ""}`}
-        >{@html ChevronDownIcon}</span
+        class={cn(
+          "block md:hidden transition-transform transform-gpu duration-[250ms]",
+          isExpanded ? "rotate-180" : ""
+        )}>{@html ChevronDownIcon}</span
       >
     </button>
     <span class="hidden md:block font-bold mb-2 text-xl">Table of contents</span
