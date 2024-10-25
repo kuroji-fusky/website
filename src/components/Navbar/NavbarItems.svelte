@@ -10,8 +10,6 @@
   import MenuIcon from "~icons/lucide/menu?raw"
 
   import { isSearchActive, isMobileNavOpen } from "./Navbar.stores"
-  import NavbarDesktopItem from "./NavbarDesktopItem.svelte"
-  import NavbarMobileItem from "./NavbarMobileItem.svelte"
   import Backdrop from "$components/Backdrop.svelte"
 
   let navItemRef: HTMLDivElement
@@ -108,30 +106,7 @@
     "lg:transition-[opacity] lg:duration-200 lg:w-auto lg:top-0 lg:relative lg:flex-row lg:mr-1 lg:opacity-100 lg:pointer-events-auto",
     $isSearchActive ? "lg:!opacity-30 lg:!pointer-events-none" : ""
   )}
-  inert={$isSearchActive ? true : null}
->
-  {#each navItems as { link, text, subitems }, index}
-    <div
-      class="px-3.5 py-0 lg:py-3 lg:inline-flex items-center gap-x-1.5 flex-col"
-    >
-      <NavbarDesktopItem {link} {text} {subitems} />
-      {#if $isMobileNavOpen}
-        <div
-          id="transition-wrapper"
-          transition:fly={{ y: -15, delay: index * 50 }}
-          class="hover:[&_:is(button,a)]:bg-kuro-lavender-100/25 [&_:is(button,a)]:rounded-md"
-        >
-          <NavbarMobileItem {link} {text} {subitems} />
-        </div>
-      {/if}
-    </div>
-  {/each}
-  {#if isNavItemRootHover}
-    <div class="absolute top-10">
-      <div class="mt-2 p-2 rounded-md bg-purple-950">lmao</div>
-    </div>
-  {/if}
-</div>
+></div>
 <button
   class={cn("px-3 py-3.5", $isMobileNavOpen && "hidden")}
   on:click={focusOnSearchbox}
