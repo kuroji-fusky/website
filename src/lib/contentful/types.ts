@@ -1,17 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Options } from "@contentful/rich-text-html-renderer"
-import type {
-  EntriesQueries,
-  Entry,
-  EntryFieldTypes,
-  EntrySkeletonType,
-  FieldsType
-} from "contentful"
+import type { EntriesQueries, Entry, EntryFieldTypes, EntrySkeletonType, FieldsType } from "contentful"
 
 /** Gets the return type for an async function; a wrapper for `Awaited<ReturnType<T>>` */
-export type ReturnTypeFromAwaited<T extends (...args: any) => any> = Awaited<
-  ReturnType<T>
->
+export type ReturnTypeFromAwaited<T extends (...args: any) => any> = Awaited<ReturnType<T>>
 
 export type PartialRenderer = Partial<Options>
 
@@ -21,16 +13,9 @@ export namespace ctf {
   export type Queries<E extends Skeleton> = EntriesQueries<E, undefined>
 
   /** An alias for `EntrySkeletonType<F, I>` */
-  export type DefineModel<
-    Id extends string,
-    Fields extends FieldsType
-  > = EntrySkeletonType<Fields, Id>
+  export type DefineModel<Id extends string, Fields extends FieldsType> = EntrySkeletonType<Fields, Id>
 
-  export type ResolveModelFields<E extends EntrySkeletonType> = Entry<
-    E,
-    undefined,
-    string
-  >["fields"]
+  export type ResolveModelFields<E extends EntrySkeletonType> = Entry<E, undefined, string>["fields"]
 }
 
 export namespace ctf.Fields {

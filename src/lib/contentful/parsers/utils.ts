@@ -1,6 +1,6 @@
-import type { EntryFieldEmbed } from "../types"
+import type { ctf } from "../types"
 
-export const parseMediaType = (data: EntryFieldEmbed["data"]) => {
+export const parseMediaType = (data: ctf.Fields.Embed["data"]) => {
   return `https://${data.fields.file.url}`
 }
 
@@ -31,11 +31,11 @@ export const sanitizedHTML = <
 
   const parsedAttributes = attrs
     ? Object.entries(attrs)
-        .map(([k, v]) => {
-          if (v === null) return null
-          return `${k}="${v}"`
-        })
-        .join(" ")
+      .map(([k, v]) => {
+        if (v === null) return null
+        return `${k}="${v}"`
+      })
+      .join(" ")
     : ""
 
   if (tag === "img")

@@ -63,7 +63,7 @@ export const GET: APIRoute = async () => {
       },
       date: {
         purchase: purchaseDate,
-        purchaseISO: new Date(purchaseDate).toISOString(),
+        purchaseISO: purchaseDate ? "" : new Date(purchaseDate).toISOString(),
         complete: !completeDate ? "" : completeDate,
         completeISO: !completeDate ? "" : new Date(completeDate).toISOString()
       },
@@ -93,7 +93,6 @@ export const GET: APIRoute = async () => {
   })
 
   const artworkData = collectedArtworks.sort(
-    // prettier-ignore
     /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
     (a, b) => Date.parse((b as unknown as any).date) - Date.parse((a as unknown as any).date)
   )
