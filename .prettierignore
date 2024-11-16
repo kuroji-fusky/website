@@ -6,15 +6,3 @@ node_modules
 # Astro
 .astro/
 dist/
-
-# Nuxt
-.nuxt/
-.output/
-
-*.png
-*.jpg
-*.ico
-
-yarn.lock
-
-packages/**

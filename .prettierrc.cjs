@@ -1,4 +1,4 @@
-{
+module.exports = {
   "semi": false,
   "trailingComma": "none",
   "plugins": ["prettier-plugin-astro", "prettier-plugin-svelte"],
