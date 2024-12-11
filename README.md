@@ -18,7 +18,7 @@ The source code of my personal website! Written in Astro + Svelte.
 ### Prerequisties
 
 - Node.js v20 or higher (LTS recommended)
-- Yarn
+- pnpm
 
 ### Setup and installation
 
@@ -29,10 +29,10 @@ The source code of my personal website! Written in Astro + Svelte.
   cd kurojifusky.com
   ```
 
-- Install dependencies with `yarn`:
+- Install dependencies with `pnpm`:
 
   ```bash
-  yarn install # or yarn
+  pnpm install # or pnpm i
   ```
 
 ## Copyright

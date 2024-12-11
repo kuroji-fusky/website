@@ -18,9 +18,6 @@
     "lint": "prettier --check . && eslint \"./**/*.{js,mjs,cjs,astro,svelte}\"",
     "lint:fix": "prettier --write . && eslint --quiet --fix \"./**/*.{js,mjs,cjs,astro,svelte}\""
   },
-  "workspaces": [
-    "packages/fusky-labs-eslint/**"
-  ],
   "dependencies": {
     "@astrojs/check": "0.9.3",
     "@astrojs/lit": "^4.3.0",
