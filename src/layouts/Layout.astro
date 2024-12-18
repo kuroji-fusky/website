@@ -7,9 +7,7 @@ import "@fontsource/inter/700.css"
 import "@fontsource/jetbrains-mono"
 import "@fontsource/unbounded/latin-700.css"
 
-import ParseArticle from "$components/ParseArticle.astro"
 import Footer from "$components/Footer.astro"
-import Navbar from "$components/Navbar"
 
 interface Props {
   title: string
@@ -38,6 +36,9 @@ const _title = pathname !== "/" ? `${title} | ${siteTitle}` : title
 
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
+
+    {/* Preload tags */}
+    <link rel="preload" href="https://fuskylabs-cdn.imgix.net" />
 
     {/* OG tags */}
     <meta property="og:title" content={title} />
@@ -70,14 +71,12 @@ const _title = pathname !== "/" ? `${title} | ${siteTitle}` : title
   <body
     class="font-body font-medium text-sm lg:text-base bg-kuro-dark2 text-kuro-violet-50 overflow-x-hidden selection:bg-kuro-lavender-600"
   >
-    <Navbar />
-    <main id="skip-to-content" class="min-h-[calc(100dvh-10rem)]">
+    <!-- <Navbar /> -->
+    <main id="skip-to-content" class="min-h-[calc(100dvh-6rem)]">
       {
         mdxMargin ? (
           <div class="padding-width-responsive max-w-screen-2xl mx-auto">
-            <ParseArticle>
-              <slot />
-            </ParseArticle>
+            <slot />
           </div>
         ) : (
           <slot />

@@ -2,10 +2,8 @@ import { defineConfig, passthroughImageService } from "astro/config"
 
 import tailwind from "@astrojs/tailwind"
 import sitemap from "@astrojs/sitemap"
-import markdoc from "@astrojs/markdoc"
 import mdx from "@astrojs/mdx"
 import vercel from "@astrojs/vercel/serverless"
-import lit from "@astrojs/lit"
 import svelte from "@astrojs/svelte"
 
 import autoprefixer from "autoprefixer"
@@ -21,19 +19,10 @@ export default defineConfig({
     directRenderScript: true,
     clientPrerender: true
   },
-  redirects: {
-    "/blog/category": "/blog",
-    "/blog/author": "/blog",
-    "/blog/authors": "/blog",
-    "/blog/posts/[slug]": "/blog/[slug]",
-    "/blog/post/[slug]": "/blog/[slug]",
-    "/posts/[slug]": "/blog/[slug]",
-    "/post/[slug]": "/blog/[slug]"
-  },
   prefetch: {
     prefetchAll: true
   },
-  integrations: [lit(), markdoc(), sitemap(), svelte(), tailwind(), mdx()],
+  integrations: [sitemap(), svelte(), tailwind(), mdx()],
   vite: {
     plugins: [
       Icons({
@@ -56,15 +45,6 @@ export default defineConfig({
         protocol: "https",
         hostname: "images.ctfassets.net"
       },
-      {
-        protocol: "https",
-        hostname: "fuskylabs-cdn.imgix.net"
-      },
-      // !!! This is only temporary, will be offloading my images to imgix soon
-      {
-        protocol: "https",
-        hostname: "res.cloudinary.com"
-      }
     ]
   },
   build: {

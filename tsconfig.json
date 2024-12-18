@@ -24,7 +24,6 @@
     "useDefineForClassFields": false
   },
   "exclude": [
-    "packages/shared/types",
-    "packages/shared/web",
+    "packages/shared/**",
   ]
 }
