@@ -1,19 +1,54 @@
 ---
 import Layout from "$layouts/Layout.astro"
 import { Schema } from "astro-seo-schema"
+import KuroWordmark from "~icons/kuro/logo-wordmark"
+import ImageWrapper from "$components/ImageWrapper.astro"
 ---
 
-<Layout title="Under construction">Oof</Layout>
+<Layout title="Under construction" description="Yes">
+  <div class="grid place-items-center h-screen w-full">
+    <div
+      class="flex flex-col items-center text-center prose-p:leading-relaxed prose-p:mt-2.5 lg:prose-p:text-base lg:prose-p:w-2/3 prose-a:text-kuro-lavender-300 prose-a:underline hover:prose-a:text-kuro-lavender-400 hover:prose-a:no-underline"
+    >
+      <ImageWrapper
+        src="https://fuskylabs-cdn.imgix.net/commissions/24/MintyNebula_Kuro.png?w=900&h=900&fm=webp&auto=compress&rect=292%2C175%2C1399%2C1399"
+        alt=""
+        srcset="https://fuskylabs-cdn.imgix.net/commissions/24/MintyNebula_Kuro.png?w=500&h=500&fm=webp&auto=compress&rect=292%2C175%2C1399%2C1399 150w, https://fuskylabs-cdn.imgix.net/commissions/24/MintyNebula_Kuro.png?w=900&h=900&fm=webp&auto=compress&rect=292%2C175%2C1399%2C1399 270w"
+        sizes="(max-width: 640px) 150px, (max-width: 1600px) 270px"
+        infer
+        quality={75}
+        class="rounded-lg w-60"
+      />
+      <h1 class="font-hero-heading text-3xl lg:text-4xl my-3.5">
+        Site under construction
+      </h1>
+      <p>
+        This page is in this temporary state as I'm working to cleanup my 9th
+        revision of my crappy website. It's easy to blame procrastination for
+        any lack of progress from videos and dev projects, I've been slacking
+        most of the time lol
+      </p>
+      <p>
+        Currently, the only active sites I have is <a
+          href="https://blog.kurojifusky.com"
+          target="_blank">my blog site</a
+        > and <a href="https://se.fusky.pet" target="_blank"
+          >the SponsorExplorer project</a
+        >, which was wasn't updated since 2022! Blog posts and other content
+        will all be consolidated through this domain by March 2025 :3
+      </p>
+      <div class="w-full mt-6 opacity-40 flex-shrink-0 [&_svg]:!h-4">
+        <KuroWordmark />
+      </div>
+    </div>
+  </div>
 
-<Schema
-  item={{
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Kuroji Fusky",
-    url: Astro.site!.toString(),
-    potentialAction: {
-      "@type": "SearchAction",
-      target: new URL("search", Astro.site).toString()
-    }
-  }}
-/>
+  <Schema
+    item={{
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "Kuroji Fusky",
+      url: Astro.site!.toString()
+    }}
+  />
+</Layout>

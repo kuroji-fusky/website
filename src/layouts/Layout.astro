@@ -7,8 +7,6 @@ import "@fontsource/inter/700.css"
 import "@fontsource/jetbrains-mono"
 import "@fontsource/unbounded/latin-700.css"
 
-import Footer from "$components/Footer.astro"
-
 interface Props {
   title: string
   description?: string
@@ -38,7 +36,16 @@ const _title = pathname !== "/" ? `${title} | ${siteTitle}` : title
     <meta name="description" content={description} />
 
     {/* Preload tags */}
-    <link rel="preload" href="https://fuskylabs-cdn.imgix.net" />
+    <link
+      rel="preload"
+      as="image"
+      href="https://fuskylabs-cdn.imgix.net/commissions/24/MintyNebula_Kuro.png?w=400&h=400&fm=webp&auto=compress&rect=292%2C175%2C1399%2C1399"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="https://fuskylabs-cdn.imgix.net/commissions/24/MintyNebula_Kuro.png?w=900&h=900&fm=webp&auto=compress&rect=292%2C175%2C1399%2C1399"
+    />
 
     {/* OG tags */}
     <meta property="og:title" content={title} />
@@ -72,17 +79,8 @@ const _title = pathname !== "/" ? `${title} | ${siteTitle}` : title
     class="font-body font-medium text-sm lg:text-base bg-kuro-dark2 text-kuro-violet-50 overflow-x-hidden selection:bg-kuro-lavender-600"
   >
     <main id="skip-to-content" class="min-h-[calc(100dvh-6rem)]">
-      {
-        mdxMargin ? (
-          <div class="padding-width-responsive max-w-screen-2xl mx-auto">
-            <slot />
-          </div>
-        ) : (
-          <slot />
-        )
-      }
+      <slot />
     </main>
-    <Footer />
   </body>
 
   <style is:global>
