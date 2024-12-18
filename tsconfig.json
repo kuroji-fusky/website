@@ -3,17 +3,28 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
-      "$lib/*": ["lib/*"],
-      "$components/*": ["components/*"],
-      "$layouts/*": ["layouts/*"],
-      "$stores/*": ["stores/*"]
+      "$lib/*": [
+        "lib/*"
+      ],
+      "$components/*": [
+        "components/*"
+      ],
+      "$layouts/*": [
+        "layouts/*"
+      ],
+      "$stores/*": [
+        "stores/*"
+      ]
     },
-
-    "types": ["unplugin-icons/types/astro"],
-
+    "types": [
+      "unplugin-icons/types/astro"
+    ],
     // For Lit components
     "experimentalDecorators": true,
     "useDefineForClassFields": false
   },
-  "exclude": ["packages/shared/types/**"]
+  "exclude": [
+    "packages/shared/types",
+    "packages/shared/web",
+  ]
 }
