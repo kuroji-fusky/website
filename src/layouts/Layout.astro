@@ -63,7 +63,7 @@ const _title = pathname !== "/" ? `${title} | ${siteTitle}` : title
       defer
       is:inline
       src="https://cloud.umami.is/script.js"
-      data-website-id="dev"></script>
+      data-website-id={import.meta.env.UMAMI_SITE_ID ?? "Not set"}></script>
 
     <slot name="other-meta" />
   </head>
