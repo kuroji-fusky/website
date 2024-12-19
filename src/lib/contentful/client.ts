@@ -1,4 +1,4 @@
-import contentful from "contentful"
+import * as contentful from "contentful"
 import type { ctf } from "./types"
 
 const CTF_DOMAIN = ".contentful.com"

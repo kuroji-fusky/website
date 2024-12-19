@@ -91,7 +91,7 @@ export const fetchBlogPosts = async (pwops: BlogPostProps) => {
       fromSeries,
       banner: image,
       date: datePublished
-    }
+    } as const
   })
 
   return sortInAscendingOrder(posts)

@@ -1,2 +1,2 @@
 packages:
-  - "packages/fusky-labs-eslint/**"
+  - "packages/**"
