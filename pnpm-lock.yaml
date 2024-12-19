@@ -99,6 +99,9 @@ importers:
         specifier: ^0.19.0
         version: 0.19.3
     devDependencies:
+      '@contentful/rich-text-types':
+        specifier: ^17.0.0
+        version: 17.0.0
       '@types/lodash-es':
         specifier: ^4.17.12
         version: 4.17.12
