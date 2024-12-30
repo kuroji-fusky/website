@@ -2,7 +2,6 @@ import { defineConfig, passthroughImageService } from "astro/config"
 
 import tailwind from "@astrojs/tailwind"
 import sitemap from "@astrojs/sitemap"
-import markdoc from "@astrojs/markdoc"
 import mdx from "@astrojs/mdx"
 import vercel from "@astrojs/vercel/serverless"
 import lit from "@astrojs/lit"
@@ -13,14 +12,10 @@ import Icons from "unplugin-icons/vite"
 import { FileSystemIconLoader } from "unplugin-icons/loaders"
 
 export default defineConfig({
-  output: "hybrid",
+  output: "server",
   adapter: vercel({
     isr: true
   }),
-  experimental: {
-    directRenderScript: true,
-    clientPrerender: true
-  },
   redirects: {
     "/blog/category": "/blog",
     "/blog/author": "/blog",
@@ -33,7 +28,13 @@ export default defineConfig({
   prefetch: {
     prefetchAll: true
   },
-  integrations: [lit(), markdoc(), sitemap(), svelte(), tailwind(), mdx()],
+  integrations: [
+    lit(),
+    sitemap(),
+    svelte(),
+    tailwind(),
+    mdx()
+  ],
   vite: {
     plugins: [
       Icons({
@@ -51,23 +52,15 @@ export default defineConfig({
   site: "https://kurojifusky.com",
   image: {
     service: passthroughImageService(),
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "images.ctfassets.net"
-      },
-      {
-        protocol: "https",
-        hostname: "fuskylabs-cdn.imgix.net"
-      },
-      // !!! This is only temporary, will be offloading my images to imgix soon
-      {
-        protocol: "https",
-        hostname: "res.cloudinary.com"
-      }
-    ]
+    // remotePatterns: [
+    //   {
+    //     protocol: "https",
+    //     hostname: "images.ctfassets.net"
+    //   },
+    //   {
+    //     protocol: "https",
+    //     hostname: "fuskylabs-cdn.imgix.net"
+    //   },
+    // ]
   },
-  build: {
-    assets: "_kuro"
-  }
 })
