@@ -1,3 +1,4 @@
+// @ts-check
 import { defineConfig, passthroughImageService } from "astro/config"
 
 import tailwind from "@astrojs/tailwind"
@@ -45,22 +46,14 @@ export default defineConfig({
         }
       })
     ],
-    postcss: {
-      plugins: [autoprefixer({})]
-    }
+    css: {
+      postcss: {
+        plugins: [autoprefixer({})]
+      }
+    },
   },
   site: "https://kurojifusky.com",
   image: {
     service: passthroughImageService(),
-    // remotePatterns: [
-    //   {
-    //     protocol: "https",
-    //     hostname: "images.ctfassets.net"
-    //   },
-    //   {
-    //     protocol: "https",
-    //     hostname: "fuskylabs-cdn.imgix.net"
-    //   },
-    // ]
   },
 })

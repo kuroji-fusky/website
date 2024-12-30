@@ -1,5 +1,15 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig } from 'astro/config'
 
-// https://astro.build/config
-export default defineConfig({});
+import svelte from '@astrojs/svelte'
+import tailwind from '@astrojs/tailwind'
+import sitemap from '@astrojs/sitemap'
+
+export default defineConfig({
+  integrations: [
+    svelte(),
+    tailwind(),
+    sitemap()
+  ],
+  site: "https://fusky.pet",
+});
