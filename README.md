@@ -37,4 +37,4 @@ The source code of my personal website! Written in Astro + Svelte.
 
 ## Copyright
 
-© 2021-2024 Kerby Keith Aquino
+© 2021-2025 Kerby Keith Aquino
