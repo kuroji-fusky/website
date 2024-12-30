@@ -6,7 +6,6 @@ module.exports = {
   },
   ignorePatterns: ["node_modules/", ".vercel/", ".astro/", ".env", "packages/"],
   extends: [
-    "@fusky-labs/base",
     "plugin:astro/recommended",
     "plugin:svelte/recommended"
   ],
