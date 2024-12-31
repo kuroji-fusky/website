@@ -1,9 +1,9 @@
 import type { Config } from "tailwindcss"
 
 export default {
-  content: ['./src/**/*.{astro,md,mdx,ts,svelte}'],
+  content: ["./src/**/*.{astro,md,mdx,ts,svelte}"],
   theme: {
-    extend: {},
+    extend: {}
   },
-  plugins: [],
+  plugins: []
 } satisfies Config

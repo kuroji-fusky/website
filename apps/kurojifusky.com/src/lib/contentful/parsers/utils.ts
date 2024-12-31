@@ -31,11 +31,11 @@ export const sanitizedHTML = <
 
   const parsedAttributes = attrs
     ? Object.entries(attrs)
-      .map(([k, v]) => {
-        if (v === null) return null
-        return `${k}="${v}"`
-      })
-      .join(" ")
+        .map(([k, v]) => {
+          if (v === null) return null
+          return `${k}="${v}"`
+        })
+        .join(" ")
     : ""
 
   if (tag === "img")

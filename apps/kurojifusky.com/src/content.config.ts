@@ -1,4 +1,4 @@
-import { defineCollection, z } from 'astro:content'
+import { defineCollection, z } from "astro:content"
 
 const showcaseType = z.enum(["Browser extension", "Web application"])
 
@@ -12,12 +12,7 @@ const showcaseTechnologies = z.enum([
   "mongodb",
   "redis"
 ])
-const showcaseInfras = z.enum([
-  "vercel",
-  "digitalocean",
-  "docker",
-  "aws",
-])
+const showcaseInfras = z.enum(["vercel", "digitalocean", "docker", "aws"])
 
 const showcaseSchema = z.object({
   title: z.string(),

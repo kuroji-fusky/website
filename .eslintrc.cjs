@@ -5,10 +5,7 @@ module.exports = {
     browser: true
   },
   ignorePatterns: ["node_modules/", ".vercel/", ".astro/", ".env", "packages/"],
-  extends: [
-    "plugin:astro/recommended",
-    "plugin:svelte/recommended"
-  ],
+  extends: ["plugin:astro/recommended", "plugin:svelte/recommended"],
   parser: "@typescript-eslint/parser",
   overrides: [
     {

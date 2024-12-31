@@ -29,13 +29,7 @@ export default defineConfig({
   prefetch: {
     prefetchAll: true
   },
-  integrations: [
-    lit(),
-    sitemap(),
-    svelte(),
-    tailwind(),
-    mdx()
-  ],
+  integrations: [lit(), sitemap(), svelte(), tailwind(), mdx()],
   vite: {
     plugins: [
       Icons({
@@ -50,10 +44,10 @@ export default defineConfig({
       postcss: {
         plugins: [autoprefixer({})]
       }
-    },
+    }
   },
   site: "https://kurojifusky.com",
   image: {
-    service: passthroughImageService(),
-  },
+    service: passthroughImageService()
+  }
 })
