@@ -5,6 +5,7 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev --filter=kurojifusky.com",
+    "dev:kuro": "turbo dev --filter=kurojifusky.com",
     "dev:fp": "turbo dev --filter=fusky.pet",
     "build:kuro": "turbo build --filter=kurojifusky.com",
     "build:fp": "turbo build --filter=fusky.pet",

@@ -1,11 +1,8 @@
 <h1 align="center">
-  <a href="https://kurojifusky.com">
-    <img alt="kuroji fusky website source code" src="https://github.com/kuroji-fusky/kurojifusky.com/assets/94678583/e9d6cb23-7061-45f1-8a4f-b45b20617cb6">
-  </a>
   <a href="https://kurojifusky.com">kurojifusky.com</a>
 </h1>
 
-The source code of my personal website! Written in Astro + Svelte.
+The source code of `kurojifusky.com` and `fusky.pet`, written in Astro and Svelte.
 
 ## APIs used
 
@@ -17,23 +14,54 @@ The source code of my personal website! Written in Astro + Svelte.
 
 ### Prerequisties
 
-- Node.js v20 or higher (LTS recommended)
+- Node.js v21 or higher (LTS recommended)
 - pnpm
 
 ### Setup and installation
 
-- This repo contains submodules and clone it with the following along with its corresponding submodules:
+This repo contains submodules and clone it with the following along with its corresponding submodules:
 
-  ```bash
-  git clone https://github.com/kurojifusky/kurojifusky.com --recurse-submodules
-  cd kurojifusky.com
-  ```
+```console
+git clone https://github.com/kurojifusky/kurojifusky.com --recurse-submodules
+cd kurojifusky.com
+```
 
-- Install dependencies with `pnpm`:
+Install dependencies with `pnpm`:
 
-  ```bash
-  pnpm install # or pnpm i
-  ```
+```console
+pnpm install # or pnpm i
+```
+
+### Starting the dev server
+
+**For `kurojifusky.com`**
+
+```
+# Dev server
+pnpm run dev # or pnpm run dev:kuro
+```
+
+**For `fusky.pet`**
+
+```
+# Dev server
+pnpm run dev:fp
+```
+
+**Housekeeping**
+
+```console
+# Clean node_modules; dev leftovers such as .astro, .turbo
+pnpm run cleanup
+```
+
+```console
+# Linting
+pnpm run lint
+
+# Format and fix code conventions
+pnpm run lint:fix
+```
 
 ## Copyright
 
