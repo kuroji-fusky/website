@@ -5,11 +5,7 @@ module.exports = {
     browser: true
   },
   ignorePatterns: ["node_modules/", ".vercel/", ".astro/", ".env", "packages/"],
-  extends: [
-    "@fusky-labs/base",
-    "plugin:astro/recommended",
-    "plugin:svelte/recommended"
-  ],
+  extends: ["plugin:astro/recommended", "plugin:svelte/recommended"],
   parser: "@typescript-eslint/parser",
   overrides: [
     {
@@ -31,11 +27,6 @@ module.exports = {
   ],
   rules: {
     "no-undef": 0,
-
-    "import/no-deprecated": 0,
-    "import/namespace": 0,
-    "import/no-useless-path-segments": 1,
-    "import/no-unused-modules": 0,
 
     "@typescript-eslint/ban-ts-comment": 0,
 
