@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "kuroji-site-root",
+  "name": "kuro-metasite",
   "version": "9.2.0",
   "scripts": {
     "build": "turbo build",
@@ -9,7 +9,7 @@
     "dev:fp": "turbo dev --filter=fusky.pet",
     "build:kuro": "turbo build --filter=kurojifusky.com",
     "build:fp": "turbo build --filter=fusky.pet",
-    "clean": "rimraf -v -- .vercel/ .astro/ .turbo/",
+    "clean": "rimraf -v -g -- **/.vercel/ **/.astro/ **/.turbo/",
     "lint": "prettier --check . && eslint \"./**/*.{js,mjs,cjs,astro,svelte}\"",
     "lint:fix": "prettier --write . && eslint --quiet --fix \"./**/*.{js,mjs,cjs,astro,svelte}\""
   },

@@ -6,6 +6,6 @@ import tailwind from "@astrojs/tailwind"
 import sitemap from "@astrojs/sitemap"
 
 export default defineConfig({
-  integrations: [svelte(), tailwind(), sitemap()],
+  integrations: [tailwind(), svelte(), sitemap()],
   site: "https://fusky.pet"
 })
