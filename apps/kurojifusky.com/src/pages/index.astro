@@ -1,0 +1,26 @@
+---
+import Layout from "$layouts/Layout.astro"
+import { Schema } from "astro-seo-schema"
+// import ShowcaseItems from "$components/landing/ShowcaseItems.astro"
+import Hero from "$components/landing/Hero.svelte"
+---
+
+<Layout title="Home">
+  {/* Hero */}
+  <Hero client:load />
+  {/* Showcase */}
+  <!-- <ShowcaseItems /> -->
+</Layout>
+
+<Schema
+  item={{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Kuroji Fusky",
+    url: Astro.site!.toString(),
+    potentialAction: {
+      "@type": "SearchAction",
+      target: new URL("search", Astro.site).toString()
+    }
+  }}
+/>

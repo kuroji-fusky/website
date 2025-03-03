@@ -1,0 +1,100 @@
+---
+import { siteTitle, siteAuthorHandle as me } from "$lib/utils"
+
+import "@fontsource/inter/400.css"
+import "@fontsource/inter/600.css"
+import "@fontsource/inter/700.css"
+import "@fontsource/jetbrains-mono"
+import "@fontsource/unbounded/latin-700.css"
+
+import ParseArticle from "$components/ParseArticle.astro"
+import Footer from "$components/Footer.astro"
+import Navbar from "$components/Navbar"
+
+interface Props {
+  title: string
+  description?: string
+  webpageType?: "website" | "article"
+  mdxMargin?: true
+}
+
+const { title, description, webpageType = "website", mdxMargin } = Astro.props
+
+const { pathname } = Astro.url
+
+const canonicalUrl = new URL(pathname, Astro.site)
+const _title = pathname !== "/" ? `${title} | ${siteTitle}` : title
+---
+
+<html lang="en" class="scroll-pt-20 scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <title>{_title}</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" href="/icon_128.png" sizes="128x128" />
+
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+
+    {/* OG tags */}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_title" content={siteTitle} />
+    <meta property="og:type" content={webpageType} />
+    <meta property="og:url" content={canonicalUrl} />
+
+    {
+      /* Twitter tags, won't include "twitter:title" since it falls back to "og:*" meta tags */
+    }
+    <meta name="twitter:creator" content={me} />
+    <meta name="twitter:site" content={me} />
+    <meta name="twitter:url" content={canonicalUrl} />
+
+    <link rel="canonical" href={canonicalUrl} />
+
+    {/* Sitemap */}
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    {/* Tracking */}
+    <script
+      defer
+      is:inline
+      src="https://cloud.umami.is/script.js"
+      data-website-id={import.meta.env.UMAMI_SITE_ID ?? "Not set"}></script>
+
+    <slot name="other-meta" />
+  </head>
+  <body
+    class="font-body font-medium text-sm lg:text-base bg-kuro-dark2 text-kuro-violet-50 overflow-x-hidden selection:bg-kuro-lavender-600"
+  >
+    <Navbar />
+    <main id="skip-to-content" class="min-h-[calc(100dvh-10rem)]">
+      {
+        mdxMargin ? (
+          <div class="padding-width-responsive max-w-screen-2xl mx-auto">
+            <ParseArticle>
+              <slot />
+            </ParseArticle>
+          </div>
+        ) : (
+          <slot />
+        )
+      }
+    </main>
+    <Footer />
+  </body>
+
+  <style is:global>
+    @tailwind base;
+    @tailwind components;
+
+    @layer components {
+      .padding-width-responsive {
+        @apply px-5 md:px-8;
+      }
+    }
+
+    @tailwind utilities;
+  </style>
+</html>

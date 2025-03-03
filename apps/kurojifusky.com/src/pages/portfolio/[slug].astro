@@ -1,0 +1,105 @@
+---
+import Layout from "$layouts/Layout.astro"
+import ParseArticle from "$components/ParseArticle.astro"
+
+import { getCollection } from "astro:content"
+import { parseDateStr } from "$lib/utils"
+import iconCollection from "$lib/icons/IconCollection"
+
+import GithubIcon from "~icons/brands/github.svg?raw"
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection("showcase")
+
+  return blogEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry }
+  }))
+}
+
+const { entry } = Astro.props
+const { Content } = await entry.render()
+
+const { date, details, repo, title, excerpt: description } = entry.data
+
+const { isoDate, readableDate } = parseDateStr(date.toString())
+---
+
+<Layout title={`${title} - Showcase`} webpageType="article" {description}>
+  <div
+    class="padding-width-responsive pt-4 max-w-screen-xl 2xl:max-w-screen-2xl mx-auto flex flex-col gap-y-6"
+  >
+    <div>
+      <h1 class="text-5xl font-bold mb-3.5">{title}</h1>
+      <div class="aspect-[16/8] w-full overflow-hidden bg-slate-800 rounded-xl">
+      </div>
+    </div>
+    <div class="flex gap-x-6">
+      <aside class="flex-shrink-0 flex flex-col gap-y-5 w-72">
+        <div class="flex gap-x-2 *:rounded-md *:px-4 *:py-2.5 *:text-center">
+          <a href="#" class="flex-1 border">View source</a>
+          <a
+            href={`https://github.com/${repo}`}
+            class="bg-kuro-lavender-700 hover:bg-kuro-lavender-800 grid place-items-center"
+            target="_blank"
+          >
+            <span class="contents [&_svg]:size-5" set:html={GithubIcon} />
+          </a>
+        </div>
+        {/* Details */}
+        <section class="grid gap-y-4">
+          <div id="details-layer">
+            <div class="heading">Date</div>
+            <time datetime={isoDate}>{readableDate}</time>
+          </div>
+          {
+            details.technologies!.length > 0 && (
+              <div id="details-layer">
+                <div class="heading">Technologies</div>
+                <div class="flex flex-wrap gap-2">
+                  {details.technologies!.map((e) => (
+                    <div class="[&_svg]:size-6" set:html={iconCollection[e]} />
+                  ))}
+                </div>
+              </div>
+            )
+          }
+          {
+            details.infrastructure!.length > 0 ? (
+              <div id="details-layer">
+                <div class="heading">Infrastructure</div>
+                <div class="flex flex-wrap gap-2">
+                  {details.infrastructure!.map((e) => (
+                    <div class="[&_svg]:size-6" set:html={iconCollection[e]} />
+                  ))}
+                </div>
+              </div>
+            ) : null
+          }
+        </section>
+      </aside>
+      <div class="flex-1">
+        <ParseArticle>
+          <Content />
+        </ParseArticle>
+      </div>
+    </div>
+    <div aria-labelledby="other-project-heading">
+      <h2 id="other-project-heading" class="heading">Other projects</h2>
+      <div></div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  #details-layer {
+    @apply grid gap-y-2;
+  }
+  #details-layer .heading {
+    @apply opacity-60;
+  }
+  #details-layer .heading,
+  h2.heading {
+    @apply font-mono font-medium uppercase;
+  }
+</style>

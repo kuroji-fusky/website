@@ -1,0 +1,43 @@
+---
+import type { BlogPostsReturnType } from "$lib/contentful"
+import { Image } from "astro:assets"
+
+interface Props {
+  authors: BlogPostsReturnType[number]["authors"]
+  hasAvatar?: boolean
+}
+
+const { authors, hasAvatar } = Astro.props
+---
+
+<div class="flex flex-wrap gap-x-2">
+  {
+    authors.map((author) => (
+      <>
+        <a
+          itemtype="https://schema.org/Person"
+          itemprop="character"
+          itemscope
+          class="flex gap-x-2 items-center hover:underline"
+          href={`/blog/authors/${author.slug}`}
+        >
+          {hasAvatar && (
+            <Image
+              itemprop="image"
+              src={author.avatar}
+              height={80}
+              width={80}
+              quality={69}
+              alt=""
+              loading="eager"
+              class="size-7 aspect-square rounded-full object-cover"
+            />
+          )}
+          <span class="whitespace-nowrap" itemprop="name">
+            {author.name}
+          </span>
+        </a>
+      </>
+    ))
+  }
+</div>
