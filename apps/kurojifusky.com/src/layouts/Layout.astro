@@ -7,7 +7,6 @@ import "@fontsource/inter/700.css"
 import "@fontsource/jetbrains-mono"
 import "@fontsource/unbounded/latin-700.css"
 
-import ParseArticle from "$components/ParseArticle.astro"
 import Footer from "$components/Footer.astro"
 import Navbar from "$components/Navbar"
 
@@ -15,10 +14,9 @@ interface Props {
   title: string
   description?: string
   webpageType?: "website" | "article"
-  mdxMargin?: true
 }
 
-const { title, description, webpageType = "website", mdxMargin } = Astro.props
+const { title, description, webpageType = "website" } = Astro.props
 
 const { pathname } = Astro.url
 
@@ -70,17 +68,9 @@ const _title = pathname !== "/" ? `${title} | ${siteTitle}` : title
   >
     <Navbar />
     <main id="skip-to-content" class="min-h-[calc(100dvh-10rem)]">
-      {
-        mdxMargin ? (
-          <div class="padding-width-responsive max-w-screen-2xl mx-auto">
-            <ParseArticle>
-              <slot />
-            </ParseArticle>
-          </div>
-        ) : (
-          <slot />
-        )
-      }
+      <div class="padding-width-responsive max-w-screen-2xl mx-auto">
+        <slot />
+      </div>
     </main>
     <Footer />
   </body>
